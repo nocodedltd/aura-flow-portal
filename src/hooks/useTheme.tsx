@@ -1,7 +1,7 @@
 
 import { createContext, useContext } from "react";
 
-// Always dark mode, no switching.
+// Always dark mode, no light mode, no switching.
 type Theme = "dark";
 
 interface ThemeProviderProps {

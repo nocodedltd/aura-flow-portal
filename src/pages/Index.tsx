@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import ServiceCard from "@/components/ServiceCard";
 import { Bot, Cog, FileSearch, GraduationCap } from "lucide-react";
@@ -8,6 +9,7 @@ import {
   heroSubtitle,
   heroButtons,
 } from "@/lib/motionConfig";
+import Logo from "@/components/Logo";
 
 const Index = () => {
   const reduceMotion = useReducedMotion();
@@ -44,7 +46,10 @@ const Index = () => {
     <main className="overflow-hidden">
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex flex-col justify-center items-center overflow-hidden text-center px-4 sm:px-6 lg:px-8">
-        {/* Removed duplicated logo, as Navbar logo shows on top left */}
+        {/* Logo above Headline */}
+        <div className="mb-7 flex justify-center">
+          <Logo className="h-16 md:h-20 w-auto mx-auto" />
+        </div>
 
         {/* Headline */}
         <motion.h1

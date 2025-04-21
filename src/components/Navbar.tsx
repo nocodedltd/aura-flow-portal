@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import Logo from "./Logo";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -30,20 +29,16 @@ export default function Navbar() {
 
   return (
     <motion.header
-      initial={{ y: 0, opacity: 1 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.3 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#191a21] border-b border-[#23242f]`}
+      initial={false}
+      animate={false}
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#191a21] border-b border-[#23242f]"
       style={{
         backdropFilter: "blur(14px)",
         WebkitBackdropFilter: "blur(14px)",
       }}
     >
       <div className="container mx-auto flex items-center justify-between px-4 py-2">
-        {/* Single Logo (left) */}
-        <Link to="/" aria-label="Homepage" className="flex items-center z-20">
-          <Logo className="h-9 w-auto" />
-        </Link>
+        {/* Removed logo from Navbar */}
 
         {/* Desktop Navigation (center) */}
         <nav className="hidden md:flex gap-10 items-center justify-center flex-1">
@@ -53,14 +48,12 @@ export default function Navbar() {
               <Link
                 key={href}
                 to={href}
-                className={`relative px-2 py-1 font-medium text-lg tracking-tight
-                  ${isActive ? "text-white" : "text-white/80 hover:text-white"}
-                  transition-colors duration-200`}
-                style={{}}
+                className={`relative px-2 py-1 font-medium text-lg tracking-tight transition-colors duration-200
+                  ${isActive ? "text-white" : "text-white/80 hover:text-white"}`}
               >
                 <span className="relative z-10 flex flex-col items-center">
                   {title}
-                  {/* underline for active, no box highlight */}
+                  {/* Only underline for active, no cover or bg */}
                   {isActive && (
                     <span className="mt-1 block w-7 h-[3px] rounded-full" style={{ background: "#8689bd" }} />
                   )}
@@ -115,7 +108,7 @@ export default function Navbar() {
             initial={{ y: -25, opacity: 0, scale: 0.95 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: -10, opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.27 }}
+            transition={{ duration: 0.20 }}
             className="md:hidden absolute left-0 right-0 top-full shadow-2xl border-b border-[#23242f] bg-[#191a21] z-50 rounded-b-2xl"
             style={{
               backdropFilter: "blur(16px)",

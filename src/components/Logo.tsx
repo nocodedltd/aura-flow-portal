@@ -1,11 +1,11 @@
 
 export default function Logo({ className = "", ...props }: React.ImgHTMLAttributes<HTMLImageElement>) {
-  // Only use the provided logo (light one for dark bg)
-  // Image uploaded by user: public/lovable-uploads/89fd0642-4efc-483f-8cca-5bc544baddbd.png
+  // Only use the provided logo for dark bg (light logo)
+  // Image uploaded by user: public/lovable-uploads/f44d8710-d2ac-4258-9302-0fcb51ccc2e7.png
   return (
     <img
-      src="/lovable-uploads/89fd0642-4efc-483f-8cca-5bc544baddbd.png"
-      alt="Logo"
+      src="/lovable-uploads/f44d8710-d2ac-4258-9302-0fcb51ccc2e7.png"
+      alt="NoCoded Logo"
       className={`h-10 max-w-none select-none ${className}`}
       draggable="false"
       {...props}
