@@ -1,4 +1,5 @@
 
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import ServiceCard from "@/components/ServiceCard";
 import StatPeekCards from "@/components/StatPeekCards";
@@ -13,6 +14,9 @@ import {
 
 const Index = () => {
   const reduceMotion = useReducedMotion();
+
+  // State to control stat card positioning
+  const [showStatsAtSectionTop, setShowStatsAtSectionTop] = useState(false);
 
   const statVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -135,11 +139,23 @@ const Index = () => {
           </div>
         </motion.div>
         {/* Peeking stat cards at bottom */}
-        <StatPeekCards scrollTargetId="services-section" />
+        {!showStatsAtSectionTop && (
+          <StatPeekCards
+            scrollTargetId="services-section"
+            onCardClick={() => setShowStatsAtSectionTop(true)}
+          />
+        )}
       </section>
 
       {/* Our Services Preview - anchor for scroll */}
-      <section id="services-section" className="py-20 relative overflow-hidden">
+      <section id="services-section" className="py-20 relative overflow-visible">
+        {/* Fixed stat cards at top post-click */}
+        {showStatsAtSectionTop && (
+          <StatPeekCards
+            isFixedToSectionTop
+            // scrollTargetId not needed; do not need "scroll into view" in this state
+          />
+        )}
         <div className="container relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -263,3 +279,4 @@ const Index = () => {
 };
 
 export default Index;
+
