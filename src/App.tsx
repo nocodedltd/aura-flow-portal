@@ -18,7 +18,16 @@ import ClientLogin from "./pages/ClientLogin";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
-const queryClient = new QueryClient();
+// Optimize query client settings
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 1000, // 1 minute
+      gcTime: 5 * 60 * 1000, // 5 minutes
+      retry: 1, // Reduce retries
+    },
+  },
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -27,14 +36,14 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          {/* GLOBAL ANIMATED BG */}
+          {/* OPTIMIZED GLOBAL ANIMATED BG */}
           <div className="fixed inset-0 w-full h-full overflow-hidden -z-10">
             <ParticleLines
-              interactive={true}   // ENABLE mouse interaction here!
-              numPoints={80}
-              connectionDistance={160}
-              pointSpeed={0.4}
-              pointSize={1.3}
+              interactive={true}
+              numPoints={50}  {/* Reduced from 80 */}
+              connectionDistance={120}  {/* Reduced from 160 */}
+              pointSpeed={0.35}  {/* Slightly reduced from 0.4 */}
+              pointSize={1.2}  {/* Slightly reduced from 1.3 */}
             />
           </div>
           <div className="flex flex-col min-h-screen relative z-10">

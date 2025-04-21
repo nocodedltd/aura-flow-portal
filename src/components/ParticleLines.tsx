@@ -1,5 +1,5 @@
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { useNeuralNetworkBg } from "./hooks/useNeuralNetworkBg";
 
@@ -24,6 +24,14 @@ export default function ParticleLines({
   const animationRef = useRef<number>(0);
   const [mounted, setMounted] = useState(false);
 
+  // Memoize connection distance based on screen size
+  const adaptiveConnectionDistance = useMemo(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 768 ? connectionDistance * 0.7 : connectionDistance;
+    }
+    return connectionDistance;
+  }, [connectionDistance]);
+
   const {
     pointsRef,
     pathwaysRef,
@@ -33,25 +41,38 @@ export default function ParticleLines({
     handleMouseLeave,
     addActiveMousePathways,
     applyMouseMagnet,
+    frameCountRef,
   } = useNeuralNetworkBg({
     canvas: canvasRef.current,
     numPoints,
-    connectionDistance,
+    connectionDistance: adaptiveConnectionDistance,
     pointSpeed,
     pointSize,
   });
 
-  // Fit canvas to parent
+  // Mount with animation frame optimization
   useEffect(() => {
-    setMounted(true);
+    const timeoutId = setTimeout(() => setMounted(true), 300);
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  // Fit canvas to parent with throttled resize
+  useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    let resizeTimeout: number;
     const resize = () => {
-      if (!canvas.parentElement) return;
-      canvas.width = canvas.parentElement.clientWidth;
-      canvas.height = canvas.parentElement.clientHeight;
-      initPoints();
+      if (resizeTimeout) {
+        window.clearTimeout(resizeTimeout);
+      }
+      
+      resizeTimeout = window.setTimeout(() => {
+        if (!canvas.parentElement) return;
+        canvas.width = canvas.parentElement.clientWidth;
+        canvas.height = canvas.parentElement.clientHeight;
+        initPoints();
+      }, 200); // Debounce resize events
     };
 
     resize();
@@ -69,6 +90,7 @@ export default function ParticleLines({
         canvas.removeEventListener("mouseleave", handleMouseLeave);
       }
       cancelAnimationFrame(animationRef.current);
+      window.clearTimeout(resizeTimeout);
     };
   }, [
     interactive,
@@ -77,59 +99,85 @@ export default function ParticleLines({
     handleMouseLeave,
   ]);
 
+  // Optimized rendering loop
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    let skipFrame = false;
     const animate = () => {
+      frameCountRef.current++;
+      
+      // Skip every other frame on mobile devices
+      const isMobile = window.innerWidth < 768;
+      if (isMobile) {
+        skipFrame = !skipFrame;
+        if (skipFrame) {
+          animationRef.current = requestAnimationFrame(animate);
+          return;
+        }
+      }
+      
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
       const points = pointsRef.current;
 
-      // 1. Draw static connections (all PRIMARY_COLOR)
+      // 1. Draw static connections - only every Nth connection for performance
+      const connectionFrequency = isMobile ? 3 : 2; // Check fewer connections
       for (let i = 0; i < points.length; i++) {
-        for (let j = i + 1; j < points.length; j++) {
+        for (let j = i + connectionFrequency; j < points.length; j += connectionFrequency) {
           const p1 = points[i], p2 = points[j];
           const dx = p2.x - p1.x;
           const dy = p2.y - p1.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < connectionDistance) {
-            ctx.save();
+          
+          if (dist < adaptiveConnectionDistance) {
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
             ctx.strokeStyle = PRIMARY_COLOR;
-            ctx.globalAlpha = 0.30 * (1 - dist / connectionDistance) + 0.13;
-            ctx.lineWidth = 1.35;
-            ctx.shadowBlur = 6;
-            ctx.shadowColor = PRIMARY_COLOR;
+            ctx.globalAlpha = 0.25 * (1 - dist / adaptiveConnectionDistance) + 0.1;
+            ctx.lineWidth = 1;
+            
+            // Reduce shadow effects for better performance
+            if (!isMobile && frameCountRef.current % 3 === 0) {
+              ctx.shadowBlur = 4;
+              ctx.shadowColor = PRIMARY_COLOR;
+            } else {
+              ctx.shadowBlur = 0;
+            }
+            
             ctx.stroke();
-            ctx.restore();
             ctx.globalAlpha = 1;
           }
         }
       }
 
-      // Stronger mouse effect: add more connections
-      addActiveMousePathways();
+      // Stronger mouse effect: optimize by checking frame count
+      if (interactive) {
+        addActiveMousePathways();
+        applyMouseMagnet();
+      }
 
-      // Mouse strongly attracts points: apply magnet effect
-      applyMouseMagnet();
-
-      // 3. Animate & draw moving points
-      pointsRef.current.forEach((point) => {
+      // 3. Animate points - process them in batches for efficiency
+      const pointUpdateFrequency = isMobile ? 2 : 1;
+      for (let i = 0; i < points.length; i++) {
+        const point = points[i];
+        
+        // Update position
         point.x += point.vx;
         point.y += point.vy;
 
-        // Small random walk, gentler jitter
-        point.vx += (Math.random() - 0.5) * 0.024;
-        point.vy += (Math.random() - 0.5) * 0.024;
+        // Apply smaller random walk only to some points
+        if (i % pointUpdateFrequency === 0) {
+          point.vx += (Math.random() - 0.5) * 0.02;
+          point.vy += (Math.random() - 0.5) * 0.02;
+        }
 
-        // Gradually reduce speed for stability
-        point.vx *= 0.992; 
-        point.vy *= 0.992;
+        // Apply lighter damping
+        point.vx *= 0.995; 
+        point.vy *= 0.995;
 
         // Bounce off edges
         if (point.x < 0) { point.x = 0; point.vx *= -1; }
@@ -137,49 +185,55 @@ export default function ParticleLines({
         if (point.x > canvas.width) { point.x = canvas.width; point.vx *= -1; }
         if (point.y > canvas.height) { point.y = canvas.height; point.vy *= -1; }
 
-        // Draw neuron: larger/focused purple
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(point.x, point.y, point.size + 1.1, 0, Math.PI * 2);
-        ctx.fillStyle = "#6e74af38"; // subtle halo
-        ctx.shadowBlur = 19;
-        ctx.shadowColor = PRIMARY_COLOR;
-        ctx.fill();
-        ctx.closePath();
-
+        // Draw more efficiently
         ctx.beginPath();
         ctx.arc(point.x, point.y, point.size, 0, Math.PI * 2);
         ctx.fillStyle = PRIMARY_COLOR;
-        ctx.shadowBlur = 33;
-        ctx.shadowColor = PRIMARY_COLOR;
-        ctx.globalAlpha = 0.93;
+        
+        // Only add shadow effects occasionally
+        if (!isMobile && i % 5 === 0) {
+          ctx.shadowBlur = 8;
+          ctx.shadowColor = PRIMARY_COLOR;
+        } else {
+          ctx.shadowBlur = 0;
+        }
+        
         ctx.fill();
-        ctx.restore();
-        ctx.globalAlpha = 1;
-      });
+      }
 
-      // 4. Draw "magnet-boosted" mouse-to-point pathways: all in primary color
-      pathwaysRef.current.forEach((p) => {
-        ctx.save();
-        ctx.beginPath();
-        ctx.moveTo(p.x1, p.y1);
-        ctx.lineTo(p.x2, p.y2);
+      // 4. Draw mouse pathway effects with reduced shadows
+      if (pathwaysRef.current.length > 0) {
+        ctx.lineWidth = 1.5;
         ctx.strokeStyle = PRIMARY_COLOR;
-        ctx.globalAlpha = p.opacity;
-        ctx.lineWidth = 2.9;
-        ctx.shadowBlur = 24;
-        ctx.shadowColor = PRIMARY_COLOR;
-        ctx.stroke();
-        ctx.restore();
+        
+        pathwaysRef.current.forEach((p) => {
+          ctx.beginPath();
+          ctx.moveTo(p.x1, p.y1);
+          ctx.lineTo(p.x2, p.y2);
+          ctx.globalAlpha = p.opacity;
+          
+          // Limit shadow effects
+          if (!isMobile && frameCountRef.current % 4 === 0) {
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = PRIMARY_COLOR;
+          } else {
+            ctx.shadowBlur = 0;
+          }
+          
+          ctx.stroke();
+        });
+        
         ctx.globalAlpha = 1;
-      });
+      }
 
-      // 5. Update & filter pathways
-      pathwaysRef.current = pathwaysRef.current.filter((p) => {
-        p.lifetime--;
-        p.opacity *= 0.87;
-        return p.lifetime > 0 && p.opacity > 0.09;
-      });
+      // 5. Update & filter pathways - more aggressive cleanup
+      if (pathwaysRef.current.length > 0) {
+        pathwaysRef.current = pathwaysRef.current.filter((p) => {
+          p.lifetime -= isMobile ? 2 : 1;
+          p.opacity *= 0.85;
+          return p.lifetime > 0 && p.opacity > 0.1;
+        });
+      }
 
       animationRef.current = requestAnimationFrame(animate);
     };
@@ -191,17 +245,19 @@ export default function ParticleLines({
     pointsRef,
     pathwaysRef,
     mouseRef,
-    connectionDistance,
+    adaptiveConnectionDistance,
     pointSize,
     addActiveMousePathways,
     applyMouseMagnet,
+    interactive,
+    frameCountRef,
   ]);
 
   return (
     <motion.div
       initial={{ opacity: 0 }}
-      animate={{ opacity: mounted ? 1 : 0 }}
-      transition={{ duration: 1.1 }}
+      animate={{ opacity: mounted ? 0.9 : 0 }}
+      transition={{ duration: 0.8 }}
       className="w-full h-full"
       style={{ pointerEvents: "none" }}
     >
@@ -211,7 +267,7 @@ export default function ParticleLines({
         aria-hidden="true"
         tabIndex={-1}
         style={{
-          filter: "brightness(1.15)",
+          filter: "brightness(1.05)",
           pointerEvents: "auto",
           userSelect: "none",
         }}
