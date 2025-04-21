@@ -45,9 +45,9 @@ export default function Navbar() {
 
   const linkVariants = {
     hover: {
-      scale: 1.05,
-      y: -2,
-      transition: { duration: 0.2 }
+      scale: 1.15, // increased scale for more pronounced expansion
+      y: -4,       // slightly larger upward movement for refinement
+      transition: { duration: 0.25, ease: "easeOut" } // slower smoother transition
     }
   };
 
