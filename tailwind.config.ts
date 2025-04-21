@@ -81,12 +81,12 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
+          from: { height: "0", opacity: "0" },
+          to: { height: "var(--radix-accordion-content-height)", opacity: "1" },
         },
         "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
+          from: { height: "var(--radix-accordion-content-height)", opacity: "1" },
+          to: { height: "0", opacity: "0" },
         },
         "fade-in": {
           "0%": { opacity: "0", transform: "translateY(10px)" },
@@ -116,6 +116,32 @@ export default {
           "0%, 100%": { opacity: "0.5", transform: "scale(1)" },
           "50%": { opacity: "0.8", transform: "scale(1.2)" },
         },
+        shimmer: {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(100%)" }
+        },
+        "float": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" }
+        },
+        "pulse-glow": {
+          "0%, 100%": { 
+            opacity: "0.6", 
+            boxShadow: "0 0 5px rgba(110, 116, 175, 0.5), 0 0 10px rgba(110, 116, 175, 0.3)" 
+          },
+          "50%": { 
+            opacity: "1", 
+            boxShadow: "0 0 20px rgba(110, 116, 175, 0.8), 0 0 30px rgba(110, 116, 175, 0.6)" 
+          }
+        },
+        "rotate-slow": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" }
+        },
+        "bounce-light": {
+          "0%, 100%": { transform: "translateY(0)", animationTimingFunction: "cubic-bezier(0.8, 0, 1, 1)" },
+          "50%": { transform: "translateY(-5px)", animationTimingFunction: "cubic-bezier(0, 0, 0.2, 1)" }
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -127,6 +153,15 @@ export default {
         "slide-in-right": "slide-in-right 0.3s ease-out",
         "slide-out-right": "slide-out-right 0.3s ease-out",
         "cursor-pulse": "cursor-pulse 3s ease-in-out infinite",
+        "shimmer": "shimmer 2s infinite",
+        "float": "float 4s ease-in-out infinite",
+        "pulse-glow": "pulse-glow 3s ease-in-out infinite",
+        "rotate-slow": "rotate-slow 12s linear infinite",
+        "bounce-light": "bounce-light 2s infinite",
+      },
+      transitionDuration: {
+        '2000': '2000ms',
+        '3000': '3000ms',
       },
     },
   },
