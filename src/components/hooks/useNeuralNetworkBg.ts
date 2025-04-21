@@ -45,49 +45,52 @@ export function useNeuralNetworkBg({
   // Initialize points
   const initPoints = useCallback(() => {
     if (!canvas) return;
-    
     pointsRef.current = Array.from({ length: numPoints }).map((_, i) => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       vx: (Math.random() - 0.5) * pointSpeed,
       vy: (Math.random() - 0.5) * pointSpeed,
-      size: Math.random() * pointSize + 1, // Increase minimum size to ensure visibility
+      size: Math.random() * pointSize + 1,
       color: getColor(i),
     }));
-    
-    console.log(`Generated ${pointsRef.current.length} points`);
+    // console.log(`Generated ${pointsRef.current.length} points`);
   }, [canvas, numPoints, pointSpeed, pointSize, getColor]);
 
-  // Handle mouse movement: form fresh pathways
+  // Store mouse position and activation only
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (!canvas) return;
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     mouseRef.current = { x, y, active: true };
+  }, [canvas]);
 
-    // For every nearby point, create a new pathway from mouse to the point
+  const handleMouseLeave = useCallback(() => {
+    mouseRef.current.active = false;
+  }, []);
+
+  // Add new function to add mouse pathways every frame
+  const addActiveMousePathways = useCallback(() => {
+    if (!canvas) return;
+    if (!mouseRef.current.active) return;
+    const { x, y } = mouseRef.current;
     pointsRef.current.forEach((point) => {
       const dx = point.x - x;
       const dy = point.y - y;
       const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < connectionDistance * 0.6) {
+      if (dist < connectionDistance * 0.7) {
         pathwaysRef.current.push({
           x1: point.x,
           y1: point.y,
           x2: x,
           y2: y,
           color: point.color,
-          opacity: 1,
-          lifetime: 18, // frames to remain
+          opacity: 0.85,
+          lifetime: 15, // frames to remain, slightly shorter for rapid flux
         });
       }
     });
   }, [canvas, connectionDistance]);
-
-  const handleMouseLeave = useCallback(() => {
-    mouseRef.current.active = false;
-  }, []);
 
   return {
     pointsRef,
@@ -96,5 +99,7 @@ export function useNeuralNetworkBg({
     initPoints,
     handleMouseMove,
     handleMouseLeave,
+    addActiveMousePathways,
   };
 }
+
