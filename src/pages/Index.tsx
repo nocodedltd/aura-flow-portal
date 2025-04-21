@@ -1,8 +1,5 @@
-
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import ServiceCard from "@/components/ServiceCard";
-import StatPeekCards from "@/components/StatPeekCards";
 import { Bot, Cog, FileSearch, GraduationCap } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import {
@@ -14,9 +11,6 @@ import {
 
 const Index = () => {
   const reduceMotion = useReducedMotion();
-
-  // State to control stat card positioning
-  const [showStatsAtSectionTop, setShowStatsAtSectionTop] = useState(false);
 
   const statVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -49,7 +43,7 @@ const Index = () => {
   return (
     <main className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center overflow-visible pb-52 mb-24">
+      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
         {/* Animated hero content */}
         <motion.div
           className="container relative z-10"
@@ -110,7 +104,7 @@ const Index = () => {
             </motion.p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-wrap justify-center gap-4 mb-[60px]">
+            <div className="flex flex-wrap justify-center gap-4 mb-14">
               <motion.div
                 custom={0}
                 variants={heroButtons}
@@ -138,24 +132,85 @@ const Index = () => {
             </div>
           </div>
         </motion.div>
-        {/* Peeking stat cards at bottom */}
-        {!showStatsAtSectionTop && (
-          <StatPeekCards
-            scrollTargetId="services-section"
-            onCardClick={() => setShowStatsAtSectionTop(true)}
-          />
-        )}
       </section>
 
-      {/* Our Services Preview - anchor for scroll */}
-      <section id="services-section" className="py-20 relative overflow-visible">
-        {/* Fixed stat cards at top post-click */}
-        {showStatsAtSectionTop && (
-          <StatPeekCards
-            isFixedToSectionTop
-            // scrollTargetId not needed; do not need "scroll into view" in this state
-          />
-        )}
+      {/* Stats Section - Reduce top padding from 20 to 16 to tighten gap */}
+      <section className="relative py-16 overflow-hidden">
+        <div className="container">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          >
+            <motion.div 
+              custom={0}
+              variants={statVariants}
+              className="bg-card p-8 rounded-xl text-center border border-primary/10 shadow-lg relative group overflow-hidden hover:-translate-y-2 transition-transform duration-300"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="relative z-10">
+                <div className="text-4xl md:text-5xl font-bold text-primary mb-3 flex items-center justify-center">
+                  <motion.span
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.3, duration: 0.8, type: "spring" }}
+                    viewport={{ once: true }}
+                  >
+                    100+
+                  </motion.span>
+                </div>
+                <p className="text-secondary text-lg">Projects Delivered</p>
+              </div>
+            </motion.div>
+            
+            <motion.div 
+              custom={1}
+              variants={statVariants}
+              className="bg-card p-8 rounded-xl text-center border border-primary/10 shadow-lg relative group overflow-hidden hover:-translate-y-2 transition-transform duration-300"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="relative z-10">
+                <div className="text-4xl md:text-5xl font-bold text-primary mb-3 flex items-center justify-center">
+                  <motion.span
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.4, duration: 0.8, type: "spring" }}
+                    viewport={{ once: true }}
+                  >
+                    120,000+
+                  </motion.span>
+                </div>
+                <p className="text-secondary text-lg">Hours Saved</p>
+              </div>
+            </motion.div>
+            
+            <motion.div 
+              custom={2}
+              variants={statVariants}
+              className="bg-card p-8 rounded-xl text-center border border-primary/10 shadow-lg relative group overflow-hidden hover:-translate-y-2 transition-transform duration-300"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="relative z-10">
+                <div className="text-4xl md:text-5xl font-bold text-primary mb-3 flex items-center justify-center">
+                  <motion.span
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
+                    viewport={{ once: true }}
+                  >
+                    98%
+                  </motion.span>
+                </div>
+                <p className="text-secondary text-lg">Client Satisfaction</p>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Services Preview - Removed gradient overlay */}
+      <section className="py-20 relative overflow-hidden">
         <div className="container relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -242,7 +297,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* CTA Section - Removed gradient overlay */}
       <section className="py-20 relative overflow-hidden">
         <motion.div 
           className="container relative z-10"
@@ -279,4 +334,3 @@ const Index = () => {
 };
 
 export default Index;
-
