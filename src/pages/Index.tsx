@@ -137,7 +137,7 @@ const Index = () => {
             {/* Scroll indicator */}
             <motion.div 
               className="absolute left-1/2 -translate-x-1/2"
-              style={{ bottom: '4.5rem' }}
+              style={{ bottom: '1.5rem' }}
               animate={{ 
                 y: [0, 10, 0],
                 opacity: [0.4, 1, 0.4]
