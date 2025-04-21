@@ -1,6 +1,6 @@
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 type Stat = {
   value: string;
@@ -17,14 +17,14 @@ interface StatPeekCardsProps {
   scrollTargetId?: string;
 }
 
-const bounceAnim = {
+const bounceAnim: Variants = {
   initial: { y: 32 },
   animate: {
     y: [32, 12, 24, 18, 32],
     transition: {
       duration: 2.6,
       repeat: Infinity,
-      repeatType: "loop",
+      repeatType: "loop", // Changed from string to specific allowed value
       ease: "easeInOut",
       times: [0, 0.2, 0.5, 0.75, 1],
     },
