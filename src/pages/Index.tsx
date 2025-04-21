@@ -3,39 +3,81 @@ import { Link } from "react-router-dom";
 import ParticleLines from "@/components/ParticleLines";
 import ServiceCard from "@/components/ServiceCard";
 import { Bot, Cog, FileSearch, GraduationCap } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import {
+  heroContainer,
+  heroHeadline,
+  heroSubtitle,
+  heroButtons,
+} from "@/lib/motionConfig";
 
 const Index = () => {
+  const reduceMotion = useReducedMotion();
+
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative min-h-[85vh] flex items-center">
+      <section className="relative min-h-[85vh] flex items-center overflow-hidden">
         <ParticleLines />
-        <div className="container">
+
+        {/* Animated hero content */}
+        <motion.div
+          className="container"
+          initial="hidden"
+          animate="visible"
+          variants={heroContainer}
+        >
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-balance font-bold mb-6 animate-fade-in">
+            {/* Headline */}
+            <motion.h1
+              className="font-bold mb-6 text-balance text-4xl md:text-5xl leading-tight bg-gradient-to-br from-primary via-secondary to-primary bg-clip-text text-transparent drop-shadow-lg"
+              variants={heroHeadline}
+            >
               Transform Your Business With{" "}
-              <span className="text-primary">AI-Powered</span> Solutions
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8 animate-fade-in" style={{ animationDelay: "0.1s" }}>
-              We help businesses design and deploy intelligent automation systems 
+              <span className="inline-block text-gradient-primary tracking-tight">
+                NoCoded
+              </span>
+              <span className="block">
+                <span className="text-primary"> AI‑Powered </span> Solutions
+              </span>
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p
+              className="text-xl text-muted-foreground mb-8"
+              variants={heroSubtitle}
+            >
+              We help businesses design and deploy intelligent automation systems
               that save time, reduce costs, and unlock new opportunities.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-              <Link 
-                to="/contact" 
-                className="bg-primary text-primary-foreground px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors"
+            </motion.p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap justify-center gap-4 mb-2">
+              <motion.div
+                custom={0}
+                variants={heroButtons}
               >
-                Book a Discovery Call
-              </Link>
-              <Link
-                to="/services"
-                className="bg-secondary text-secondary-foreground px-6 py-3 rounded-md font-medium hover:bg-secondary/90 transition-colors"
+                <Link
+                  to="/contact"
+                  className="bg-primary text-primary-foreground px-6 py-3 rounded-md font-medium shadow-lg hover:scale-105 active:scale-95 hover:bg-primary/90 transition-all outline-none focus:ring-2 focus:ring-primary"
+                >
+                  Book a Discovery Call
+                </Link>
+              </motion.div>
+              <motion.div
+                custom={1}
+                variants={heroButtons}
               >
-                Explore Services
-              </Link>
+                <Link
+                  to="/services"
+                  className="bg-secondary text-secondary-foreground px-6 py-3 rounded-md font-medium shadow-lg hover:scale-105 active:scale-95 hover:bg-secondary/90 transition-all outline-none focus:ring-2 focus:ring-primary"
+                >
+                  Explore Services
+                </Link>
+              </motion.div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Stats Section */}
