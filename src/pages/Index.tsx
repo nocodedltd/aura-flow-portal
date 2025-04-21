@@ -1,13 +1,15 @@
+
 import { Link } from "react-router-dom";
 import ServiceCard from "@/components/ServiceCard";
 import { Bot, Cog, FileSearch, GraduationCap } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import Logo from "@/components/Logo";
-import {
-  heroTitle,
-  heroSubtitle,
-  heroButtons,
+import { 
+  heroTitle, 
+  heroSubtitle, 
+  heroButtons 
 } from "@/lib/motionConfig";
+import { fadeIn } from "@/lib/animations";
 
 const Index = () => {
   const reduceMotion = useReducedMotion();
@@ -25,9 +27,9 @@ const Index = () => {
         {/* Headline */}
         <motion.h1
           className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight max-w-5xl mx-auto text-balance"
-          initial={shouldAnimate ? heroTitle.initial : {}}
-          animate={shouldAnimate ? heroTitle.animate : {}}
-          transition={heroTitle.transition}
+          initial={shouldAnimate ? { opacity: 0, y: 60 } : undefined}
+          animate={shouldAnimate ? { opacity: 1, y: 0 } : undefined}
+          transition={{ duration: 0.8, type: "spring", stiffness: 50 }}
         >
           <span className="text-secondary-300">Transform Your Business</span>
           <br />
@@ -37,9 +39,9 @@ const Index = () => {
         {/* Subtitle */}
         <motion.p
           className="mt-6 text-xl md:text-2xl text-white/80 max-w-3xl mx-auto"
-          initial={shouldAnimate ? heroSubtitle.initial : {}}
-          animate={shouldAnimate ? heroSubtitle.animate : {}}
-          transition={heroSubtitle.transition}
+          initial={shouldAnimate ? { opacity: 0, y: 48 } : undefined}
+          animate={shouldAnimate ? { opacity: 1, y: 0 } : undefined}
+          transition={{ duration: 0.8, delay: 0.4, type: "spring", stiffness: 60 }}
         >
           We help businesses design and deploy intelligent automation systems that 
           save time, reduce costs, and unlock new opportunities.
@@ -48,9 +50,9 @@ const Index = () => {
         {/* CTA Buttons */}
         <motion.div
           className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
-          initial={shouldAnimate ? heroButtons.initial : {}}
-          animate={shouldAnimate ? heroButtons.animate : {}}
-          transition={heroButtons.transition}
+          initial={shouldAnimate ? { opacity: 0, scale: 0.6, y: 36 } : undefined}
+          animate={shouldAnimate ? { opacity: 1, scale: 1, y: 0 } : undefined}
+          transition={{ type: "spring", stiffness: 100, damping: 7, delay: 0.6 }}
         >
           <Link
             to="/contact"

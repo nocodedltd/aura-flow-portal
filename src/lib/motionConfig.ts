@@ -12,6 +12,19 @@ export const heroContainer: Variants = {
   },
 };
 
+export const heroTitle: Variants = {
+  initial: { opacity: 0, y: 60 },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { 
+      duration: 0.8, 
+      type: "spring", 
+      stiffness: 50 
+    },
+  },
+};
+
 export const heroHeadline: Variants = {
   hidden: { opacity: 0, y: 80, scale: 0.9 },
   visible: {
