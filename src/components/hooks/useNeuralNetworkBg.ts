@@ -45,14 +45,17 @@ export function useNeuralNetworkBg({
   // Initialize points
   const initPoints = useCallback(() => {
     if (!canvas) return;
+    
     pointsRef.current = Array.from({ length: numPoints }).map((_, i) => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       vx: (Math.random() - 0.5) * pointSpeed,
       vy: (Math.random() - 0.5) * pointSpeed,
-      size: Math.random() * pointSize + 0.5,
+      size: Math.random() * pointSize + 1, // Increase minimum size to ensure visibility
       color: getColor(i),
     }));
+    
+    console.log(`Generated ${pointsRef.current.length} points`);
   }, [canvas, numPoints, pointSpeed, pointSize, getColor]);
 
   // Handle mouse movement: form fresh pathways
@@ -64,7 +67,7 @@ export function useNeuralNetworkBg({
     mouseRef.current = { x, y, active: true };
 
     // For every nearby point, create a new pathway from mouse to the point
-    pointsRef.current.forEach((point, i) => {
+    pointsRef.current.forEach((point) => {
       const dx = point.x - x;
       const dy = point.y - y;
       const dist = Math.sqrt(dx * dx + dy * dy);
