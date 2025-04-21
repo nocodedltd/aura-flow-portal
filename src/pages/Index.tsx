@@ -104,7 +104,7 @@ const Index = () => {
             </motion.p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-wrap justify-center gap-4 mb-[60px]">
+            <div className="flex flex-wrap justify-center gap-4 mb-14">
               <motion.div
                 custom={0}
                 variants={heroButtons}
@@ -134,8 +134,8 @@ const Index = () => {
         </motion.div>
       </section>
 
-      {/* Stats Section - Removed gradient overlay */}
-      <section className="relative py-20 overflow-hidden">
+      {/* Stats Section - Reduce top padding from 20 to 16 to tighten gap */}
+      <section className="relative py-16 overflow-hidden">
         <div className="container">
           <motion.div 
             initial="hidden"
