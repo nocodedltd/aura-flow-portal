@@ -1,13 +1,19 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 const PRIMARY_COLOR = "#9b87f5";
 
-const BiosLoader = () => {
+interface BiosLoaderProps {
+  onFinish: () => void;
+}
+
+const BiosLoader: React.FC<BiosLoaderProps> = ({ onFinish }) => {
   const [progress, setProgress] = useState(0);
   const [currentTask, setCurrentTask] = useState('');
   const [memoryTest, setMemoryTest] = useState(0);
   const [showCursor, setShowCursor] = useState(true);
+  const [ready, setReady] = useState(false);
+  const [finished, setFinished] = useState(false);
 
   const tasks = [
     { task: "Initializing system...", duration: 200 },
@@ -50,6 +56,7 @@ const BiosLoader = () => {
         currentIndex++;
       } else {
         clearInterval(bootInterval);
+        setReady(true);
       }
     }, 350);
 
@@ -60,6 +67,24 @@ const BiosLoader = () => {
     };
   }, []);
 
+  // Only listen for key press to continue after loading finished
+  useEffect(() => {
+    if (!ready) return;
+    const handleKey = (event: KeyboardEvent) => {
+      if (!finished) {
+        setFinished(true);
+        setTimeout(onFinish, 300);
+      }
+    };
+    window.addEventListener("keydown", handleKey);
+    window.addEventListener("click", handleKey); // Also allow mouse click
+    return () => {
+      window.removeEventListener("keydown", handleKey);
+      window.removeEventListener("click", handleKey);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready, finished]);
+
   // Date formatting like old BIOS displays
   const currentDate = new Date().toLocaleDateString('en-US', {
     month: '2-digit',
@@ -68,8 +93,10 @@ const BiosLoader = () => {
   });
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-start justify-start p-6 bg-black font-mono text-sm md:text-base transition-colors duration-700 min-h-screen overflow-auto"
-      style={{ color: PRIMARY_COLOR }}>
+    <div
+      className="fixed inset-0 z-50 flex flex-col items-start justify-start p-6 bg-black font-mono text-sm md:text-base transition-colors duration-700 min-h-screen overflow-auto"
+      style={{ color: PRIMARY_COLOR }}
+    >
       <div className="w-full max-w-3xl mx-auto">
         <div className="mb-4">
           <div className="text-xl md:text-2xl font-bold mb-2 text-white">NoCoded BIOS v1.04</div>

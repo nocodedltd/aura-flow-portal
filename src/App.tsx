@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -31,17 +31,27 @@ const queryClient = new QueryClient({
   },
 });
 
-const App = () => {
-  const [loading, setLoading] = useState(true);
+const LOCAL_STORAGE_KEY = "nocoded_bios_loaded";
 
+const App = () => {
+  const [showLoader, setShowLoader] = useState(false);
+
+  // On mount, check if we already showed the BIOS intro
   useEffect(() => {
-    // Display the loader for 1.4 seconds
-    const timer = setTimeout(() => setLoading(false), 1400);
-    return () => clearTimeout(timer);
+    const hasLoaded = localStorage.getItem(LOCAL_STORAGE_KEY) === "true";
+    if (!hasLoaded) {
+      setShowLoader(true);
+    }
   }, []);
 
-  if (loading) {
-    return <BiosLoader />;
+  // Handler for ending the BIOS loader
+  const handleBiosLoaderFinish = useCallback(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, "true");
+    setShowLoader(false);
+  }, []);
+
+  if (showLoader) {
+    return <BiosLoader onFinish={handleBiosLoaderFinish} />;
   }
 
   return (
@@ -55,10 +65,10 @@ const App = () => {
             <div className="fixed inset-0 w-full h-full overflow-hidden -z-10">
               <ParticleLines
                 interactive={true}
-                numPoints={50}  /* Reduced from 80 */
-                connectionDistance={120}  /* Reduced from 160 */
-                pointSpeed={0.35}  /* Slightly reduced from 0.4 */
-                pointSize={1.2}  /* Slightly reduced from 1.3 */
+                numPoints={50}
+                connectionDistance={120}
+                pointSpeed={0.35}
+                pointSize={1.2}
               />
             </div>
             <div className="flex flex-col min-h-screen relative z-10">
@@ -86,4 +96,3 @@ const App = () => {
 };
 
 export default App;
-
