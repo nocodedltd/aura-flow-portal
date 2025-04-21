@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import ServiceCard from "@/components/ServiceCard";
 import { Bot, Cog, FileSearch, GraduationCap } from "lucide-react";
@@ -105,7 +104,7 @@ const Index = () => {
             </motion.p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-wrap justify-center gap-4 mb-2">
+            <div className="flex flex-wrap justify-center gap-4 mb-[60px]">
               <motion.div
                 custom={0}
                 variants={heroButtons}
