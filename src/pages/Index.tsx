@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import ServiceCard from "@/components/ServiceCard";
 import { Bot, Cog, FileSearch, GraduationCap } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
+import React, { useRef, useEffect, useState } from "react";
 import {
   heroContainer,
   heroHeadline,
@@ -9,8 +10,39 @@ import {
   heroButtons,
 } from "@/lib/motionConfig";
 
+const bounceKeyframes = [
+  { transform: "translateY(40px)" },
+  { transform: "translateY(0px)" },
+  { transform: "translateY(14px)" },
+  { transform: "translateY(0px)" }
+];
+
+const bounceTiming = {
+  duration: 900,
+  iterations: 1,
+  easing: "cubic-bezier(.42,0,0,1)"
+};
+
 const Index = () => {
   const reduceMotion = useReducedMotion();
+  const statsRef = useRef<HTMLDivElement>(null);
+  const [teased, setTeased] = useState(true);
+
+  useEffect(() => {
+    if (!reduceMotion && teased && statsRef.current) {
+      const el = statsRef.current;
+      el.animate(bounceKeyframes, bounceTiming);
+      el.style.transform = "translateY(40px)";
+      setTimeout(() => {
+        el.style.transform = "translateY(0px)";
+      }, 900);
+    }
+  }, [reduceMotion, teased]);
+
+  const handleStatsClick = () => {
+    setTeased(false);
+    statsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   const statVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -42,9 +74,7 @@ const Index = () => {
 
   return (
     <main className="overflow-hidden">
-      {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-        {/* Animated hero content */}
         <motion.div
           className="container relative z-10"
           initial="hidden"
@@ -52,7 +82,6 @@ const Index = () => {
           variants={heroContainer}
         >
           <div className="max-w-3xl mx-auto text-center">
-            {/* Logo */}
             <motion.div
               initial={{ opacity: 0, y: -32 }}
               animate={{ opacity: 1, y: 0 }}
@@ -68,7 +97,6 @@ const Index = () => {
               />
             </motion.div>
             
-            {/* Headline */}
             <motion.h1
               className="font-bold mb-6 text-balance text-4xl md:text-5xl lg:text-6xl leading-tight drop-shadow-[0_5px_30px_rgba(249,222,201,0.3)]"
               variants={heroHeadline}
@@ -94,7 +122,6 @@ const Index = () => {
               <span className="text-secondary"> Solutions</span>
             </motion.h1>
 
-            {/* Subtitle */}
             <motion.p
               className="text-xl text-secondary mb-8 max-w-2xl mx-auto"
               variants={heroSubtitle}
@@ -103,8 +130,7 @@ const Index = () => {
               that save time, reduce costs, and unlock new opportunities.
             </motion.p>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap justify-center gap-4 mb-14">
+            <div className="flex flex-wrap justify-center gap-4 mb-[60px]">
               <motion.div
                 custom={0}
                 variants={heroButtons}
@@ -134,8 +160,26 @@ const Index = () => {
         </motion.div>
       </section>
 
-      {/* Stats Section - Reduce top padding from 20 to 16 to tighten gap */}
-      <section className="relative py-16 overflow-hidden">
+      <section
+        ref={statsRef}
+        className="relative py-16 overflow-hidden cursor-pointer transition-transform duration-300"
+        style={{
+          boxShadow: teased
+            ? "0 -10px 40px 0 rgba(50,50,75,0.13), 0 -0.5rem 0 rgba(119,124,230,.045)"
+            : undefined,
+          borderTopLeftRadius: teased ? "30px" : undefined,
+          borderTopRightRadius: teased ? "30px" : undefined,
+          zIndex: 20
+        }}
+        onClick={handleStatsClick}
+        title="Show stats"
+        tabIndex={0}
+        aria-label="Show stats"
+        role="button"
+      >
+        <div className="mx-auto max-w-xl text-center mb-2 select-none pointer-events-none" aria-hidden>
+          {teased && <span className="text-xs text-secondary">Click to reveal more</span>}
+        </div>
         <div className="container">
           <motion.div 
             initial="hidden"
@@ -163,7 +207,6 @@ const Index = () => {
                 <p className="text-secondary text-lg">Projects Delivered</p>
               </div>
             </motion.div>
-            
             <motion.div 
               custom={1}
               variants={statVariants}
@@ -184,7 +227,6 @@ const Index = () => {
                 <p className="text-secondary text-lg">Hours Saved</p>
               </div>
             </motion.div>
-            
             <motion.div 
               custom={2}
               variants={statVariants}
@@ -209,7 +251,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Services Preview - Removed gradient overlay */}
       <section className="py-20 relative overflow-hidden">
         <div className="container relative z-10">
           <motion.div 
@@ -224,7 +265,6 @@ const Index = () => {
               We offer end-to-end AI and automation solutions to help your business thrive in the digital age.
             </p>
           </motion.div>
-
           <motion.div 
             initial="hidden"
             whileInView="visible"
@@ -239,7 +279,6 @@ const Index = () => {
                 href="/services"
               />
             </motion.div>
-            
             <motion.div custom={1} variants={serviceVariants}>
               <ServiceCard
                 title="Process Automation"
@@ -248,7 +287,6 @@ const Index = () => {
                 href="/services"
               />
             </motion.div>
-            
             <motion.div custom={2} variants={serviceVariants}>
               <ServiceCard
                 title="AI Audits"
@@ -257,7 +295,6 @@ const Index = () => {
                 href="/services"
               />
             </motion.div>
-            
             <motion.div custom={3} variants={serviceVariants}>
               <ServiceCard
                 title="AI Training"
@@ -267,7 +304,6 @@ const Index = () => {
               />
             </motion.div>
           </motion.div>
-
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -297,7 +333,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CTA Section - Removed gradient overlay */}
       <section className="py-20 relative overflow-hidden">
         <motion.div 
           className="container relative z-10"
