@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import ServiceCard from "@/components/ServiceCard";
 import { Bot, Cog, FileSearch, GraduationCap } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
-import React, { useRef, useEffect, useState } from "react";
 import {
   heroContainer,
   heroHeadline,
@@ -10,36 +9,8 @@ import {
   heroButtons,
 } from "@/lib/motionConfig";
 
-const bounceKeyframes = [
-  { transform: "translateY(0px)" },
-  { transform: "translateY(-15px)" },
-  { transform: "translateY(0px)" },
-  { transform: "translateY(-6px)" },
-  { transform: "translateY(0px)" }
-];
-
-const bounceTiming = {
-  duration: 1200,
-  iterations: 1,
-  easing: "cubic-bezier(.42,0,.58,1)"
-};
-
 const Index = () => {
   const reduceMotion = useReducedMotion();
-  const statsRef = useRef<HTMLDivElement>(null);
-  const [teased, setTeased] = useState(true);
-
-  useEffect(() => {
-    if (!reduceMotion && teased && statsRef.current) {
-      const el = statsRef.current;
-      el.animate(bounceKeyframes, bounceTiming);
-    }
-  }, [reduceMotion, teased]);
-
-  const handleStatsClick = () => {
-    setTeased(false);
-    statsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
 
   const statVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -71,7 +42,9 @@ const Index = () => {
 
   return (
     <main className="overflow-hidden">
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden pb-[110px]">
+      {/* Hero Section */}
+      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+        {/* Animated hero content */}
         <motion.div
           className="container relative z-10"
           initial="hidden"
@@ -79,6 +52,7 @@ const Index = () => {
           variants={heroContainer}
         >
           <div className="max-w-3xl mx-auto text-center">
+            {/* Logo */}
             <motion.div
               initial={{ opacity: 0, y: -32 }}
               animate={{ opacity: 1, y: 0 }}
@@ -94,6 +68,7 @@ const Index = () => {
               />
             </motion.div>
             
+            {/* Headline */}
             <motion.h1
               className="font-bold mb-6 text-balance text-4xl md:text-5xl lg:text-6xl leading-tight drop-shadow-[0_5px_30px_rgba(249,222,201,0.3)]"
               variants={heroHeadline}
@@ -119,6 +94,7 @@ const Index = () => {
               <span className="text-secondary"> Solutions</span>
             </motion.h1>
 
+            {/* Subtitle */}
             <motion.p
               className="text-xl text-secondary mb-8 max-w-2xl mx-auto"
               variants={heroSubtitle}
@@ -127,7 +103,8 @@ const Index = () => {
               that save time, reduce costs, and unlock new opportunities.
             </motion.p>
 
-            <div className="flex flex-wrap justify-center gap-4 mb-[80px]">
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap justify-center gap-4 mb-[60px]">
               <motion.div
                 custom={0}
                 variants={heroButtons}
@@ -155,115 +132,84 @@ const Index = () => {
             </div>
           </div>
         </motion.div>
-        
-        <div
-          ref={statsRef}
-          className={`absolute left-1/2 -translate-x-1/2 z-20 w-full max-w-5xl 
-            transition-all duration-700 ease-[cubic-bezier(.63,0,0,.98)]
-            ${teased ? "cursor-pointer" : ""}`}
-          style={{
-            bottom: teased ? "-140px" : "0px",
-          }}
-          onClick={teased ? handleStatsClick : undefined}
-          tabIndex={teased ? 0 : -1}
-          aria-label="Show stats"
-          role="button"
-        >
-          <div className="relative">
-            <motion.div
-              initial={{ opacity: 0.7 }}
-              animate={{ opacity: [0.7, 1, 0.7] }}
-              transition={{ repeat: Infinity, duration: 2 }}
-              className={`mx-auto max-w-xl text-center mb-1 ${!teased && 'hidden'}`}
+      </section>
+
+      {/* Stats Section - Removed gradient overlay */}
+      <section className="relative py-20 overflow-hidden">
+        <div className="container">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          >
+            <motion.div 
+              custom={0}
+              variants={statVariants}
+              className="bg-card p-8 rounded-xl text-center border border-primary/10 shadow-lg relative group overflow-hidden hover:-translate-y-2 transition-transform duration-300"
             >
-              <span className="text-xs text-secondary bg-background/60 px-3 py-1 rounded-full backdrop-blur-sm">
-                Click to see more
-              </span>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="relative z-10">
+                <div className="text-4xl md:text-5xl font-bold text-primary mb-3 flex items-center justify-center">
+                  <motion.span
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.3, duration: 0.8, type: "spring" }}
+                    viewport={{ once: true }}
+                  >
+                    100+
+                  </motion.span>
+                </div>
+                <p className="text-secondary text-lg">Projects Delivered</p>
+              </div>
             </motion.div>
             
             <motion.div 
-              className="container px-3"
-              initial="hidden"
-              animate={teased ? "hidden" : "visible"}
-              variants={teased ? {} : {}}
+              custom={1}
+              variants={statVariants}
+              className="bg-card p-8 rounded-xl text-center border border-primary/10 shadow-lg relative group overflow-hidden hover:-translate-y-2 transition-transform duration-300"
             >
-              <div 
-                className="grid grid-cols-1 md:grid-cols-3 gap-8 bg-background/10 backdrop-blur-lg p-6 rounded-t-3xl shadow-lg"
-              >
-                <div className={`h-full overflow-hidden transition-all duration-500 ${teased ? 'max-h-[120px]' : ''}`}>
-                  <motion.div 
-                    custom={0}
-                    variants={statVariants}
-                    className="bg-card p-8 rounded-xl text-center border border-primary/10 shadow-lg relative group overflow-hidden hover:-translate-y-2 transition-transform duration-300"
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="relative z-10">
+                <div className="text-4xl md:text-5xl font-bold text-primary mb-3 flex items-center justify-center">
+                  <motion.span
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.4, duration: 0.8, type: "spring" }}
+                    viewport={{ once: true }}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div className="relative z-10">
-                      <div className="text-4xl md:text-5xl font-bold text-primary mb-3 flex items-center justify-center">
-                        <motion.span
-                          initial={{ opacity: 0, scale: 0.5 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: 0.3, duration: 0.8, type: "spring" }}
-                          viewport={{ once: true }}
-                        >
-                          100+
-                        </motion.span>
-                      </div>
-                      <p className="text-secondary text-lg">Projects Delivered</p>
-                    </div>
-                  </motion.div>
+                    120,000+
+                  </motion.span>
                 </div>
-                
-                <div className={`h-full overflow-hidden transition-all duration-500 ${teased ? 'max-h-[120px]' : ''}`}>
-                  <motion.div 
-                    custom={1}
-                    variants={statVariants}
-                    className="bg-card p-8 rounded-xl text-center border border-primary/10 shadow-lg relative group overflow-hidden hover:-translate-y-2 transition-transform duration-300"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div className="relative z-10">
-                      <div className="text-4xl md:text-5xl font-bold text-primary mb-3 flex items-center justify-center">
-                        <motion.span
-                          initial={{ opacity: 0, scale: 0.5 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: 0.4, duration: 0.8, type: "spring" }}
-                          viewport={{ once: true }}
-                        >
-                          120,000+
-                        </motion.span>
-                      </div>
-                      <p className="text-secondary text-lg">Hours Saved</p>
-                    </div>
-                  </motion.div>
-                </div>
-                
-                <div className={`h-full overflow-hidden transition-all duration-500 ${teased ? 'max-h-[120px]' : ''}`}>
-                  <motion.div 
-                    custom={2}
-                    variants={statVariants}
-                    className="bg-card p-8 rounded-xl text-center border border-primary/10 shadow-lg relative group overflow-hidden hover:-translate-y-2 transition-transform duration-300"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div className="relative z-10">
-                      <div className="text-4xl md:text-5xl font-bold text-primary mb-3 flex items-center justify-center">
-                        <motion.span
-                          initial={{ opacity: 0, scale: 0.5 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
-                          viewport={{ once: true }}
-                        >
-                          98%
-                        </motion.span>
-                      </div>
-                      <p className="text-secondary text-lg">Client Satisfaction</p>
-                    </div>
-                  </motion.div>
-                </div>
+                <p className="text-secondary text-lg">Hours Saved</p>
               </div>
             </motion.div>
-          </div>
+            
+            <motion.div 
+              custom={2}
+              variants={statVariants}
+              className="bg-card p-8 rounded-xl text-center border border-primary/10 shadow-lg relative group overflow-hidden hover:-translate-y-2 transition-transform duration-300"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="relative z-10">
+                <div className="text-4xl md:text-5xl font-bold text-primary mb-3 flex items-center justify-center">
+                  <motion.span
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
+                    viewport={{ once: true }}
+                  >
+                    98%
+                  </motion.span>
+                </div>
+                <p className="text-secondary text-lg">Client Satisfaction</p>
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
+      {/* Services Preview - Removed gradient overlay */}
       <section className="py-20 relative overflow-hidden">
         <div className="container relative z-10">
           <motion.div 
@@ -278,6 +224,7 @@ const Index = () => {
               We offer end-to-end AI and automation solutions to help your business thrive in the digital age.
             </p>
           </motion.div>
+
           <motion.div 
             initial="hidden"
             whileInView="visible"
@@ -292,6 +239,7 @@ const Index = () => {
                 href="/services"
               />
             </motion.div>
+            
             <motion.div custom={1} variants={serviceVariants}>
               <ServiceCard
                 title="Process Automation"
@@ -300,6 +248,7 @@ const Index = () => {
                 href="/services"
               />
             </motion.div>
+            
             <motion.div custom={2} variants={serviceVariants}>
               <ServiceCard
                 title="AI Audits"
@@ -308,6 +257,7 @@ const Index = () => {
                 href="/services"
               />
             </motion.div>
+            
             <motion.div custom={3} variants={serviceVariants}>
               <ServiceCard
                 title="AI Training"
@@ -317,6 +267,7 @@ const Index = () => {
               />
             </motion.div>
           </motion.div>
+
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -346,6 +297,7 @@ const Index = () => {
         </div>
       </section>
 
+      {/* CTA Section - Removed gradient overlay */}
       <section className="py-20 relative overflow-hidden">
         <motion.div 
           className="container relative z-10"
