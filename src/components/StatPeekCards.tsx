@@ -44,8 +44,8 @@ const StatPeekCards: React.FC<StatPeekCardsProps> = ({ scrollTargetId }) => {
   };
 
   return (
-    <div className="absolute left-1/2 -translate-x-1/2 bottom-[-56px] z-30 w-full flex justify-center pointer-events-none">
-      <div className="flex gap-4 md:gap-8 pointer-events-auto">
+    <div className="absolute left-1/2 -translate-x-1/2 bottom-0 z-30 w-full flex justify-center pointer-events-none">
+      <div className="flex gap-4 md:gap-8 pointer-events-auto transform translate-y-1/2">
         {stats.map((stat, i) => (
           <motion.div
             key={i}

@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import ServiceCard from "@/components/ServiceCard";
 import StatPeekCards from "@/components/StatPeekCards";
@@ -44,7 +45,7 @@ const Index = () => {
   return (
     <main className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden pb-32">
+      <section className="relative min-h-[90vh] flex items-center overflow-visible pb-36">
         {/* Animated hero content */}
         <motion.div
           className="container relative z-10"
