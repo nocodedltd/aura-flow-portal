@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -26,7 +27,7 @@ export default {
           200: "#c7cbdf",
           300: "#aeb3d1",
           400: "#8e94bc",
-          500: "#6e74af",
+          500: "#6e74af", // Primary color
           600: "#5a5e96",
           700: "#4a4e7d",
           800: "#3c3f64",
@@ -38,7 +39,7 @@ export default {
           50: "#fefaf6",
           100: "#fcf5ec",
           200: "#faebd9",
-          300: "#f9dec9",
+          300: "#f9dec9", // Secondary color
           400: "#f5c59f",
           500: "#efaa74",
           600: "#e88a4c",
@@ -161,10 +162,6 @@ export default {
       transitionDuration: {
         '2000': '2000ms',
         '3000': '3000ms',
-      },
-      boxShadow: {
-        'xl': '0 8px 40px 0 rgba(110, 116, 175, 0.13), 0 2px 8px rgba(0,0,0,0.06)',
-        'lg': '0 2px 24px 0 rgba(110, 116, 175, 0.10)',
       },
     },
   },

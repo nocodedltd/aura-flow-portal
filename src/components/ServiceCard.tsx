@@ -2,20 +2,19 @@
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { LucideIcon } from "lucide-react";
 
 interface ServiceCardProps {
   title: string;
   description: string;
-  icon: LucideIcon;
-  href?: string;
+  icon: React.ReactNode;
+  href: string;
 }
 
 export default function ServiceCard({ 
   title, 
   description, 
-  icon: Icon, 
-  href = "#" 
+  icon, 
+  href 
 }: ServiceCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -40,7 +39,7 @@ export default function ServiceCard({
           transition={{ duration: 0.3 }}
           className="h-16 w-16 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6"
         >
-          <Icon size={24} />
+          {icon}
         </motion.div>
         
         <h3 className="text-xl font-semibold mb-3 text-foreground">{title}</h3>

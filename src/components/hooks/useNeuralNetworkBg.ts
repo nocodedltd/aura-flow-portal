@@ -20,98 +20,74 @@ export interface Pathway {
   lifetime: number;
 }
 
-const PRIMARY_COLOR = "#6e74af";
-
 export function useNeuralNetworkBg({
   canvas,
   numPoints,
   connectionDistance,
   pointSpeed,
   pointSize,
+  palette,
 }: {
   canvas: HTMLCanvasElement | null;
   numPoints: number;
   connectionDistance: number;
   pointSpeed: number;
   pointSize: number;
+  palette: string[];
 }) {
   const pointsRef = useRef<Point[]>([]);
   const pathwaysRef = useRef<Pathway[]>([]);
   const mouseRef = useRef<{ x: number; y: number; active: boolean }>({ x: 0, y: 0, active: false });
 
-  // Use only the primary color
-  const getColor = useCallback(() => PRIMARY_COLOR, []);
+  // Generate point color from palette
+  const getColor = useCallback((index: number) => palette[index % palette.length], [palette]);
 
+  // Initialize points
   const initPoints = useCallback(() => {
     if (!canvas) return;
-    pointsRef.current = Array.from({ length: numPoints }).map((_) => ({
+    
+    pointsRef.current = Array.from({ length: numPoints }).map((_, i) => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       vx: (Math.random() - 0.5) * pointSpeed,
       vy: (Math.random() - 0.5) * pointSpeed,
-      size: Math.random() * pointSize + 1,
-      color: getColor(),
+      size: Math.random() * pointSize + 1, // Increase minimum size to ensure visibility
+      color: getColor(i),
     }));
+    
+    console.log(`Generated ${pointsRef.current.length} points`);
   }, [canvas, numPoints, pointSpeed, pointSize, getColor]);
 
-  // Mouse
+  // Handle mouse movement: form fresh pathways
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (!canvas) return;
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     mouseRef.current = { x, y, active: true };
-  }, [canvas]);
-  const handleMouseLeave = useCallback(() => {
-    mouseRef.current.active = false;
-  }, []);
 
-  // Boosted mouse pathways + new ones every frame
-  const addActiveMousePathways = useCallback(() => {
-    if (!canvas) return;
-    if (!mouseRef.current.active) return;
-    const { x, y } = mouseRef.current;
-    // Draw connections with nearby points
+    // For every nearby point, create a new pathway from mouse to the point
     pointsRef.current.forEach((point) => {
-      const dx = point.x - x, dy = point.y - y;
+      const dx = point.x - x;
+      const dy = point.y - y;
       const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < connectionDistance * 1.65) {
+      if (dist < connectionDistance * 0.6) {
         pathwaysRef.current.push({
-          x1: point.x, y1: point.y, x2: x, y2: y,
-          color: PRIMARY_COLOR,
-          opacity: 0.92, lifetime: 26
+          x1: point.x,
+          y1: point.y,
+          x2: x,
+          y2: y,
+          color: point.color,
+          opacity: 1,
+          lifetime: 18, // frames to remain
         });
       }
     });
-    // Extra dynamic bursts: always 7 more
-    for (let i = 0; i < 7; i++) {
-      const idx = Math.floor(Math.random() * pointsRef.current.length);
-      const p = pointsRef.current[idx];
-      pathwaysRef.current.push({
-        x1: p.x, y1: p.y, x2: x, y2: y,
-        color: PRIMARY_COLOR,
-        opacity: 0.68, lifetime: 13
-      });
-    }
   }, [canvas, connectionDistance]);
 
-  // Much stronger magnet - points fly toward mouse when close!
-  const applyMouseMagnet = useCallback(() => {
-    if (!canvas) return;
-    if (!mouseRef.current.active) return;
-    const { x, y } = mouseRef.current;
-    pointsRef.current.forEach((point) => {
-      const dx = x - point.x;
-      const dy = y - point.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < connectionDistance * 2.15) {
-        // Super strong - points rush to cursor
-        const strength = 0.14 * (1 - dist / (connectionDistance * 2.15));
-        point.vx += dx * strength * 0.13;
-        point.vy += dy * strength * 0.13;
-      }
-    });
-  }, [canvas, connectionDistance]);
+  const handleMouseLeave = useCallback(() => {
+    mouseRef.current.active = false;
+  }, []);
 
   return {
     pointsRef,
@@ -120,7 +96,5 @@ export function useNeuralNetworkBg({
     initPoints,
     handleMouseMove,
     handleMouseLeave,
-    addActiveMousePathways,
-    applyMouseMagnet,
   };
 }
