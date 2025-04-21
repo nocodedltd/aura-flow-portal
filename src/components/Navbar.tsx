@@ -68,7 +68,7 @@ export default function Navbar() {
           ))}
           <Link
             to="/client"
-            className="ml-2 px-4 py-2 rounded-md text-sm font-medium bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors"
+            className="ml-2 px-4 py-2 rounded-md text-sm font-medium bg-secondary text-primary hover:bg-secondary/80 transition-transform transition-colors"
           >
             Client Login
           </Link>
@@ -107,7 +107,7 @@ export default function Navbar() {
           ))}
           <Link
             to="/client"
-            className="block px-4 py-2 rounded-md text-base font-medium bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors"
+            className="block px-4 py-2 rounded-md text-base font-medium bg-secondary text-primary hover:bg-secondary/80 transition-transform transition-colors"
             onClick={() => setIsMenuOpen(false)}
           >
             Client Login
@@ -117,3 +117,4 @@ export default function Navbar() {
     </header>
   );
 }
+
