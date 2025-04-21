@@ -1,11 +1,10 @@
 
-// Removed import of the duplicated logo, cleaned layout for centered nav links
-
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronRight } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Logo from "./Logo";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -18,7 +17,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Route change closes menu
   useEffect(() => {
     setMobileOpen(false);
   }, [location.pathname]);
@@ -39,58 +37,61 @@ export default function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         scrolled
-          ? "glass border-b border-primary/20 shadow-lg py-2 backdrop-blur-lg"
-          : "bg-transparent py-4"
+          ? "glass border-b border-primary/20 shadow-lg py-1 backdrop-blur-lg"
+          : "bg-transparent py-3"
       )}
       style={{
         backdropFilter: scrolled ? "blur(14px)" : undefined,
         WebkitBackdropFilter: scrolled ? "blur(14px)" : undefined,
       }}
     >
-      <div className="container flex items-center justify-between">
-        {/* Logo */}
-        <Link
-          to="/"
-          aria-label="Homepage"
-          className="flex items-center gap-1 select-none"
-        >
-          <span className="text-2xl font-extrabold text-primary tracking-tighter drop-shadow-md">
-            n{"</>"}coded
-          </span>
-          <span className="ml-1 text-lg font-semibold text-muted-foreground hidden sm:inline">
-            NoCoded
-          </span>
-        </Link>
-
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex gap-6 items-center font-semibold text-base">
+      <div className="relative container flex items-center justify-center">
+        {/* Centered Nav Bar Content Layer */}
+        <nav className="absolute left-1/2 -translate-x-1/2 flex gap-2 md:gap-8 items-center font-medium text-base z-10 shadow-none">
           {navLinks.map(({ title, href }) => (
             <Link
               key={href}
               to={href}
               className={cn(
-                "px-3 py-2 rounded-md transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+                "relative px-2 md:px-4 py-2 rounded-md transition-colors duration-200 focus:outline-none group story-link",
                 location.pathname === href
-                  ? "bg-primary text-secondary shadow-md"
-                  : "text-foreground/80 hover:text-primary"
+                  ? "bg-primary text-secondary drop-shadow-md"
+                  : "text-foreground/90 hover:text-primary"
               )}
             >
-              {title}
+              <span className="relative z-20">
+                {title}
+              </span>
+              <span
+                className={cn(
+                  "pointer-events-none absolute left-0 bottom-[-4px] w-full h-0.5 rounded-full transition-all bg-primary duration-300 scale-x-0 group-hover:scale-x-100",
+                  location.pathname === href && "scale-x-100"
+                )}
+              />
             </Link>
           ))}
           <Link
             to="/client"
-            className="ml-6 px-4 py-2 bg-primary text-secondary rounded-lg font-semibold shadow-lg hover:bg-primary/90 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-transform"
+            className="ml-2 md:ml-8 px-4 py-2 bg-gradient-to-r from-primary to-secondary text-secondary rounded-xl font-bold shadow-xl hover:scale-105 hover:from-primary/80 hover:to-secondary/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-all duration-200"
           >
             Client Login
           </Link>
         </nav>
 
-        {/* Mobile Menu Button */}
+        {/* Logo (left, vertically centered, lifted above nav content as needed) */}
+        <Link
+          to="/"
+          aria-label="Homepage"
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-20 flex items-center"
+          tabIndex={-1}
+        >
+          <Logo className="h-10 w-auto drop-shadow-lg" />
+        </Link>
+
+        {/* Mobile Menu Button (right) */}
         <button
           className={cn(
-            "block md:hidden rounded-lg p-2 transition hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary",
-            mobileOpen && "bg-primary/10"
+            "block md:hidden absolute right-0 top-1/2 -translate-y-1/2 rounded-lg p-2 transition hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary z-20"
           )}
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
@@ -127,19 +128,19 @@ export default function Navbar() {
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: -10, opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.27 }}
-            className="md:hidden absolute left-0 right-0 top-full shadow-2xl border-b border-primary/20 bg-background/90 backdrop-blur-xl z-50"
+            className="md:hidden absolute left-0 right-0 top-full shadow-2xl border-b border-primary/20 bg-background/95 backdrop-blur-2xl z-50 rounded-b-2xl"
             style={{
-              backdropFilter: "blur(14px)",
-              WebkitBackdropFilter: "blur(14px)",
+              backdropFilter: "blur(16px)",
+              WebkitBackdropFilter: "blur(16px)",
             }}
           >
-            <nav className="flex flex-col gap-3 p-5 w-full text-lg font-semibold">
+            <nav className="flex flex-col gap-3 p-4 w-full text-lg font-semibold">
               {navLinks.map(({ title, href }) => (
                 <Link
                   key={href}
                   to={href}
                   className={cn(
-                    "px-4 py-2 rounded-md transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+                    "px-4 py-2 rounded-md transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary flex items-center gap-2",
                     location.pathname === href
                       ? "bg-primary text-secondary"
                       : "text-foreground hover:text-primary"
@@ -150,7 +151,7 @@ export default function Navbar() {
               ))}
               <Link
                 to="/client"
-                className="mt-4 px-4 py-3 rounded-md bg-primary text-secondary font-semibold shadow-lg hover:bg-primary/90 transition-all"
+                className="mt-4 px-4 py-3 rounded-xl bg-gradient-to-r from-primary to-secondary text-secondary font-bold shadow-lg hover:bg-primary/90 transition-all"
               >
                 Client Login
               </Link>
