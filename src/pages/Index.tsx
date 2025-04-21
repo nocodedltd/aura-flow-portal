@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import ParticleLines from "@/components/ParticleLines";
 import ServiceCard from "@/components/ServiceCard";
@@ -72,8 +71,7 @@ const Index = () => {
               >
                 <Link
                   to="/contact"
-                  className="bg-primary text-secondary px-6 py-3 rounded-md font-medium shadow-lg hover:scale-105 active:scale-95 hover:bg-secondary hover:text-primary transition-transform transition-colors outline-none focus:ring-2 focus:ring-primary"
-                  style={{ transitionProperty: "transform, background-color, color" }}
+                  className="bg-primary text-secondary px-6 py-3 rounded-md font-medium shadow-lg hover:shadow-xl hover:translate-y-[-3px] active:shadow-md active:translate-y-[-1px] transition-all outline-none focus:ring-2 focus:ring-primary"
                 >
                   Book a Discovery Call
                 </Link>
@@ -84,8 +82,7 @@ const Index = () => {
               >
                 <Link
                   to="/services"
-                  className="bg-secondary text-primary px-6 py-3 rounded-md font-medium shadow-lg hover:scale-105 active:scale-95 hover:bg-primary hover:text-secondary transition-transform transition-colors outline-none focus:ring-2 focus:ring-primary"
-                  style={{ transitionProperty: "transform, background-color, color" }}
+                  className="bg-secondary text-primary px-6 py-3 rounded-md font-medium shadow-lg hover:shadow-xl hover:translate-y-[-3px] active:shadow-md active:translate-y-[-1px] transition-all outline-none focus:ring-2 focus:ring-primary"
                 >
                   Explore Services
                 </Link>
@@ -155,8 +152,7 @@ const Index = () => {
           <div className="text-center mt-12">
             <Link
               to="/services"
-              className="inline-flex items-center text-primary hover:underline font-medium hover:scale-105 active:scale-95 transition-transform"
-              style={{ transitionProperty: "transform, color" }}
+              className="inline-flex items-center text-primary hover:underline font-medium hover:shadow-md hover:translate-y-[-2px] transition-all"
             >
               View All Services
             </Link>
@@ -175,8 +171,7 @@ const Index = () => {
             </p>
             <Link
               to="/contact"
-              className="bg-primary text-secondary px-6 py-3 rounded-md font-medium hover:bg-secondary hover:text-primary hover:scale-105 active:scale-95 transition-transform transition-colors"
-              style={{ transitionProperty: "transform, background-color, color" }}
+              className="bg-primary text-secondary px-6 py-3 rounded-md font-medium shadow-lg hover:shadow-xl hover:translate-y-[-3px] active:shadow-md active:translate-y-[-1px] transition-all"
             >
               Schedule a Call
             </Link>

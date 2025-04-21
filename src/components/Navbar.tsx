@@ -55,20 +55,18 @@ export default function Navbar() {
             <Link
               key={link.path}
               to={link.path}
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors hover:scale-105 active:scale-95 transition-transform
+              className={`px-3 py-2 rounded-md text-sm font-medium transition-all hover:shadow-md hover:translate-y-[-2px]
                 ${location.pathname === link.path
                   ? "text-secondary bg-primary"
-                  : "text-primary hover:bg-secondary hover:text-primary"
+                  : "text-primary hover:bg-none"
                 }`}
-              style={{ transitionProperty: "transform, background-color, color" }}
             >
               {link.name}
             </Link>
           ))}
           <Link
             to="/client"
-            className="ml-2 px-4 py-2 rounded-md text-sm font-medium bg-secondary text-primary hover:bg-primary hover:text-secondary transition-transform transition-colors hover:scale-105 active:scale-95"
-            style={{ transitionProperty: "transform, background-color, color" }}
+            className="ml-2 px-4 py-2 rounded-md text-sm font-medium bg-secondary text-primary transition-all hover:shadow-md hover:translate-y-[-2px] active:shadow-sm active:translate-y-[-1px]"
           >
             Client Login
           </Link>
@@ -77,9 +75,8 @@ export default function Navbar() {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="md:hidden p-2 rounded-md text-primary hover:bg-secondary hover:text-primary focus:outline-none transition-transform hover:scale-105 active:scale-95"
+          className="md:hidden p-2 rounded-md text-primary hover:bg-none focus:outline-none transition-all hover:shadow-md hover:translate-y-[-2px] active:shadow-sm active:translate-y-[-1px]"
           aria-label="Toggle menu"
-          style={{ transitionProperty: "transform, background-color, color" }}
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -96,22 +93,20 @@ export default function Navbar() {
             <Link
               key={link.path}
               to={link.path}
-              className={`block px-4 py-2 rounded-md text-base font-medium transition-colors hover:scale-105 active:scale-95 transition-transform
+              className={`block px-4 py-2 rounded-md text-base font-medium transition-all hover:shadow-md hover:translate-y-[-2px]
                 ${location.pathname === link.path
                   ? "text-secondary bg-primary"
-                  : "text-primary hover:bg-secondary hover:text-primary"
+                  : "text-primary hover:bg-none"
                 }`}
               onClick={() => setIsMenuOpen(false)}
-              style={{ transitionProperty: "transform, background-color, color" }}
             >
               {link.name}
             </Link>
           ))}
           <Link
             to="/client"
-            className="block px-4 py-2 rounded-md text-base font-medium bg-secondary text-primary hover:bg-primary hover:text-secondary transition-transform transition-colors hover:scale-105 active:scale-95"
+            className="block px-4 py-2 rounded-md text-base font-medium bg-secondary text-primary transition-all hover:shadow-md hover:translate-y-[-2px] active:shadow-sm active:translate-y-[-1px]"
             onClick={() => setIsMenuOpen(false)}
-            style={{ transitionProperty: "transform, background-color, color" }}
           >
             Client Login
           </Link>
