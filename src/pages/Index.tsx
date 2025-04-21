@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import ServiceCard from "@/components/ServiceCard";
 import { Bot, Cog, FileSearch, GraduationCap } from "lucide-react";
@@ -52,90 +51,89 @@ const Index = () => {
           animate="visible"
           variants={heroContainer}
         >
-          <div className="max-w-3xl mx-auto text-center">
-            {/* Logo */}
-            <motion.div
-              initial={{ opacity: 0, y: -32 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.1, type: "spring", stiffness: 70 }}
-              className="flex justify-center mb-6"
-              aria-label="NoCoded Logo"
-            >
-              <img
-                src="/lovable-uploads/5474f216-66de-4286-8816-9b3b1bea942f.png"
-                alt="NoCoded logo"
-                className="h-14 md:h-16 w-auto drop-shadow-[0_0_15px_rgba(249,222,201,0.3)]"
-                style={{ maxWidth: "360px" }}
-              />
-            </motion.div>
-            
-            {/* Headline */}
-            <motion.h1
-              className="font-bold mb-6 text-balance text-4xl md:text-5xl lg:text-6xl leading-tight drop-shadow-[0_5px_30px_rgba(249,222,201,0.3)]"
-              variants={heroHeadline}
-            >
-              <span className="text-secondary">Transform Your Business With{" "}</span>
-              <span className="relative">
-                <span className="inline-block font-bold text-primary relative">
-                  AI‑Powered
-                  <motion.span 
-                    className="absolute -inset-1 -z-10 opacity-20 blur-md bg-primary rounded-lg"
-                    animate={{ 
-                      opacity: [0.2, 0.5, 0.2],
-                      scale: [1, 1.05, 1]
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      repeatType: "reverse"
-                    }}
-                  />
-                </span>
+          {/* Logo */}
+          <motion.div
+            initial={{ opacity: 0, y: -32 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.1, type: "spring", stiffness: 70 }}
+            className="flex justify-center mb-6"
+            aria-label="NoCoded Logo"
+          >
+            <img
+              src="/lovable-uploads/5474f216-66de-4286-8816-9b3b1bea942f.png"
+              alt="NoCoded logo"
+              className="h-14 md:h-16 w-auto drop-shadow-[0_0_15px_rgba(249,222,201,0.3)]"
+              style={{ maxWidth: "360px" }}
+            />
+          </motion.div>
+          
+          {/* Headline */}
+          <motion.h1
+            className="font-bold mb-6 text-balance text-4xl md:text-5xl lg:text-6xl leading-tight drop-shadow-[0_5px_30px_rgba(249,222,201,0.3)]"
+            variants={heroHeadline}
+          >
+            <span className="text-secondary">Transform Your Business With{" "}</span>
+            <span className="relative">
+              <span className="inline-block font-bold text-primary relative">
+                AI‑Powered
+                <motion.span 
+                  className="absolute -inset-1 -z-10 opacity-20 blur-md bg-primary rounded-lg"
+                  animate={{ 
+                    opacity: [0.2, 0.5, 0.2],
+                    scale: [1, 1.05, 1]
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    repeatType: "reverse"
+                  }}
+                />
               </span>
-              <span className="text-secondary"> Solutions</span>
-            </motion.h1>
+            </span>
+            <span className="text-secondary"> Solutions</span>
+          </motion.h1>
 
-            {/* Subtitle */}
-            <motion.p
-              className="text-xl text-secondary mb-8 max-w-2xl mx-auto"
-              variants={heroSubtitle}
+          {/* Subtitle */}
+          <motion.p
+            className="text-xl text-secondary mb-8 max-w-2xl mx-auto"
+            variants={heroSubtitle}
+          >
+            We help businesses design and deploy intelligent automation systems
+            that save time, reduce costs, and unlock new opportunities.
+          </motion.p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-wrap justify-center gap-4 mb-2">
+            <motion.div
+              custom={0}
+              variants={heroButtons}
             >
-              We help businesses design and deploy intelligent automation systems
-              that save time, reduce costs, and unlock new opportunities.
-            </motion.p>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap justify-center gap-4 mb-2">
-              <motion.div
-                custom={0}
-                variants={heroButtons}
+              <Link
+                to="/contact"
+                className="bg-primary text-secondary px-6 py-3 rounded-md font-medium shadow-lg hover:shadow-xl hover:-translate-y-2 active:shadow-md active:translate-y-0 transition-all outline-none focus:ring-2 focus:ring-primary relative group overflow-hidden"
               >
-                <Link
-                  to="/contact"
-                  className="bg-primary text-secondary px-6 py-3 rounded-md font-medium shadow-lg hover:shadow-xl hover:-translate-y-2 active:shadow-md active:translate-y-0 transition-all outline-none focus:ring-2 focus:ring-primary relative group overflow-hidden"
-                >
-                  <span className="relative z-10">Book a Discovery Call</span>
-                  <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary-600 to-primary-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                </Link>
-              </motion.div>
-              <motion.div
-                custom={1}
-                variants={heroButtons}
+                <span className="relative z-10">Book a Discovery Call</span>
+                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary-600 to-primary-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+              </Link>
+            </motion.div>
+            <motion.div
+              custom={1}
+              variants={heroButtons}
+            >
+              <Link
+                to="/services"
+                className="bg-secondary text-primary px-6 py-3 rounded-md font-medium shadow-lg hover:shadow-xl hover:-translate-y-2 active:shadow-md active:translate-y-0 transition-all outline-none focus:ring-2 focus:ring-primary relative group overflow-hidden"
               >
-                <Link
-                  to="/services"
-                  className="bg-secondary text-primary px-6 py-3 rounded-md font-medium shadow-lg hover:shadow-xl hover:-translate-y-2 active:shadow-md active:translate-y-0 transition-all outline-none focus:ring-2 focus:ring-primary relative group overflow-hidden"
-                >
-                  <span className="relative z-10">Explore Services</span>
-                  <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-secondary-400 to-secondary-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                </Link>
-              </motion.div>
-            </div>
+                <span className="relative z-10">Explore Services</span>
+                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-secondary-400 to-secondary-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+              </Link>
+            </motion.div>
           </div>
         </motion.div>
+        {/* Remove any gradient overlay above background here */}
       </section>
 
-      {/* Stats Section - Removed gradient overlay */}
+      {/* Stats Section - Remove gradient overlay */}
       <section className="relative py-20 overflow-hidden">
         <div className="container">
           <motion.div 
@@ -210,7 +208,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Services Preview - Removed gradient overlay */}
+      {/* Services Preview - Remove gradient overlay */}
       <section className="py-20 relative overflow-hidden">
         <div className="container relative z-10">
           <motion.div 
@@ -298,7 +296,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CTA Section - Removed gradient overlay */}
+      {/* CTA Section - Remove any overlay here */}
       <section className="py-20 relative overflow-hidden">
         <motion.div 
           className="container relative z-10"
@@ -308,7 +306,7 @@ const Index = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, type: "spring", stiffness: 50 }}
             viewport={{ once: true, margin: "-100px" }}
-            className="max-w-3xl mx-auto text-center bg-card p-10 rounded-2xl shadow-xl border border-primary/10 backdrop-blur-sm"
+            className="max-w-3xl mx-auto text-center bg-card p-10 rounded-2xl shadow-xl border border-primary/10 backdrop-blur-sm glass"
           >
             <h2 className="mb-4 text-primary text-3xl md:text-4xl font-bold">Ready to Transform Your Business?</h2>
             <p className="text-lg text-secondary mb-8">

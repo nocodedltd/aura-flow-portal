@@ -1,268 +1,161 @@
 
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+// New modern nav: glass, minimal, with a darker glass on scroll and shadow
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 12);
     window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Services submenu items
-  const servicesItems = [
-    {
-      title: "Agent Deployment",
-      href: "/services#agent-deployment",
-      description: "Custom AI agents that automate tasks and enhance decision-making processes."
-    },
-    {
-      title: "Process Automation",
-      href: "/services#process-automation",
-      description: "Streamline operations with intelligent workflows and reduce manual interventions."
-    },
-    {
-      title: "AI Audits",
-      href: "/services#ai-audits",
-      description: "Comprehensive review of your systems to identify automation opportunities."
-    },
-    {
-      title: "AI Training",
-      href: "/services#ai-training",
-      description: "Equip your team with the skills to leverage AI tools effectively."
-    }
-  ];
+  // Route change closes menu
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location.pathname]);
 
-  // About submenu items
-  const aboutItems = [
-    {
-      title: "Our Team",
-      href: "/about#team",
-      description: "Meet our experts in AI and automation technology."
-    },
-    {
-      title: "Our Mission",
-      href: "/about#mission",
-      description: "Learn about our vision for transforming businesses with AI."
-    },
-    {
-      title: "Our Values",
-      href: "/about#values",
-      description: "Discover the principles that guide our work and partnerships."
-    }
+  const navLinks = [
+    { title: "Home", href: "/" },
+    { title: "Services", href: "/services" },
+    { title: "How It Works", href: "/how-it-works" },
+    { title: "About", href: "/about" },
+    { title: "Contact", href: "/contact" },
   ];
-
-  const ListItem = ({ className, title, href, children }: { className?: string, title: string, href: string, children: React.ReactNode }) => {
-    return (
-      <li>
-        <NavigationMenuLink asChild>
-          <Link
-            to={href}
-            className={cn(
-              "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-              className
-            )}
-          >
-            <div className="text-sm font-medium leading-none">{title}</div>
-            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-              {children}
-            </p>
-          </Link>
-        </NavigationMenuLink>
-      </li>
-    );
-  };
 
   return (
     <motion.header
-      initial={{ y: -20, opacity: 0 }}
+      initial={{ y: -30, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        scrolled 
-          ? "py-2 backdrop-blur-xl bg-background/30 border-b border-primary/10" 
-          : "py-4 bg-transparent"
-      }`}
+      transition={{ duration: 0.55, type: "spring", stiffness: 50 }}
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        scrolled
+          ? "glass border-b border-primary/15 shadow-lg py-2 backdrop-blur-lg"
+          : "bg-transparent py-4"
+      )}
+      style={{
+        backdropFilter: scrolled ? "blur(14px)" : undefined,
+        WebkitBackdropFilter: scrolled ? "blur(14px)" : undefined,
+      }}
     >
       <div className="container flex items-center justify-between">
-        <Link
-          to="/"
-          className="flex items-center"
-          aria-label="Homepage"
-        >
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-2" aria-label="Homepage">
           <motion.img
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            whileHover={{ scale: 1.09, rotate: 2 }}
+            transition={{ type: "spring", stiffness: 200, damping: 15 }}
             src="/lovable-uploads/5474f216-66de-4286-8816-9b3b1bea942f.png"
             alt="NoCoded logo"
-            className="h-9 w-auto"
-            style={{ maxWidth: "162px" }}
+            className="h-10 w-auto drop-shadow-[0_4px_24px_rgba(110,116,175,0.18)]"
+            style={{ maxWidth: "164px" }}
           />
+          <span className="ml-1 text-xl font-bold text-primary hidden lg:block tracking-wide" style={{letterSpacing: "0.01em"}}>NoCoded</span>
         </Link>
 
-        {/* Desktop Navigation - Using shadcn NavigationMenu */}
-        <div className="hidden md:block">
-          <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <Link to="/">
-                  <NavigationMenuLink 
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                      location.pathname === "/" && "bg-primary text-secondary"
-                    )}
-                  >
-                    Home
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-              
-              <NavigationMenuItem>
-                <NavigationMenuTrigger 
-                  className={cn(
-                    location.pathname === "/services" && "bg-primary text-secondary"
-                  )}
-                >
-                  Services
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                    {servicesItems.map((item) => (
-                      <ListItem
-                        key={item.title}
-                        title={item.title}
-                        href={item.href}
-                      >
-                        {item.description}
-                      </ListItem>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-              
-              <NavigationMenuItem>
-                <Link to="/how-it-works">
-                  <NavigationMenuLink 
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                      location.pathname === "/how-it-works" && "bg-primary text-secondary"
-                    )}
-                  >
-                    How It Works
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-              
-              <NavigationMenuItem>
-                <NavigationMenuTrigger
-                  className={cn(
-                    location.pathname === "/about" && "bg-primary text-secondary"
-                  )}
-                >
-                  About
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                    {aboutItems.map((item) => (
-                      <ListItem
-                        key={item.title}
-                        title={item.title}
-                        href={item.href}
-                      >
-                        {item.description}
-                      </ListItem>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-              
-              <NavigationMenuItem>
-                <Link to="/contact">
-                  <NavigationMenuLink 
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                      location.pathname === "/contact" && "bg-primary text-secondary"
-                    )}
-                  >
-                    Contact
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-        </div>
-
-        {/* Client Login Button */}
-        <motion.div 
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="hidden md:block"
-        >
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex gap-2 items-center">
+          {navLinks.map(({ title, href }) => (
+            <Link
+              key={href}
+              to={href}
+              className={cn(
+                "px-4 py-2 rounded-xl transition-all font-semibold text-base hover:bg-primary/10 hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50",
+                location.pathname === href
+                  ? "bg-primary text-secondary shadow-sm"
+                  : "text-foreground/80"
+              )}
+            >
+              {title}
+            </Link>
+          ))}
           <Link
             to="/client"
-            className="px-4 py-2 rounded-md text-sm font-medium bg-primary text-secondary hover:bg-primary/90 transition-all"
+            className="ml-2 px-4 py-2 bg-primary text-secondary rounded-xl font-semibold transition-all shadow-lg hover:bg-primary/90 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
           >
             Client Login
           </Link>
-        </motion.div>
+        </nav>
 
-        {/* Mobile Navigation - Simple dropdown */}
-        <div className="md:hidden">
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            onClick={() => document.querySelector('#mobile-menu')?.classList.toggle('hidden')}
-            className="p-2 rounded-md text-secondary bg-primary hover:bg-primary/90 focus:outline-none"
-            aria-label="Toggle menu"
+        {/* Mobile Menu Button */}
+        <button
+          className={cn(
+            "block md:hidden rounded-lg p-2 transition hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary",
+            mobileOpen && "bg-primary/10"
+          )}
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+        >
+          <AnimatePresence initial={false} mode="wait">
+            {mobileOpen ? (
+              <motion.span
+                key="close"
+                initial={{ opacity: 0, scale: 0.4 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+              >
+                <X size={28} />
+              </motion.span>
+            ) : (
+              <motion.span
+                key="menu"
+                initial={{ opacity: 0, scale: 0.6 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+              >
+                <Menu size={28} />
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </button>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ y: -35, opacity: 0, scale: 0.98 }}
+            animate={{ y: 0, opacity: 1, scale: 1 }}
+            exit={{ y: -10, opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.27 }}
+            className="md:hidden absolute left-0 right-0 top-full shadow-2xl border-b border-primary/20 bg-background/85 backdrop-blur-xl z-50"
+            style={{
+              backdropFilter: "blur(16px)",
+              WebkitBackdropFilter: "blur(16px)",
+            }}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </motion.button>
-          
-          <div id="mobile-menu" className="hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-md shadow-lg border-b border-primary/10 p-4 mt-2">
-            <nav className="space-y-4">
-              <Link to="/" className={`block p-2 rounded-md hover:bg-primary/10 ${location.pathname === '/' ? 'bg-primary text-secondary' : ''}`}>
-                Home
-              </Link>
-              <Link to="/services" className={`block p-2 rounded-md hover:bg-primary/10 ${location.pathname === '/services' ? 'bg-primary text-secondary' : ''}`}>
-                Services
-              </Link>
-              <Link to="/how-it-works" className={`block p-2 rounded-md hover:bg-primary/10 ${location.pathname === '/how-it-works' ? 'bg-primary text-secondary' : ''}`}>
-                How It Works
-              </Link>
-              <Link to="/about" className={`block p-2 rounded-md hover:bg-primary/10 ${location.pathname === '/about' ? 'bg-primary text-secondary' : ''}`}>
-                About
-              </Link>
-              <Link to="/contact" className={`block p-2 rounded-md hover:bg-primary/10 ${location.pathname === '/contact' ? 'bg-primary text-secondary' : ''}`}>
-                Contact
-              </Link>
-              <Link to="/client" className="block p-2 rounded-md bg-primary text-secondary hover:bg-primary/90">
+            <nav className="flex flex-col gap-2 p-4 w-full text-lg">
+              {navLinks.map(({ title, href }) => (
+                <Link
+                  key={href}
+                  to={href}
+                  className={cn(
+                    "px-4 py-2 rounded-lg font-semibold transition-all hover:bg-primary/10 hover:text-primary",
+                    location.pathname === href
+                      ? "bg-primary text-secondary"
+                      : "text-foreground"
+                  )}
+                >
+                  {title}
+                </Link>
+              ))}
+              <Link
+                to="/client"
+                className="mt-3 px-4 py-2 rounded-lg bg-primary text-secondary font-semibold shadow-lg hover:bg-primary/90 transition-all"
+              >
                 Client Login
               </Link>
             </nav>
-          </div>
-        </div>
-      </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }

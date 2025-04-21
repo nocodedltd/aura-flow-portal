@@ -61,7 +61,6 @@ export default function ParticleLines({
       canvas.addEventListener("mousemove", handleMouseMove);
       canvas.addEventListener("mouseleave", handleMouseLeave);
     }
-
     return () => {
       window.removeEventListener("resize", resize);
       if (interactive) {
@@ -88,7 +87,7 @@ export default function ParticleLines({
 
       const points = pointsRef.current;
 
-      // 1. Draw static connections (all PRIMARY_COLOR)
+      // 1. Static connections in primary color
       for (let i = 0; i < points.length; i++) {
         for (let j = i + 1; j < points.length; j++) {
           const p1 = points[i], p2 = points[j];
@@ -102,8 +101,8 @@ export default function ParticleLines({
             ctx.lineTo(p2.x, p2.y);
             ctx.strokeStyle = PRIMARY_COLOR;
             ctx.globalAlpha = 0.30 * (1 - dist / connectionDistance) + 0.13;
-            ctx.lineWidth = 1.35;
-            ctx.shadowBlur = 6;
+            ctx.lineWidth = 1.28;
+            ctx.shadowBlur = 7;
             ctx.shadowColor = PRIMARY_COLOR;
             ctx.stroke();
             ctx.restore();
@@ -112,37 +111,33 @@ export default function ParticleLines({
         }
       }
 
-      // Stronger mouse effect: add more connections
+      // Dynamic mouse connections
       addActiveMousePathways();
 
-      // Mouse strongly attracts points: apply magnet effect
+      // Mouse-as-magnet
       applyMouseMagnet();
 
-      // 3. Animate & draw moving points
+      // Move points and render them
       pointsRef.current.forEach((point) => {
         point.x += point.vx;
         point.y += point.vy;
-
-        // Small random walk, gentler jitter
-        point.vx += (Math.random() - 0.5) * 0.024;
-        point.vy += (Math.random() - 0.5) * 0.024;
-
-        // Gradually reduce speed for stability
-        point.vx *= 0.992; 
-        point.vy *= 0.992;
-
-        // Bounce off edges
+        // Gentle random jitter
+        point.vx += (Math.random() - 0.5) * 0.022;
+        point.vy += (Math.random() - 0.5) * 0.022;
+        // Speed damp for stability
+        point.vx *= 0.994;
+        point.vy *= 0.994;
+        // Bounce at edges
         if (point.x < 0) { point.x = 0; point.vx *= -1; }
         if (point.y < 0) { point.y = 0; point.vy *= -1; }
         if (point.x > canvas.width) { point.x = canvas.width; point.vx *= -1; }
         if (point.y > canvas.height) { point.y = canvas.height; point.vy *= -1; }
-
-        // Draw neuron: larger/focused purple
+        // Glow dot
         ctx.save();
         ctx.beginPath();
-        ctx.arc(point.x, point.y, point.size + 1.1, 0, Math.PI * 2);
-        ctx.fillStyle = "#6e74af38"; // subtle halo
-        ctx.shadowBlur = 19;
+        ctx.arc(point.x, point.y, point.size + 1.15, 0, Math.PI * 2);
+        ctx.fillStyle = "#6e74af31";
+        ctx.shadowBlur = 18;
         ctx.shadowColor = PRIMARY_COLOR;
         ctx.fill();
         ctx.closePath();
@@ -150,7 +145,7 @@ export default function ParticleLines({
         ctx.beginPath();
         ctx.arc(point.x, point.y, point.size, 0, Math.PI * 2);
         ctx.fillStyle = PRIMARY_COLOR;
-        ctx.shadowBlur = 33;
+        ctx.shadowBlur = 28;
         ctx.shadowColor = PRIMARY_COLOR;
         ctx.globalAlpha = 0.93;
         ctx.fill();
@@ -158,7 +153,7 @@ export default function ParticleLines({
         ctx.globalAlpha = 1;
       });
 
-      // 4. Draw "magnet-boosted" mouse-to-point pathways: all in primary color
+      // Draw active mouse pathways in primary only
       pathwaysRef.current.forEach((p) => {
         ctx.save();
         ctx.beginPath();
@@ -166,26 +161,25 @@ export default function ParticleLines({
         ctx.lineTo(p.x2, p.y2);
         ctx.strokeStyle = PRIMARY_COLOR;
         ctx.globalAlpha = p.opacity;
-        ctx.lineWidth = 2.9;
-        ctx.shadowBlur = 24;
+        ctx.lineWidth = 2.7;
+        ctx.shadowBlur = 20;
         ctx.shadowColor = PRIMARY_COLOR;
         ctx.stroke();
         ctx.restore();
         ctx.globalAlpha = 1;
       });
 
-      // 5. Update & filter pathways
+      // Decay and filter
       pathwaysRef.current = pathwaysRef.current.filter((p) => {
         p.lifetime--;
-        p.opacity *= 0.87;
-        return p.lifetime > 0 && p.opacity > 0.09;
+        p.opacity *= 0.86;
+        return p.lifetime > 0 && p.opacity > 0.08;
       });
 
       animationRef.current = requestAnimationFrame(animate);
     };
 
     animate();
-
     return () => cancelAnimationFrame(animationRef.current);
   }, [
     pointsRef,
@@ -211,7 +205,7 @@ export default function ParticleLines({
         aria-hidden="true"
         tabIndex={-1}
         style={{
-          filter: "brightness(1.15)",
+          filter: "brightness(1.10)",
           pointerEvents: "auto",
           userSelect: "none",
         }}

@@ -42,7 +42,6 @@ export function useNeuralNetworkBg({
   // Use only the primary color
   const getColor = useCallback(() => PRIMARY_COLOR, []);
 
-  // Initialize points: all use same color
   const initPoints = useCallback(() => {
     if (!canvas) return;
     pointsRef.current = Array.from({ length: numPoints }).map((_) => ({
@@ -55,7 +54,7 @@ export function useNeuralNetworkBg({
     }));
   }, [canvas, numPoints, pointSpeed, pointSize, getColor]);
 
-  // Mouse control
+  // Mouse
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (!canvas) return;
     const rect = canvas.getBoundingClientRect();
@@ -63,52 +62,40 @@ export function useNeuralNetworkBg({
     const y = e.clientY - rect.top;
     mouseRef.current = { x, y, active: true };
   }, [canvas]);
-
   const handleMouseLeave = useCallback(() => {
     mouseRef.current.active = false;
   }, []);
 
-  // Add new function to add mouse pathways every frame, at a higher rate/amount
+  // Boosted mouse pathways + new ones every frame
   const addActiveMousePathways = useCallback(() => {
     if (!canvas) return;
     if (!mouseRef.current.active) return;
     const { x, y } = mouseRef.current;
-    // Create more connections: connect points within 1.5x the connectionDistance
-    let count = 0;
+    // Draw connections with nearby points
     pointsRef.current.forEach((point) => {
-      const dx = point.x - x;
-      const dy = point.y - y;
+      const dx = point.x - x, dy = point.y - y;
       const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < connectionDistance * 1.5) {
+      if (dist < connectionDistance * 1.65) {
         pathwaysRef.current.push({
-          x1: point.x,
-          y1: point.y,
-          x2: x,
-          y2: y,
+          x1: point.x, y1: point.y, x2: x, y2: y,
           color: PRIMARY_COLOR,
-          opacity: 0.95,
-          lifetime: 22, // longer visible
+          opacity: 0.92, lifetime: 26
         });
-        count++;
       }
     });
-    // Draw a "burst" of extra lines every frame
-    for (let i = 0; i < 5; i++) {
+    // Extra dynamic bursts: always 7 more
+    for (let i = 0; i < 7; i++) {
       const idx = Math.floor(Math.random() * pointsRef.current.length);
       const p = pointsRef.current[idx];
       pathwaysRef.current.push({
-        x1: p.x,
-        y1: p.y,
-        x2: x,
-        y2: y,
+        x1: p.x, y1: p.y, x2: x, y2: y,
         color: PRIMARY_COLOR,
-        opacity: 0.7,
-        lifetime: 16,
+        opacity: 0.68, lifetime: 13
       });
     }
   }, [canvas, connectionDistance]);
 
-  // Mouse magnet: strongly pull points toward mouse if within 1.8x connectDistance
+  // Much stronger magnet - points fly toward mouse when close!
   const applyMouseMagnet = useCallback(() => {
     if (!canvas) return;
     if (!mouseRef.current.active) return;
@@ -117,11 +104,11 @@ export function useNeuralNetworkBg({
       const dx = x - point.x;
       const dy = y - point.y;
       const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < connectionDistance * 1.8) {
-        // Much stronger attraction - increased from 0.014 to 0.05
-        const strength = 0.05 * (1 - dist / (connectionDistance * 1.8));
-        point.vx += dx * strength;
-        point.vy += dy * strength;
+      if (dist < connectionDistance * 2.15) {
+        // Super strong - points rush to cursor
+        const strength = 0.14 * (1 - dist / (connectionDistance * 2.15));
+        point.vx += dx * strength * 0.13;
+        point.vy += dy * strength * 0.13;
       }
     });
   }, [canvas, connectionDistance]);
@@ -134,6 +121,6 @@ export function useNeuralNetworkBg({
     handleMouseMove,
     handleMouseLeave,
     addActiveMousePathways,
-    applyMouseMagnet, // make sure to call this in animation loop!
+    applyMouseMagnet,
   };
 }
