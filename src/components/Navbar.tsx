@@ -31,9 +31,9 @@ export default function Navbar() {
 
   return (
     <motion.header
-      initial={{ y: -50, opacity: 0 }}
+      initial={{ y: 0, opacity: 1 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, type: "spring", stiffness: 50 }}
+      transition={{ duration: 0.3 }}
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         scrolled
@@ -45,15 +45,24 @@ export default function Navbar() {
         WebkitBackdropFilter: scrolled ? "blur(14px)" : undefined,
       }}
     >
-      <div className="relative container flex items-center justify-center">
-        {/* Centered Nav Bar Content Layer */}
-        <nav className="absolute left-1/2 -translate-x-1/2 flex gap-2 md:gap-8 items-center font-medium text-base z-10 shadow-none">
+      <div className="container mx-auto flex items-center justify-between px-4">
+        {/* Logo (left) */}
+        <Link
+          to="/"
+          aria-label="Homepage"
+          className="flex items-center z-20"
+        >
+          <Logo className="h-9 w-auto" />
+        </Link>
+
+        {/* Desktop Navigation (center) */}
+        <nav className="hidden md:flex gap-1 items-center justify-center">
           {navLinks.map(({ title, href }) => (
             <Link
               key={href}
               to={href}
               className={cn(
-                "relative px-2 md:px-4 py-2 rounded-md transition-colors duration-200 focus:outline-none group story-link",
+                "relative px-4 py-2 rounded-md transition-colors duration-200 focus:outline-none group",
                 location.pathname === href
                   ? "bg-primary text-secondary drop-shadow-md"
                   : "text-foreground/90 hover:text-primary"
@@ -70,29 +79,19 @@ export default function Navbar() {
               />
             </Link>
           ))}
-          <Link
-            to="/client"
-            className="ml-2 md:ml-8 px-4 py-2 bg-gradient-to-r from-primary to-secondary text-secondary rounded-xl font-bold shadow-xl hover:scale-105 hover:from-primary/80 hover:to-secondary/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-all duration-200"
-          >
-            Client Login
-          </Link>
         </nav>
 
-        {/* Logo (left, vertically centered, lifted above nav content as needed) */}
+        {/* Client Login Button (right) */}
         <Link
-          to="/"
-          aria-label="Homepage"
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-20 flex items-center"
-          tabIndex={-1}
+          to="/client"
+          className="hidden md:flex px-4 py-2 bg-gradient-to-r from-primary to-secondary text-secondary rounded-xl font-bold shadow-lg hover:scale-105 hover:from-primary/80 hover:to-secondary/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-all duration-200"
         >
-          <Logo className="h-10 w-auto drop-shadow-lg" />
+          Client Login
         </Link>
 
-        {/* Mobile Menu Button (right) */}
+        {/* Mobile Menu Button */}
         <button
-          className={cn(
-            "block md:hidden absolute right-0 top-1/2 -translate-y-1/2 rounded-lg p-2 transition hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary z-20"
-          )}
+          className="block md:hidden rounded-lg p-2 transition hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary z-20"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
         >

@@ -8,26 +8,15 @@ const logos = {
 
 export default function Logo({ className = "", ...props }: React.ImgHTMLAttributes<HTMLImageElement>) {
   const { theme } = useTheme();
-
-  // Fallback to system/theme default
-  const prefersDark = typeof window !== "undefined"
-    ? window.matchMedia("(prefers-color-scheme: dark)").matches
-    : false;
-
-  // Show correct logo according to theme
-  const logoSrc = theme === "dark"
-    ? logos.dark
-    : theme === "light"
-    ? logos.light
-    : prefersDark
-    ? logos.dark
-    : logos.light;
+  
+  // Determine which logo to show based on the current theme
+  const logoSrc = theme === "dark" ? logos.dark : logos.light;
 
   return (
     <img
       src={logoSrc}
       alt="n&lt;/&gt;coded"
-      className={`h-10 md:h-12 max-w-none select-none transition-all ${className}`}
+      className={`h-10 max-w-none select-none ${className}`}
       draggable="false"
       {...props}
     />
