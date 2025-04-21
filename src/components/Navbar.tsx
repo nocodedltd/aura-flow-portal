@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { cn } from "@/lib/utils";
 import Logo from "./Logo";
 
 export default function Navbar() {
@@ -34,57 +33,47 @@ export default function Navbar() {
       initial={{ y: 0, opacity: 1 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.3 }}
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled
-          ? "glass border-b border-primary/20 shadow-lg py-1 backdrop-blur-lg"
-          : "bg-transparent py-3"
-      )}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#191a21] border-b border-[#23242f]`}
       style={{
-        backdropFilter: scrolled ? "blur(14px)" : undefined,
-        WebkitBackdropFilter: scrolled ? "blur(14px)" : undefined,
+        backdropFilter: "blur(14px)",
+        WebkitBackdropFilter: "blur(14px)",
       }}
     >
-      <div className="container mx-auto flex items-center justify-between px-4">
-        {/* Logo (left) */}
-        <Link
-          to="/"
-          aria-label="Homepage"
-          className="flex items-center z-20"
-        >
+      <div className="container mx-auto flex items-center justify-between px-4 py-2">
+        {/* Single Logo (left) */}
+        <Link to="/" aria-label="Homepage" className="flex items-center z-20">
           <Logo className="h-9 w-auto" />
         </Link>
 
         {/* Desktop Navigation (center) */}
-        <nav className="hidden md:flex gap-1 items-center justify-center">
-          {navLinks.map(({ title, href }) => (
-            <Link
-              key={href}
-              to={href}
-              className={cn(
-                "relative px-4 py-2 rounded-md transition-colors duration-200 focus:outline-none group",
-                location.pathname === href
-                  ? "bg-primary text-secondary drop-shadow-md"
-                  : "text-foreground/90 hover:text-primary"
-              )}
-            >
-              <span className="relative z-20">
-                {title}
-              </span>
-              <span
-                className={cn(
-                  "pointer-events-none absolute left-0 bottom-[-4px] w-full h-0.5 rounded-full transition-all bg-primary duration-300 scale-x-0 group-hover:scale-x-100",
-                  location.pathname === href && "scale-x-100"
-                )}
-              />
-            </Link>
-          ))}
+        <nav className="hidden md:flex gap-10 items-center justify-center flex-1">
+          {navLinks.map(({ title, href }) => {
+            const isActive = location.pathname === href;
+            return (
+              <Link
+                key={href}
+                to={href}
+                className={`relative px-2 py-1 font-medium text-lg tracking-tight
+                  ${isActive ? "text-white" : "text-white/80 hover:text-white"}
+                  transition-colors duration-200`}
+                style={{}}
+              >
+                <span className="relative z-10 flex flex-col items-center">
+                  {title}
+                  {/* underline for active, no box highlight */}
+                  {isActive && (
+                    <span className="mt-1 block w-7 h-[3px] rounded-full" style={{ background: "#8689bd" }} />
+                  )}
+                </span>
+              </Link>
+            );
+          })}
         </nav>
 
-        {/* Client Login Button (right) */}
+        {/* Only show Client Login on desktop */}
         <Link
           to="/client"
-          className="hidden md:flex px-4 py-2 bg-gradient-to-r from-primary to-secondary text-secondary rounded-xl font-bold shadow-lg hover:scale-105 hover:from-primary/80 hover:to-secondary/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-all duration-200"
+          className="hidden md:flex ml-6 px-5 py-2 rounded-lg bg-[#232342] text-white font-bold shadow hover:bg-[#343560] focus:outline-none transition-colors"
         >
           Client Login
         </Link>
@@ -127,7 +116,7 @@ export default function Navbar() {
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: -10, opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.27 }}
-            className="md:hidden absolute left-0 right-0 top-full shadow-2xl border-b border-primary/20 bg-background/95 backdrop-blur-2xl z-50 rounded-b-2xl"
+            className="md:hidden absolute left-0 right-0 top-full shadow-2xl border-b border-[#23242f] bg-[#191a21] z-50 rounded-b-2xl"
             style={{
               backdropFilter: "blur(16px)",
               WebkitBackdropFilter: "blur(16px)",
@@ -138,19 +127,15 @@ export default function Navbar() {
                 <Link
                   key={href}
                   to={href}
-                  className={cn(
-                    "px-4 py-2 rounded-md transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary flex items-center gap-2",
-                    location.pathname === href
-                      ? "bg-primary text-secondary"
-                      : "text-foreground hover:text-primary"
-                  )}
+                  className={`px-4 py-2 rounded-md transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary flex items-center gap-2
+                    ${location.pathname === href ? "text-white underline underline-offset-4" : "text-white/80 hover:text-white"}`}
                 >
                   {title}
                 </Link>
               ))}
               <Link
                 to="/client"
-                className="mt-4 px-4 py-3 rounded-xl bg-gradient-to-r from-primary to-secondary text-secondary font-bold shadow-lg hover:bg-primary/90 transition-all"
+                className="mt-4 px-4 py-3 rounded-xl bg-[#232342] text-white font-bold shadow hover:bg-[#343560] transition-all"
               >
                 Client Login
               </Link>

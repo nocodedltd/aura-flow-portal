@@ -1,21 +1,11 @@
 
-import { useTheme } from "@/hooks/useTheme";
-
-const logos = {
-  light: "/lovable-uploads/277baf83-de9c-4346-bcca-af2ea9cdcd28.png", // dark text for light bg
-  dark: "/lovable-uploads/7da73114-6263-4b78-b6cb-b0c8d2756a99.png",  // light text for dark bg
-};
-
 export default function Logo({ className = "", ...props }: React.ImgHTMLAttributes<HTMLImageElement>) {
-  const { theme } = useTheme();
-  
-  // Determine which logo to show based on the current theme
-  const logoSrc = theme === "dark" ? logos.dark : logos.light;
-
+  // Only use the provided logo (light one for dark bg)
+  // Image uploaded by user: public/lovable-uploads/89fd0642-4efc-483f-8cca-5bc544baddbd.png
   return (
     <img
-      src={logoSrc}
-      alt="n&lt;/&gt;coded"
+      src="/lovable-uploads/89fd0642-4efc-483f-8cca-5bc544baddbd.png"
+      alt="Logo"
       className={`h-10 max-w-none select-none ${className}`}
       draggable="false"
       {...props}

@@ -5,9 +5,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ThemeProvider } from "@/hooks/useTheme";
 import CursorGlow from "@/components/CursorGlow";
-import ThemeSwitcher from "@/components/ThemeSwitcher";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ParticleLines from "@/components/ParticleLines";
@@ -32,43 +30,40 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider defaultTheme="system">
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          {/* GLOBAL ANIMATED BG - optimized for performance */}
-          <div className="fixed inset-0 w-full h-full overflow-hidden -z-10">
-            <ParticleLines
-              interactive={true}
-              numPoints={60} // Reduced from 80
-              connectionDistance={160}
-              pointSpeed={0.4}
-              pointSize={1.3}
-            />
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        {/* GLOBAL ANIMATED BG - optimized for performance */}
+        <div className="fixed inset-0 w-full h-full overflow-hidden -z-10">
+          <ParticleLines
+            interactive={true}
+            numPoints={60}
+            connectionDistance={160}
+            pointSpeed={0.4}
+            pointSize={1.3}
+          />
+        </div>
+        <div className="flex flex-col min-h-screen relative z-10">
+          <Navbar />
+          <div className="pt-20">
+            <Suspense fallback={<PageLoading />}>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/how-it-works" element={<HowItWorks />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/client" element={<ClientLogin />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
           </div>
-          <div className="flex flex-col min-h-screen relative z-10">
-            <Navbar />
-            <div className="pt-20">
-              <Suspense fallback={<PageLoading />}>
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/services" element={<Services />} />
-                  <Route path="/how-it-works" element={<HowItWorks />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/client" element={<ClientLogin />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </Suspense>
-            </div>
-            <Footer />
-          </div>
-          <ThemeSwitcher />
-          <CursorGlow />
-        </BrowserRouter>
-      </TooltipProvider>
-    </ThemeProvider>
+          <Footer />
+        </div>
+        <CursorGlow />
+      </BrowserRouter>
+    </TooltipProvider>
   </QueryClientProvider>
 );
 

@@ -1,40 +1,10 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --background: 240 5% 96%;
-    --foreground: 240 10% 3.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-
-    --primary: 240 29% 56%;
-    --primary-foreground: 0 0% 98%;
-
-    --secondary: 30 88% 88%;
-    --secondary-foreground: 24 54% 32%;
-
-    --muted: 240 4.8% 92%;
-    --muted-foreground: 240 3.8% 40%;
-
-    --accent: 30 88% 88%;
-    --accent-foreground: 24 54% 32%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 29% 56%;
-
-    --radius: 0.5rem;
-  }
-
+  :root,
   .dark {
     --background: 240 10% 10%;
     --foreground: 0 0% 98%;
@@ -63,46 +33,25 @@
     --border: 240 10% 20%;
     --input: 240 10% 20%;
     --ring: 240 29% 56%;
-  }
-}
 
-@layer base {
-  * {
-    @apply border-border;
+    --radius: 0.5rem;
   }
-  
-  html {
-    @apply scroll-smooth;
-  }
-  
+
   body {
     @apply bg-background text-foreground font-sans antialiased transition-colors duration-300;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold tracking-tight;
   }
-  
-  h1 {
-    @apply text-4xl md:text-5xl lg:text-6xl;
-  }
-  
-  h2 {
-    @apply text-3xl md:text-4xl lg:text-5xl;
-  }
-  
-  h3 {
-    @apply text-2xl md:text-3xl;
-  }
-  
-  h4 {
-    @apply text-xl md:text-2xl;
-  }
+  h1 { @apply text-4xl md:text-5xl lg:text-6xl; }
+  h2 { @apply text-3xl md:text-4xl lg:text-5xl; }
+  h3 { @apply text-2xl md:text-3xl; }
+  h4 { @apply text-xl md:text-2xl; }
 
   .container {
     @apply px-4 md:px-6 lg:px-8 mx-auto max-w-7xl;
   }
-  
   .section {
     @apply py-12 md:py-16 lg:py-24;
   }
@@ -113,8 +62,5 @@
     @apply bg-background/80 backdrop-blur-2xl border border-border/50 shadow-xl;
     box-shadow: 0 6px 28px 0 rgba(110, 116, 175, 0.10), 0 1.5px 9px rgba(110,116,175,0.028);
   }
-  
-  .text-balance {
-    text-wrap: balance;
-  }
+  .text-balance { text-wrap: balance; }
 }
