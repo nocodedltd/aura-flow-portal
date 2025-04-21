@@ -19,7 +19,6 @@ const Index = () => {
       {/* Hero Section */}
       <section className="relative min-h-[85vh] flex items-center overflow-hidden">
         <ParticleLines />
-
         {/* Animated hero content */}
         <motion.div
           className="container"
@@ -48,18 +47,17 @@ const Index = () => {
               className="font-bold mb-6 text-balance text-4xl md:text-5xl leading-tight bg-gradient-to-br from-secondary via-secondary to-secondary bg-clip-text text-transparent drop-shadow-2xl"
               variants={heroHeadline}
             >
-              Transform Your Business With{" "}
-              <span className="inline-block text-gradient-primary tracking-tight">
-                NoCoded
-              </span>{" "}
-              <span className="block">
-                <span className="text-primary"> AI‑Powered </span> Solutions
+              <span className="text-secondary">Transform Your Business With{" "}
+                <span className="inline-block font-bold text-primary bg-none bg-clip-text text-transparent" style={{ background: "none" }}>
+                  AI‑Powered
+                </span>
+                <span className=""> Solutions</span>
               </span>
             </motion.h1>
 
             {/* Subtitle */}
             <motion.p
-              className="text-xl text-muted-foreground mb-8"
+              className="text-xl text-secondary mb-8"
               variants={heroSubtitle}
             >
               We help businesses design and deploy intelligent automation systems
@@ -74,7 +72,8 @@ const Index = () => {
               >
                 <Link
                   to="/contact"
-                  className="bg-primary text-secondary px-6 py-3 rounded-md font-medium shadow-lg hover:scale-105 active:scale-95 hover:bg-primary/90 transition-transform transition-colors outline-none focus:ring-2 focus:ring-primary"
+                  className="bg-primary text-secondary px-6 py-3 rounded-md font-medium shadow-lg hover:scale-105 active:scale-95 hover:bg-secondary hover:text-primary transition-transform transition-colors outline-none focus:ring-2 focus:ring-primary"
+                  style={{ transitionProperty: "transform, background-color, color" }}
                 >
                   Book a Discovery Call
                 </Link>
@@ -85,7 +84,8 @@ const Index = () => {
               >
                 <Link
                   to="/services"
-                  className="bg-secondary text-primary px-6 py-3 rounded-md font-medium shadow-lg hover:scale-105 active:scale-95 hover:bg-secondary/90 transition-transform transition-colors outline-none focus:ring-2 focus:ring-primary"
+                  className="bg-secondary text-primary px-6 py-3 rounded-md font-medium shadow-lg hover:scale-105 active:scale-95 hover:bg-primary hover:text-secondary transition-transform transition-colors outline-none focus:ring-2 focus:ring-primary"
+                  style={{ transitionProperty: "transform, background-color, color" }}
                 >
                   Explore Services
                 </Link>
@@ -101,15 +101,15 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-card p-6 rounded-lg text-center border border-border">
               <div className="text-3xl md:text-4xl font-bold text-primary mb-2">100+</div>
-              <p className="text-muted-foreground">Projects Delivered</p>
+              <p className="text-secondary">Projects Delivered</p>
             </div>
             <div className="bg-card p-6 rounded-lg text-center border border-border">
               <div className="text-3xl md:text-4xl font-bold text-primary mb-2">120,000+</div>
-              <p className="text-muted-foreground">Hours Saved</p>
+              <p className="text-secondary">Hours Saved</p>
             </div>
             <div className="bg-card p-6 rounded-lg text-center border border-border">
               <div className="text-3xl md:text-4xl font-bold text-primary mb-2">98%</div>
-              <p className="text-muted-foreground">Client Satisfaction</p>
+              <p className="text-secondary">Client Satisfaction</p>
             </div>
           </div>
         </div>
@@ -119,8 +119,8 @@ const Index = () => {
       <section className="py-20">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="mb-4">Our Services</h2>
-            <p className="text-lg text-muted-foreground">
+            <h2 className="mb-4 text-primary">Our Services</h2>
+            <p className="text-lg text-secondary">
               We offer end-to-end AI and automation solutions to help your business thrive in the digital age.
             </p>
           </div>
@@ -155,7 +155,8 @@ const Index = () => {
           <div className="text-center mt-12">
             <Link
               to="/services"
-              className="inline-flex items-center text-primary hover:underline font-medium"
+              className="inline-flex items-center text-primary hover:underline font-medium hover:scale-105 active:scale-95 transition-transform"
+              style={{ transitionProperty: "transform, color" }}
             >
               View All Services
             </Link>
@@ -167,14 +168,15 @@ const Index = () => {
       <section className="py-20 bg-primary/5">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="mb-4">Ready to Transform Your Business?</h2>
-            <p className="text-lg text-muted-foreground mb-8">
+            <h2 className="mb-4 text-primary">Ready to Transform Your Business?</h2>
+            <p className="text-lg text-secondary mb-8">
               Book a free 30-minute discovery call with our experts to explore how 
               our AI solutions can address your specific challenges.
             </p>
             <Link
               to="/contact"
-              className="bg-primary text-secondary px-6 py-3 rounded-md font-medium hover:bg-primary/90 hover:scale-105 transition-transform transition-colors"
+              className="bg-primary text-secondary px-6 py-3 rounded-md font-medium hover:bg-secondary hover:text-primary hover:scale-105 active:scale-95 transition-transform transition-colors"
+              style={{ transitionProperty: "transform, background-color, color" }}
             >
               Schedule a Call
             </Link>
@@ -186,4 +188,3 @@ const Index = () => {
 };
 
 export default Index;
-
