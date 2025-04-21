@@ -40,10 +40,10 @@ const App = () => (
           <div className="fixed inset-0 w-full h-full overflow-hidden -z-10">
             <ParticleLines
               interactive={true}
-              numPoints={50}  {/* Reduced from 80 */}
-              connectionDistance={120}  {/* Reduced from 160 */}
-              pointSpeed={0.35}  {/* Slightly reduced from 0.4 */}
-              pointSize={1.2}  {/* Slightly reduced from 1.3 */}
+              numPoints={50}  /* Reduced from 80 */
+              connectionDistance={120}  /* Reduced from 160 */
+              pointSpeed={0.35}  /* Slightly reduced from 0.4 */
+              pointSize={1.2}  /* Slightly reduced from 1.3 */
             />
           </div>
           <div className="flex flex-col min-h-screen relative z-10">
