@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import ParticleLines from "@/components/ParticleLines";
 import ServiceCard from "@/components/ServiceCard";
@@ -137,7 +136,8 @@ const Index = () => {
             
             {/* Scroll indicator */}
             <motion.div 
-              className="absolute bottom-8 left-1/2 -translate-x-1/2"
+              className="absolute left-1/2 -translate-x-1/2"
+              style={{ bottom: '3rem' }}
               animate={{ 
                 y: [0, 10, 0],
                 opacity: [0.4, 1, 0.4]
@@ -384,4 +384,3 @@ const Index = () => {
 };
 
 export default Index;
-
