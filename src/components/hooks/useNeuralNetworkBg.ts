@@ -73,13 +73,13 @@ export function useNeuralNetworkBg({
     if (!canvas) return;
     if (!mouseRef.current.active) return;
     const { x, y } = mouseRef.current;
-    // Create more connections: connect points within 1.2x the connectionDistance
+    // Create more connections: connect points within 1.5x the connectionDistance
     let count = 0;
     pointsRef.current.forEach((point) => {
       const dx = point.x - x;
       const dy = point.y - y;
       const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < connectionDistance * 1.2) {
+      if (dist < connectionDistance * 1.5) {
         pathwaysRef.current.push({
           x1: point.x,
           y1: point.y,
@@ -92,26 +92,23 @@ export function useNeuralNetworkBg({
         count++;
       }
     });
-    // Optionally, draw a "burst" of extra lines every few frames
-    if (count < 8) {
-      // Randomly connect to a few more points even if a little farther
-      for (let i = 0; i < 3; i++) {
-        const idx = Math.floor(Math.random() * pointsRef.current.length);
-        const p = pointsRef.current[idx];
-        pathwaysRef.current.push({
-          x1: p.x,
-          y1: p.y,
-          x2: x,
-          y2: y,
-          color: PRIMARY_COLOR,
-          opacity: 0.7,
-          lifetime: 16,
-        });
-      }
+    // Draw a "burst" of extra lines every frame
+    for (let i = 0; i < 5; i++) {
+      const idx = Math.floor(Math.random() * pointsRef.current.length);
+      const p = pointsRef.current[idx];
+      pathwaysRef.current.push({
+        x1: p.x,
+        y1: p.y,
+        x2: x,
+        y2: y,
+        color: PRIMARY_COLOR,
+        opacity: 0.7,
+        lifetime: 16,
+      });
     }
   }, [canvas, connectionDistance]);
 
-  // Mouse magnet: pull points gently toward mouse if within 1.2x connectDistance
+  // Mouse magnet: strongly pull points toward mouse if within 1.8x connectDistance
   const applyMouseMagnet = useCallback(() => {
     if (!canvas) return;
     if (!mouseRef.current.active) return;
@@ -120,9 +117,9 @@ export function useNeuralNetworkBg({
       const dx = x - point.x;
       const dy = y - point.y;
       const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < connectionDistance * 1.2) {
-        // Magnet strength decays with distance, gentle pull
-        const strength = 0.014 * (1 - dist / (connectionDistance * 1.2));
+      if (dist < connectionDistance * 1.8) {
+        // Much stronger attraction - increased from 0.014 to 0.05
+        const strength = 0.05 * (1 - dist / (connectionDistance * 1.8));
         point.vx += dx * strength;
         point.vy += dy * strength;
       }
@@ -140,4 +137,3 @@ export function useNeuralNetworkBg({
     applyMouseMagnet, // make sure to call this in animation loop!
   };
 }
-

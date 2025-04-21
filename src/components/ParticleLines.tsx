@@ -115,7 +115,7 @@ export default function ParticleLines({
       // Stronger mouse effect: add more connections
       addActiveMousePathways();
 
-      // Mouse distorts points: apply magnet effect
+      // Mouse strongly attracts points: apply magnet effect
       applyMouseMagnet();
 
       // 3. Animate & draw moving points
@@ -127,7 +127,7 @@ export default function ParticleLines({
         point.vx += (Math.random() - 0.5) * 0.024;
         point.vy += (Math.random() - 0.5) * 0.024;
 
-        // Higher friction, so magnet is more visible
+        // Gradually reduce speed for stability
         point.vx *= 0.992; 
         point.vy *= 0.992;
 
@@ -219,5 +219,3 @@ export default function ParticleLines({
     </motion.div>
   );
 }
-
-// ... rest of code (nothing changed outside render and logic above)
