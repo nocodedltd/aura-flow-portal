@@ -24,7 +24,7 @@ const bounceAnim: Variants = {
     transition: {
       duration: 2.6,
       repeat: Infinity,
-      repeatType: "loop", // Changed from string to specific allowed value
+      repeatType: "loop",
       ease: "easeInOut",
       times: [0, 0.2, 0.5, 0.75, 1],
     },
@@ -44,8 +44,8 @@ const StatPeekCards: React.FC<StatPeekCardsProps> = ({ scrollTargetId }) => {
   };
 
   return (
-    <div className="absolute left-1/2 -translate-x-1/2 bottom-0 z-30 w-full flex justify-center pointer-events-none">
-      <div className="flex gap-4 md:gap-8 pointer-events-auto transform translate-y-1/2">
+    <div className="absolute left-1/2 -translate-x-1/2 bottom-12 z-30 w-full flex justify-center pointer-events-none">
+      <div className="flex gap-4 md:gap-8 pointer-events-auto">
         {stats.map((stat, i) => (
           <motion.div
             key={i}

@@ -45,7 +45,7 @@ const Index = () => {
   return (
     <main className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center overflow-visible pb-36">
+      <section className="relative min-h-[90vh] flex items-center overflow-visible pb-52 mb-24">
         {/* Animated hero content */}
         <motion.div
           className="container relative z-10"
