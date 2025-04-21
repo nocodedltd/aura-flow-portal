@@ -133,35 +133,6 @@ const Index = () => {
                 </Link>
               </motion.div>
             </div>
-            
-            {/* Scroll indicator */}
-            <motion.div 
-              className="absolute left-1/2 -translate-x-1/2"
-              style={{ bottom: '1.5rem' }}
-              animate={{ 
-                y: [0, 10, 0],
-                opacity: [0.4, 1, 0.4]
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                repeatType: "loop"
-              }}
-            >
-              <motion.div 
-                className="w-8 h-12 rounded-full border-2 border-secondary flex items-center justify-center"
-              >
-                <motion.div 
-                  className="w-1.5 h-3 bg-secondary rounded-full"
-                  animate={{ y: [0, 6, 0] }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    repeatType: "loop"
-                  }}
-                />
-              </motion.div>
-            </motion.div>
           </div>
         </motion.div>
       </section>
