@@ -236,7 +236,7 @@ export default function ParticleLines({
       initial={{ opacity: 0 }}
       animate={{ opacity: mounted ? 1 : 0 }}
       transition={{ duration: 1.5 }}
-      className="absolute inset-0 w-full h-full -z-10"
+      className="w-full h-full"
     >
       <canvas
         ref={canvasRef}

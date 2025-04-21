@@ -28,13 +28,15 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           {/* GLOBAL ANIMATED BG */}
-          <ParticleLines
-            interactive={false}
-            numPoints={80}
-            connectionDistance={160}
-            pointSpeed={0.4}
-            pointSize={1.3}
-          />
+          <div className="fixed inset-0 w-full h-full overflow-hidden -z-10">
+            <ParticleLines
+              interactive={false}
+              numPoints={80}
+              connectionDistance={160}
+              pointSpeed={0.4}
+              pointSize={1.3}
+            />
+          </div>
           <div className="flex flex-col min-h-screen relative z-10">
             <Navbar />
             <div className="pt-20">
@@ -59,4 +61,3 @@ const App = () => (
 );
 
 export default App;
-
