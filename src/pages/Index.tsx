@@ -11,16 +11,17 @@ import {
 } from "@/lib/motionConfig";
 
 const bounceKeyframes = [
-  { transform: "translateY(40px)" },
   { transform: "translateY(0px)" },
-  { transform: "translateY(14px)" },
+  { transform: "translateY(-15px)" },
+  { transform: "translateY(0px)" },
+  { transform: "translateY(-6px)" },
   { transform: "translateY(0px)" }
 ];
 
 const bounceTiming = {
-  duration: 900,
+  duration: 1200,
   iterations: 1,
-  easing: "cubic-bezier(.42,0,0,1)"
+  easing: "cubic-bezier(.42,0,.58,1)"
 };
 
 const Index = () => {
@@ -32,12 +33,6 @@ const Index = () => {
     if (!reduceMotion && teased && statsRef.current) {
       const el = statsRef.current;
       el.animate(bounceKeyframes, bounceTiming);
-      el.style.transform = "translateY(40px)";
-      setTimeout(() => {
-        el.style.transform = "translateY(0px)";
-      }, 900);
-    } else if (!teased && statsRef.current) {
-      statsRef.current.style.transform = "translateY(0px)";
     }
   }, [reduceMotion, teased]);
 
@@ -132,7 +127,7 @@ const Index = () => {
               that save time, reduce costs, and unlock new opportunities.
             </motion.p>
 
-            <div className="flex flex-wrap justify-center gap-4 mb-[30px]">
+            <div className="flex flex-wrap justify-center gap-4 mb-[80px]">
               <motion.div
                 custom={0}
                 variants={heroButtons}
@@ -160,110 +155,112 @@ const Index = () => {
             </div>
           </div>
         </motion.div>
+        
         <div
           ref={statsRef}
           className={`absolute left-1/2 -translate-x-1/2 z-20 w-full max-w-5xl 
             transition-all duration-700 ease-[cubic-bezier(.63,0,0,.98)]
-            ${teased ? "cursor-pointer" : ""}
-            ${teased 
-              ? "bottom-[-70px] md:bottom-[-90px] pointer-events-auto"
-              : "bottom-0 pointer-events-none"}`}
+            ${teased ? "cursor-pointer" : ""}`}
           style={{
-            ...(teased
-              ? { 
-                  clipPath: "inset(calc(100% - 108px) 0px 0px 0px round 2rem 2rem 0rem 0rem)", 
-                  boxShadow: "0 -10px 40px 0 rgba(50,50,75,0.13), 0 -0.5rem 0 rgba(119,124,230,.045)"
-                }
-              : { clipPath: "none", boxShadow: "none" })
+            bottom: teased ? "-140px" : "0px",
           }}
           onClick={teased ? handleStatsClick : undefined}
           tabIndex={teased ? 0 : -1}
           aria-label="Show stats"
           role="button"
         >
-          <motion.div
-            initial={teased ? { y: 44 } : { y: 0 }}
-            animate={teased ? { y: 0 } : { y: 0 }}
-            transition={{ type: "spring", duration: 1 }}
-            className="mx-auto max-w-xl text-center mb-2 select-none pointer-events-none"
-            aria-hidden
-          >
-            {teased && <span className="text-xs text-secondary">Click to reveal more</span>}
-          </motion.div>
-          <motion.div 
-            initial="hidden"
-            animate="visible"
-            variants={teased ? {} : {}} // disable fade on tease mode
-            className="container"
-          >
+          <div className="relative">
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-8"
+              initial={{ opacity: 0.7 }}
+              animate={{ opacity: [0.7, 1, 0.7] }}
+              transition={{ repeat: Infinity, duration: 2 }}
+              className={`mx-auto max-w-xl text-center mb-1 ${!teased && 'hidden'}`}
             >
-              <motion.div 
-                custom={0}
-                variants={statVariants}
-                className="bg-card p-8 rounded-xl text-center border border-primary/10 shadow-lg relative group overflow-hidden hover:-translate-y-2 transition-transform duration-300"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="relative z-10">
-                  <div className="text-4xl md:text-5xl font-bold text-primary mb-3 flex items-center justify-center">
-                    <motion.span
-                      initial={{ opacity: 0, scale: 0.5 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.3, duration: 0.8, type: "spring" }}
-                      viewport={{ once: true }}
-                    >
-                      100+
-                    </motion.span>
-                  </div>
-                  <p className="text-secondary text-lg">Projects Delivered</p>
-                </div>
-              </motion.div>
-              <motion.div 
-                custom={1}
-                variants={statVariants}
-                className="bg-card p-8 rounded-xl text-center border border-primary/10 shadow-lg relative group overflow-hidden hover:-translate-y-2 transition-transform duration-300"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="relative z-10">
-                  <div className="text-4xl md:text-5xl font-bold text-primary mb-3 flex items-center justify-center">
-                    <motion.span
-                      initial={{ opacity: 0, scale: 0.5 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.4, duration: 0.8, type: "spring" }}
-                      viewport={{ once: true }}
-                    >
-                      120,000+
-                    </motion.span>
-                  </div>
-                  <p className="text-secondary text-lg">Hours Saved</p>
-                </div>
-              </motion.div>
-              <motion.div 
-                custom={2}
-                variants={statVariants}
-                className="bg-card p-8 rounded-xl text-center border border-primary/10 shadow-lg relative group overflow-hidden hover:-translate-y-2 transition-transform duration-300"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="relative z-10">
-                  <div className="text-4xl md:text-5xl font-bold text-primary mb-3 flex items-center justify-center">
-                    <motion.span
-                      initial={{ opacity: 0, scale: 0.5 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
-                      viewport={{ once: true }}
-                    >
-                      98%
-                    </motion.span>
-                  </div>
-                  <p className="text-secondary text-lg">Client Satisfaction</p>
-                </div>
-              </motion.div>
+              <span className="text-xs text-secondary bg-background/60 px-3 py-1 rounded-full backdrop-blur-sm">
+                Click to see more
+              </span>
             </motion.div>
-          </motion.div>
+            
+            <motion.div 
+              className="container px-3"
+              initial="hidden"
+              animate={teased ? "hidden" : "visible"}
+              variants={teased ? {} : {}}
+            >
+              <div 
+                className="grid grid-cols-1 md:grid-cols-3 gap-8 bg-background/10 backdrop-blur-lg p-6 rounded-t-3xl shadow-lg"
+              >
+                <div className={`h-full overflow-hidden transition-all duration-500 ${teased ? 'max-h-[120px]' : ''}`}>
+                  <motion.div 
+                    custom={0}
+                    variants={statVariants}
+                    className="bg-card p-8 rounded-xl text-center border border-primary/10 shadow-lg relative group overflow-hidden hover:-translate-y-2 transition-transform duration-300"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="relative z-10">
+                      <div className="text-4xl md:text-5xl font-bold text-primary mb-3 flex items-center justify-center">
+                        <motion.span
+                          initial={{ opacity: 0, scale: 0.5 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 0.3, duration: 0.8, type: "spring" }}
+                          viewport={{ once: true }}
+                        >
+                          100+
+                        </motion.span>
+                      </div>
+                      <p className="text-secondary text-lg">Projects Delivered</p>
+                    </div>
+                  </motion.div>
+                </div>
+                
+                <div className={`h-full overflow-hidden transition-all duration-500 ${teased ? 'max-h-[120px]' : ''}`}>
+                  <motion.div 
+                    custom={1}
+                    variants={statVariants}
+                    className="bg-card p-8 rounded-xl text-center border border-primary/10 shadow-lg relative group overflow-hidden hover:-translate-y-2 transition-transform duration-300"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="relative z-10">
+                      <div className="text-4xl md:text-5xl font-bold text-primary mb-3 flex items-center justify-center">
+                        <motion.span
+                          initial={{ opacity: 0, scale: 0.5 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 0.4, duration: 0.8, type: "spring" }}
+                          viewport={{ once: true }}
+                        >
+                          120,000+
+                        </motion.span>
+                      </div>
+                      <p className="text-secondary text-lg">Hours Saved</p>
+                    </div>
+                  </motion.div>
+                </div>
+                
+                <div className={`h-full overflow-hidden transition-all duration-500 ${teased ? 'max-h-[120px]' : ''}`}>
+                  <motion.div 
+                    custom={2}
+                    variants={statVariants}
+                    className="bg-card p-8 rounded-xl text-center border border-primary/10 shadow-lg relative group overflow-hidden hover:-translate-y-2 transition-transform duration-300"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="relative z-10">
+                      <div className="text-4xl md:text-5xl font-bold text-primary mb-3 flex items-center justify-center">
+                        <motion.span
+                          initial={{ opacity: 0, scale: 0.5 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
+                          viewport={{ once: true }}
+                        >
+                          98%
+                        </motion.span>
+                      </div>
+                      <p className="text-secondary text-lg">Client Satisfaction</p>
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
