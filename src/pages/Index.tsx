@@ -74,7 +74,7 @@ const Index = () => {
               >
                 <Link
                   to="/contact"
-                  className="bg-primary text-secondary px-6 py-3 rounded-md font-medium shadow-lg hover:scale-105 active:scale-95 hover:bg-primary/90 transition-all outline-none focus:ring-2 focus:ring-primary"
+                  className="bg-primary text-secondary px-6 py-3 rounded-md font-medium shadow-lg hover:scale-105 active:scale-95 hover:bg-primary/90 transition-transform transition-colors outline-none focus:ring-2 focus:ring-primary"
                 >
                   Book a Discovery Call
                 </Link>
@@ -85,7 +85,7 @@ const Index = () => {
               >
                 <Link
                   to="/services"
-                  className="bg-secondary text-primary px-6 py-3 rounded-md font-medium shadow-lg hover:scale-105 active:scale-95 hover:bg-secondary/90 transition-all outline-none focus:ring-2 focus:ring-primary"
+                  className="bg-secondary text-primary px-6 py-3 rounded-md font-medium shadow-lg hover:scale-105 active:scale-95 hover:bg-secondary/90 transition-transform transition-colors outline-none focus:ring-2 focus:ring-primary"
                 >
                   Explore Services
                 </Link>
@@ -174,7 +174,7 @@ const Index = () => {
             </p>
             <Link
               to="/contact"
-              className="bg-primary text-secondary px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors"
+              className="bg-primary text-secondary px-6 py-3 rounded-md font-medium hover:bg-primary/90 hover:scale-105 transition-transform transition-colors"
             >
               Schedule a Call
             </Link>
@@ -186,3 +186,4 @@ const Index = () => {
 };
 
 export default Index;
+
