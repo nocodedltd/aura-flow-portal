@@ -45,13 +45,13 @@ const Index = () => {
             </motion.div>
             {/* Headline */}
             <motion.h1
-              className="font-bold mb-6 text-balance text-4xl md:text-5xl leading-tight bg-gradient-to-br from-primary via-secondary to-primary bg-clip-text text-transparent drop-shadow-2xl"
+              className="font-bold mb-6 text-balance text-4xl md:text-5xl leading-tight bg-gradient-to-br from-secondary via-secondary to-secondary bg-clip-text text-transparent drop-shadow-2xl"
               variants={heroHeadline}
             >
               Transform Your Business With{" "}
               <span className="inline-block text-gradient-primary tracking-tight">
                 NoCoded
-              </span>
+              </span>{" "}
               <span className="block">
                 <span className="text-primary"> AI‑Powered </span> Solutions
               </span>
@@ -74,7 +74,7 @@ const Index = () => {
               >
                 <Link
                   to="/contact"
-                  className="bg-primary text-primary-foreground px-6 py-3 rounded-md font-medium shadow-lg hover:scale-105 active:scale-95 hover:bg-primary/90 transition-all outline-none focus:ring-2 focus:ring-primary"
+                  className="bg-primary text-secondary px-6 py-3 rounded-md font-medium shadow-lg hover:scale-105 active:scale-95 hover:bg-primary/90 transition-all outline-none focus:ring-2 focus:ring-primary"
                 >
                   Book a Discovery Call
                 </Link>
@@ -85,7 +85,7 @@ const Index = () => {
               >
                 <Link
                   to="/services"
-                  className="bg-secondary text-secondary-foreground px-6 py-3 rounded-md font-medium shadow-lg hover:scale-105 active:scale-95 hover:bg-secondary/90 transition-all outline-none focus:ring-2 focus:ring-primary"
+                  className="bg-secondary text-primary px-6 py-3 rounded-md font-medium shadow-lg hover:scale-105 active:scale-95 hover:bg-secondary/90 transition-all outline-none focus:ring-2 focus:ring-primary"
                 >
                   Explore Services
                 </Link>
@@ -174,7 +174,7 @@ const Index = () => {
             </p>
             <Link
               to="/contact"
-              className="bg-primary text-primary-foreground px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors"
+              className="bg-primary text-secondary px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors"
             >
               Schedule a Call
             </Link>
