@@ -36,6 +36,8 @@ const Index = () => {
       setTimeout(() => {
         el.style.transform = "translateY(0px)";
       }, 900);
+    } else if (!teased && statsRef.current) {
+      statsRef.current.style.transform = "translateY(0px)";
     }
   }, [reduceMotion, teased]);
 
@@ -74,7 +76,7 @@ const Index = () => {
 
   return (
     <main className="overflow-hidden">
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+      <section className="relative min-h-[90vh] flex items-center overflow-hidden pb-[110px]">
         <motion.div
           className="container relative z-10"
           initial="hidden"
@@ -130,7 +132,7 @@ const Index = () => {
               that save time, reduce costs, and unlock new opportunities.
             </motion.p>
 
-            <div className="flex flex-wrap justify-center gap-4 mb-[60px]">
+            <div className="flex flex-wrap justify-center gap-4 mb-[30px]">
               <motion.div
                 custom={0}
                 variants={heroButtons}
@@ -158,94 +160,108 @@ const Index = () => {
             </div>
           </div>
         </motion.div>
-      </section>
-
-      <section
-        ref={statsRef}
-        className="relative py-16 overflow-hidden cursor-pointer transition-transform duration-300"
-        style={{
-          boxShadow: teased
-            ? "0 -10px 40px 0 rgba(50,50,75,0.13), 0 -0.5rem 0 rgba(119,124,230,.045)"
-            : undefined,
-          borderTopLeftRadius: teased ? "30px" : undefined,
-          borderTopRightRadius: teased ? "30px" : undefined,
-          zIndex: 20
-        }}
-        onClick={handleStatsClick}
-        title="Show stats"
-        tabIndex={0}
-        aria-label="Show stats"
-        role="button"
-      >
-        <div className="mx-auto max-w-xl text-center mb-2 select-none pointer-events-none" aria-hidden>
-          {teased && <span className="text-xs text-secondary">Click to reveal more</span>}
-        </div>
-        <div className="container">
+        <div
+          ref={statsRef}
+          className={`absolute left-1/2 -translate-x-1/2 z-20 w-full max-w-5xl 
+            transition-all duration-700 ease-[cubic-bezier(.63,0,0,.98)]
+            ${teased ? "cursor-pointer" : ""}
+            ${teased 
+              ? "bottom-[-70px] md:bottom-[-90px] pointer-events-auto"
+              : "bottom-0 pointer-events-none"}`}
+          style={{
+            ...(teased
+              ? { 
+                  clipPath: "inset(calc(100% - 108px) 0px 0px 0px round 2rem 2rem 0rem 0rem)", 
+                  boxShadow: "0 -10px 40px 0 rgba(50,50,75,0.13), 0 -0.5rem 0 rgba(119,124,230,.045)"
+                }
+              : { clipPath: "none", boxShadow: "none" })
+          }}
+          onClick={teased ? handleStatsClick : undefined}
+          tabIndex={teased ? 0 : -1}
+          aria-label="Show stats"
+          role="button"
+        >
+          <motion.div
+            initial={teased ? { y: 44 } : { y: 0 }}
+            animate={teased ? { y: 0 } : { y: 0 }}
+            transition={{ type: "spring", duration: 1 }}
+            className="mx-auto max-w-xl text-center mb-2 select-none pointer-events-none"
+            aria-hidden
+          >
+            {teased && <span className="text-xs text-secondary">Click to reveal more</span>}
+          </motion.div>
           <motion.div 
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+            animate="visible"
+            variants={teased ? {} : {}} // disable fade on tease mode
+            className="container"
           >
-            <motion.div 
-              custom={0}
-              variants={statVariants}
-              className="bg-card p-8 rounded-xl text-center border border-primary/10 shadow-lg relative group overflow-hidden hover:-translate-y-2 transition-transform duration-300"
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-8"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="relative z-10">
-                <div className="text-4xl md:text-5xl font-bold text-primary mb-3 flex items-center justify-center">
-                  <motion.span
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.3, duration: 0.8, type: "spring" }}
-                    viewport={{ once: true }}
-                  >
-                    100+
-                  </motion.span>
+              <motion.div 
+                custom={0}
+                variants={statVariants}
+                className="bg-card p-8 rounded-xl text-center border border-primary/10 shadow-lg relative group overflow-hidden hover:-translate-y-2 transition-transform duration-300"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="relative z-10">
+                  <div className="text-4xl md:text-5xl font-bold text-primary mb-3 flex items-center justify-center">
+                    <motion.span
+                      initial={{ opacity: 0, scale: 0.5 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.3, duration: 0.8, type: "spring" }}
+                      viewport={{ once: true }}
+                    >
+                      100+
+                    </motion.span>
+                  </div>
+                  <p className="text-secondary text-lg">Projects Delivered</p>
                 </div>
-                <p className="text-secondary text-lg">Projects Delivered</p>
-              </div>
-            </motion.div>
-            <motion.div 
-              custom={1}
-              variants={statVariants}
-              className="bg-card p-8 rounded-xl text-center border border-primary/10 shadow-lg relative group overflow-hidden hover:-translate-y-2 transition-transform duration-300"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="relative z-10">
-                <div className="text-4xl md:text-5xl font-bold text-primary mb-3 flex items-center justify-center">
-                  <motion.span
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.4, duration: 0.8, type: "spring" }}
-                    viewport={{ once: true }}
-                  >
-                    120,000+
-                  </motion.span>
+              </motion.div>
+              <motion.div 
+                custom={1}
+                variants={statVariants}
+                className="bg-card p-8 rounded-xl text-center border border-primary/10 shadow-lg relative group overflow-hidden hover:-translate-y-2 transition-transform duration-300"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="relative z-10">
+                  <div className="text-4xl md:text-5xl font-bold text-primary mb-3 flex items-center justify-center">
+                    <motion.span
+                      initial={{ opacity: 0, scale: 0.5 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.4, duration: 0.8, type: "spring" }}
+                      viewport={{ once: true }}
+                    >
+                      120,000+
+                    </motion.span>
+                  </div>
+                  <p className="text-secondary text-lg">Hours Saved</p>
                 </div>
-                <p className="text-secondary text-lg">Hours Saved</p>
-              </div>
-            </motion.div>
-            <motion.div 
-              custom={2}
-              variants={statVariants}
-              className="bg-card p-8 rounded-xl text-center border border-primary/10 shadow-lg relative group overflow-hidden hover:-translate-y-2 transition-transform duration-300"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="relative z-10">
-                <div className="text-4xl md:text-5xl font-bold text-primary mb-3 flex items-center justify-center">
-                  <motion.span
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
-                    viewport={{ once: true }}
-                  >
-                    98%
-                  </motion.span>
+              </motion.div>
+              <motion.div 
+                custom={2}
+                variants={statVariants}
+                className="bg-card p-8 rounded-xl text-center border border-primary/10 shadow-lg relative group overflow-hidden hover:-translate-y-2 transition-transform duration-300"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="relative z-10">
+                  <div className="text-4xl md:text-5xl font-bold text-primary mb-3 flex items-center justify-center">
+                    <motion.span
+                      initial={{ opacity: 0, scale: 0.5 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
+                      viewport={{ once: true }}
+                    >
+                      98%
+                    </motion.span>
+                  </div>
+                  <p className="text-secondary text-lg">Client Satisfaction</p>
                 </div>
-                <p className="text-secondary text-lg">Client Satisfaction</p>
-              </div>
+              </motion.div>
             </motion.div>
           </motion.div>
         </div>
