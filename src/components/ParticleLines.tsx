@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
@@ -36,7 +35,6 @@ export default function ParticleLines({
   const mouseRef = useRef<{ x: number; y: number; active: boolean }>({ x: 0, y: 0, active: false });
   const [mounted, setMounted] = useState(false);
 
-  // Generate a color gradient for particles
   const generateColor = (index: number, total: number) => {
     const hue = (index / total) * 60 + 220; // Shift to blue/purple range
     return `hsla(${hue}, 70%, 60%, 0.8)`;
@@ -50,7 +48,6 @@ export default function ParticleLines({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Resize canvas to match parent size
     const resizeCanvas = () => {
       const parent = canvas.parentElement;
       if (!parent) return;
@@ -58,7 +55,6 @@ export default function ParticleLines({
       canvas.height = parent.clientHeight;
     };
 
-    // Initialize points with varied sizes and colors
     const initPoints = () => {
       const points: Point[] = [];
       for (let i = 0; i < numPoints; i++) {
@@ -74,7 +70,6 @@ export default function ParticleLines({
       pointsRef.current = points;
     };
 
-    // Mouse interaction handlers
     const handleMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
       mouseRef.current = {
@@ -93,26 +88,17 @@ export default function ParticleLines({
       canvas.addEventListener("mouseleave", handleMouseLeave);
     }
 
-    // Animation loop
     const animate = () => {
       if (!ctx) return;
-      
-      // Create subtle gradient background
-      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-      gradient.addColorStop(0, "rgba(30, 30, 50, 0.01)");
-      gradient.addColorStop(1, "rgba(20, 20, 40, 0.01)");
-      
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Update points position
-      pointsRef.current.forEach((point, index) => {
-        // Apply mouse attraction if active
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      pointsRef.current.forEach((point) => {
         if (interactive && mouseRef.current.active) {
           const dx = mouseRef.current.x - point.x;
           const dy = mouseRef.current.y - point.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
-          
+
           if (distance < 120) {
             const force = 0.2 * (1 - distance / 120);
             point.vx += (dx / distance) * force;
@@ -120,7 +106,6 @@ export default function ParticleLines({
           }
         }
 
-        // Apply velocity with limits
         const speed = Math.sqrt(point.vx * point.vx + point.vy * point.vy);
         if (speed > 2) {
           point.vx = (point.vx / speed) * 2;
@@ -130,15 +115,12 @@ export default function ParticleLines({
         point.x += point.vx;
         point.y += point.vy;
 
-        // Add slight random movement
         point.vx += (Math.random() - 0.5) * 0.05;
         point.vy += (Math.random() - 0.5) * 0.05;
 
-        // Apply friction
         point.vx *= 0.99;
         point.vy *= 0.99;
 
-        // Bounce on edges
         if (point.x < 0) {
           point.x = 0;
           point.vx *= -1;
@@ -146,7 +128,7 @@ export default function ParticleLines({
           point.x = canvas.width;
           point.vx *= -1;
         }
-        
+
         if (point.y < 0) {
           point.y = 0;
           point.vy *= -1;
@@ -155,7 +137,6 @@ export default function ParticleLines({
           point.vy *= -1;
         }
 
-        // Draw points with glow effect
         ctx.save();
         ctx.beginPath();
         ctx.arc(point.x, point.y, point.size, 0, Math.PI * 2);
@@ -166,7 +147,6 @@ export default function ParticleLines({
         ctx.restore();
       });
 
-      // Draw connections with gradient opacity
       for (let i = 0; i < pointsRef.current.length; i++) {
         for (let j = i + 1; j < pointsRef.current.length; j++) {
           const p1 = pointsRef.current[i];
@@ -176,14 +156,11 @@ export default function ParticleLines({
           const distance = Math.sqrt(dx * dx + dy * dy);
 
           if (distance < connectionDistance) {
-            // Opacity based on distance
             const opacity = 1 - distance / connectionDistance;
-            
-            // Create gradient line
             const gradient = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
             gradient.addColorStop(0, p1.color.replace('0.8)', `${opacity * 0.5})`));
             gradient.addColorStop(1, p2.color.replace('0.8)', `${opacity * 0.5})`));
-            
+
             ctx.beginPath();
             ctx.strokeStyle = gradient;
             ctx.lineWidth = opacity * 0.8;
@@ -194,7 +171,6 @@ export default function ParticleLines({
         }
       }
 
-      // Mouse pointer effect
       if (interactive && mouseRef.current.active) {
         ctx.beginPath();
         ctx.arc(mouseRef.current.x, mouseRef.current.y, 60, 0, Math.PI * 2);
@@ -211,7 +187,6 @@ export default function ParticleLines({
       animationRef.current = requestAnimationFrame(animate);
     };
 
-    // Initialize
     resizeCanvas();
     initPoints();
     animate();
