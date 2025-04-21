@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 
 export default function Footer() {
@@ -9,11 +8,13 @@ export default function Footer() {
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-1">
-            <Link to="/" className="inline-block">
-              <h3 className="text-2xl font-bold">
-                <span className="text-primary">Aura</span>
-                <span className="text-secondary-foreground dark:text-secondary">Flow</span>
-              </h3>
+            <Link to="/" className="inline-block" aria-label="Homepage">
+              <img
+                src="/lovable-uploads/5474f216-66de-4286-8816-9b3b1bea942f.png"
+                alt="NoCoded logo"
+                className="h-12 w-auto mb-2"
+                style={{ maxWidth: "240px" }}
+              />
             </Link>
             <p className="mt-4 text-muted-foreground">
               Empowering businesses with intelligent automation solutions.
@@ -87,7 +88,7 @@ export default function Footer() {
         <div className="mt-12 pt-6 border-t border-border">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-muted-foreground">
-              &copy; {currentYear} AuraFlow. All rights reserved.
+              &copy; {currentYear} NoCoded. All rights reserved.
             </p>
             <div className="mt-4 md:mt-0 flex space-x-6">
               <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">

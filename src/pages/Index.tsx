@@ -28,9 +28,24 @@ const Index = () => {
           variants={heroContainer}
         >
           <div className="max-w-3xl mx-auto text-center">
+            {/* Logo */}
+            <motion.div
+              initial={{ opacity: 0, y: -32 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.1, type: "spring", stiffness: 70 }}
+              className="flex justify-center mb-6"
+              aria-label="NoCoded Logo"
+            >
+              <img
+                src="/lovable-uploads/5474f216-66de-4286-8816-9b3b1bea942f.png"
+                alt="NoCoded logo"
+                className="h-14 md:h-16 w-auto drop-shadow-lg"
+                style={{ maxWidth: "360px" }}
+              />
+            </motion.div>
             {/* Headline */}
             <motion.h1
-              className="font-bold mb-6 text-balance text-4xl md:text-5xl leading-tight bg-gradient-to-br from-primary via-secondary to-primary bg-clip-text text-transparent drop-shadow-lg"
+              className="font-bold mb-6 text-balance text-4xl md:text-5xl leading-tight bg-gradient-to-br from-primary via-secondary to-primary bg-clip-text text-transparent drop-shadow-2xl"
               variants={heroHeadline}
             >
               Transform Your Business With{" "}

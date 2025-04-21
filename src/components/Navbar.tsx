@@ -40,10 +40,15 @@ export default function Navbar() {
       <div className="container flex items-center justify-between">
         <Link
           to="/"
-          className="flex items-center font-semibold text-xl tracking-tight"
+          className="flex items-center"
+          aria-label="Homepage"
         >
-          <span className="text-primary">Aura</span>
-          <span className="text-secondary-foreground dark:text-secondary ml-1">Flow</span>
+          <img
+            src="/lovable-uploads/5474f216-66de-4286-8816-9b3b1bea942f.png"
+            alt="NoCoded logo"
+            className="h-9 w-auto"
+            style={{ maxWidth: "162px" }}
+          />
         </Link>
 
         {/* Desktop Navigation */}
