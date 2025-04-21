@@ -55,10 +55,10 @@ export default function Navbar() {
             <Link
               key={link.path}
               to={link.path}
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-all hover:shadow-md hover:translate-y-[-2px]
+              className={`px-3 py-2 rounded-md text-sm font-medium transition-all hover:shadow-lg hover:-translate-y-1 hover:shadow-primary/50 focus-visible:shadow-lg focus-visible:-translate-y-1 focus-visible:shadow-primary/50
                 ${location.pathname === link.path
                   ? "text-secondary bg-primary"
-                  : "text-primary hover:bg-none"
+                  : "text-secondary hover:bg-none"
                 }`}
             >
               {link.name}
@@ -66,7 +66,7 @@ export default function Navbar() {
           ))}
           <Link
             to="/client"
-            className="ml-2 px-4 py-2 rounded-md text-sm font-medium bg-secondary text-primary transition-all hover:shadow-md hover:translate-y-[-2px] active:shadow-sm active:translate-y-[-1px]"
+            className="ml-2 px-4 py-2 rounded-md text-sm font-medium bg-secondary text-primary transition-all hover:shadow-lg hover:-translate-y-1 hover:shadow-secondary/50 focus-visible:shadow-lg focus-visible:-translate-y-1 focus-visible:shadow-secondary/50 active:shadow-sm active:translate-y-0"
           >
             Client Login
           </Link>
@@ -75,7 +75,7 @@ export default function Navbar() {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="md:hidden p-2 rounded-md text-primary hover:bg-none focus:outline-none transition-all hover:shadow-md hover:translate-y-[-2px] active:shadow-sm active:translate-y-[-1px]"
+          className="md:hidden p-2 rounded-md text-secondary hover:shadow-lg hover:-translate-y-1 focus:outline-none focus-visible:shadow-lg focus-visible:-translate-y-1 active:shadow-sm active:translate-y-0 transition-all"
           aria-label="Toggle menu"
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -93,10 +93,10 @@ export default function Navbar() {
             <Link
               key={link.path}
               to={link.path}
-              className={`block px-4 py-2 rounded-md text-base font-medium transition-all hover:shadow-md hover:translate-y-[-2px]
+              className={`block px-4 py-2 rounded-md text-base font-medium transition-all hover:shadow-lg hover:-translate-y-1 hover:shadow-primary/50 focus-visible:shadow-lg focus-visible:-translate-y-1 focus-visible:shadow-primary/50
                 ${location.pathname === link.path
                   ? "text-secondary bg-primary"
-                  : "text-primary hover:bg-none"
+                  : "text-secondary hover:bg-none"
                 }`}
               onClick={() => setIsMenuOpen(false)}
             >
@@ -105,7 +105,7 @@ export default function Navbar() {
           ))}
           <Link
             to="/client"
-            className="block px-4 py-2 rounded-md text-base font-medium bg-secondary text-primary transition-all hover:shadow-md hover:translate-y-[-2px] active:shadow-sm active:translate-y-[-1px]"
+            className="block px-4 py-2 rounded-md text-base font-medium bg-secondary text-primary transition-all hover:shadow-lg hover:-translate-y-1 hover:shadow-secondary/50 focus-visible:shadow-lg focus-visible:-translate-y-1 focus-visible:shadow-secondary/50 active:shadow-sm active:translate-y-0"
             onClick={() => setIsMenuOpen(false)}
           >
             Client Login
