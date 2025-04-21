@@ -46,8 +46,8 @@ const Index = () => {
     <main className="overflow-hidden">
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-        <ParticleLines interactive={true} numPoints={100} connectionDistance={180} pointSpeed={0.6} />
-        
+        {/* REMOVED: <ParticleLines /> - now a global background */}
+
         {/* Animated hero content */}
         <motion.div
           className="container relative z-10"
@@ -384,3 +384,4 @@ const Index = () => {
 };
 
 export default Index;
+

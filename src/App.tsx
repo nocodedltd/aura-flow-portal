@@ -9,6 +9,7 @@ import CursorGlow from "@/components/CursorGlow";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ParticleLines from "@/components/ParticleLines"; // <-- Import for global background
 import Index from "./pages/Index";
 import Services from "./pages/Services";
 import HowItWorks from "./pages/HowItWorks";
@@ -26,7 +27,15 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <div className="flex flex-col min-h-screen">
+          {/* GLOBAL ANIMATED BG */}
+          <ParticleLines
+            interactive={false}
+            numPoints={80}
+            connectionDistance={160}
+            pointSpeed={0.4}
+            pointSize={1.3}
+          />
+          <div className="flex flex-col min-h-screen relative z-10">
             <Navbar />
             <div className="pt-20">
               <Routes>
@@ -50,3 +59,4 @@ const App = () => (
 );
 
 export default App;
+
