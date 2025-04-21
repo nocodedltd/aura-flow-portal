@@ -30,7 +30,7 @@ const App = () => (
           {/* GLOBAL ANIMATED BG */}
           <div className="fixed inset-0 w-full h-full overflow-hidden -z-10">
             <ParticleLines
-              interactive={false}
+              interactive={true}   // ENABLE mouse interaction here!
               numPoints={80}
               connectionDistance={160}
               pointSpeed={0.4}
