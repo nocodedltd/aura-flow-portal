@@ -1,314 +1,100 @@
-
 import { Link } from "react-router-dom";
 import ServiceCard from "@/components/ServiceCard";
 import { Bot, Cog, FileSearch, GraduationCap } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
+import Logo from "@/components/Logo";
 import {
-  heroContainer,
-  heroHeadline,
+  heroTitle,
   heroSubtitle,
   heroButtons,
 } from "@/lib/motionConfig";
-import Logo from "@/components/Logo";
 
 const Index = () => {
   const reduceMotion = useReducedMotion();
-
-  const statVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (custom: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: { 
-        delay: custom * 0.2,
-        duration: 0.8,
-        type: "spring",
-        stiffness: 60
-      }
-    })
-  };
-
-  const serviceVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: (custom: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: custom * 0.15,
-        duration: 0.6,
-        type: "spring", 
-        stiffness: 70
-      }
-    })
-  };
+  const shouldAnimate = !reduceMotion;
 
   return (
     <main className="overflow-hidden">
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex flex-col justify-center items-center overflow-hidden text-center px-4 sm:px-6 lg:px-8">
         {/* Logo above Headline */}
-        <div className="mb-7 flex justify-center">
-          <Logo className="h-16 md:h-20 w-auto mx-auto" />
+        <div className="mb-8">
+          <Logo className="h-20 md:h-24 w-auto" />
         </div>
 
         {/* Headline */}
         <motion.h1
-          className="font-bold mb-6 text-balance text-4xl md:text-5xl lg:text-6xl leading-tight max-w-4xl drop-shadow-[0_5px_30px_rgba(249,222,201,0.3)]"
-          variants={heroHeadline}
+          className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight max-w-5xl mx-auto text-balance"
+          initial={shouldAnimate ? heroTitle.initial : {}}
+          animate={shouldAnimate ? heroTitle.animate : {}}
+          transition={heroTitle.transition}
         >
-          <span className="text-secondary">Transform Your Business With{" "}</span>
-          <span className="relative">
-            <span className="inline-block font-bold text-primary relative">
-              AI‑Powered
-              <motion.span 
-                className="absolute -inset-1 -z-10 opacity-20 blur-md bg-primary rounded-lg"
-                animate={{ 
-                  opacity: [0.2, 0.5, 0.2],
-                  scale: [1, 1.05, 1]
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  repeatType: "reverse"
-                }}
-              />
-            </span>
-          </span>
-          <span className="text-secondary"> Solutions</span>
+          <span className="text-secondary-300">Transform Your Business</span>
+          <br />
+          With <span className="text-primary">AI-Powered</span> Solutions
         </motion.h1>
 
         {/* Subtitle */}
         <motion.p
-          className="text-xl text-secondary mb-8 max-w-2xl mx-auto"
-          variants={heroSubtitle}
+          className="mt-6 text-xl md:text-2xl text-white/80 max-w-3xl mx-auto"
+          initial={shouldAnimate ? heroSubtitle.initial : {}}
+          animate={shouldAnimate ? heroSubtitle.animate : {}}
+          transition={heroSubtitle.transition}
         >
-          We help businesses design and deploy intelligent automation systems
-          that save time, reduce costs, and unlock new opportunities.
+          We help businesses design and deploy intelligent automation systems that 
+          save time, reduce costs, and unlock new opportunities.
         </motion.p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-wrap justify-center gap-4 mb-2">
-          <motion.div
-            custom={0}
-            variants={heroButtons}
-          >
-            <Link
-              to="/contact"
-              className="bg-primary text-secondary px-6 py-3 rounded-md font-medium shadow-lg hover:shadow-xl hover:-translate-y-2 active:shadow-md active:translate-y-0 transition-all outline-none focus:ring-2 focus:ring-primary relative group overflow-hidden"
-            >
-              <span className="relative z-10">Book a Discovery Call</span>
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary-600 to-primary-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-            </Link>
-          </motion.div>
-          <motion.div
-            custom={1}
-            variants={heroButtons}
-          >
-            <Link
-              to="/services"
-              className="bg-secondary text-primary px-6 py-3 rounded-md font-medium shadow-lg hover:shadow-xl hover:-translate-y-2 active:shadow-md active:translate-y-0 transition-all outline-none focus:ring-2 focus:ring-primary relative group overflow-hidden"
-            >
-              <span className="relative z-10">Explore Services</span>
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-secondary-400 to-secondary-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="relative py-20 overflow-hidden">
-        <div className="container">
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8"
-          >
-            <motion.div 
-              custom={0}
-              variants={statVariants}
-              className="bg-card p-8 rounded-xl text-center border border-primary/10 shadow-lg relative group overflow-hidden hover:-translate-y-2 transition-transform duration-300"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="relative z-10">
-                <div className="text-4xl md:text-5xl font-bold text-primary mb-3 flex items-center justify-center">
-                  <motion.span
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.3, duration: 0.8, type: "spring" }}
-                    viewport={{ once: true }}
-                  >
-                    100+
-                  </motion.span>
-                </div>
-                <p className="text-secondary text-lg">Projects Delivered</p>
-              </div>
-            </motion.div>
-            
-            <motion.div 
-              custom={1}
-              variants={statVariants}
-              className="bg-card p-8 rounded-xl text-center border border-primary/10 shadow-lg relative group overflow-hidden hover:-translate-y-2 transition-transform duration-300"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="relative z-10">
-                <div className="text-4xl md:text-5xl font-bold text-primary mb-3 flex items-center justify-center">
-                  <motion.span
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.4, duration: 0.8, type: "spring" }}
-                    viewport={{ once: true }}
-                  >
-                    120,000+
-                  </motion.span>
-                </div>
-                <p className="text-secondary text-lg">Hours Saved</p>
-              </div>
-            </motion.div>
-            
-            <motion.div 
-              custom={2}
-              variants={statVariants}
-              className="bg-card p-8 rounded-xl text-center border border-primary/10 shadow-lg relative group overflow-hidden hover:-translate-y-2 transition-transform duration-300"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="relative z-10">
-                <div className="text-4xl md:text-5xl font-bold text-primary mb-3 flex items-center justify-center">
-                  <motion.span
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
-                    viewport={{ once: true }}
-                  >
-                    98%
-                  </motion.span>
-                </div>
-                <p className="text-secondary text-lg">Client Satisfaction</p>
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Services Preview */}
-      <section className="py-20 relative overflow-hidden">
-        <div className="container relative z-10">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true, margin: "-100px" }}
-            className="max-w-3xl mx-auto text-center mb-16"
-          >
-            <h2 className="mb-4 text-primary text-3xl md:text-4xl font-bold">Our Services</h2>
-            <p className="text-lg text-secondary">
-              We offer end-to-end AI and automation solutions to help your business thrive in the digital age.
-            </p>
-          </motion.div>
-
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-          >
-            <motion.div custom={0} variants={serviceVariants}>
-              <ServiceCard
-                title="Agent Deployment"
-                description="Custom AI agents that automate tasks and enhance decision-making processes."
-                icon={<Bot size={24} />}
-                href="/services"
-              />
-            </motion.div>
-            
-            <motion.div custom={1} variants={serviceVariants}>
-              <ServiceCard
-                title="Process Automation"
-                description="Streamline operations with intelligent workflows and reduce manual interventions."
-                icon={<Cog size={24} />}
-                href="/services"
-              />
-            </motion.div>
-            
-            <motion.div custom={2} variants={serviceVariants}>
-              <ServiceCard
-                title="AI Audits"
-                description="Comprehensive review of your systems to identify automation opportunities."
-                icon={<FileSearch size={24} />}
-                href="/services"
-              />
-            </motion.div>
-            
-            <motion.div custom={3} variants={serviceVariants}>
-              <ServiceCard
-                title="AI Training"
-                description="Equip your team with the skills to leverage AI tools effectively."
-                icon={<GraduationCap size={24} />}
-                href="/services"
-              />
-            </motion.div>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mt-12"
-          >
-            <Link
-              to="/services"
-              className="inline-flex items-center text-primary hover:underline font-medium hover:shadow-md hover:-translate-y-1 transition-all group"
-            >
-              <span>View All Services</span>
-              <motion.span
-                className="ml-1.5 inline-block"
-                animate={{ x: [0, 5, 0] }}
-                transition={{ 
-                  duration: 1.5, 
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  ease: "easeInOut" 
-                }}
-              >
-                →
-              </motion.span>
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 relative overflow-hidden">
-        <motion.div 
-          className="container relative z-10"
+        <motion.div
+          className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
+          initial={shouldAnimate ? heroButtons.initial : {}}
+          animate={shouldAnimate ? heroButtons.animate : {}}
+          transition={heroButtons.transition}
         >
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, type: "spring", stiffness: 50 }}
-            viewport={{ once: true, margin: "-100px" }}
-            className="max-w-3xl mx-auto text-center bg-card p-10 rounded-2xl shadow-xl border border-primary/10 backdrop-blur-sm glass"
+          <Link
+            to="/contact"
+            className="px-8 py-3 bg-primary hover:bg-primary-600 text-white rounded-lg font-medium transition-colors duration-200"
           >
-            <h2 className="mb-4 text-primary text-3xl md:text-4xl font-bold">Ready to Transform Your Business?</h2>
-            <p className="text-lg text-secondary mb-8">
-              Book a free 30-minute discovery call with our experts to explore how 
-              our AI solutions can address your specific challenges.
-            </p>
-            <motion.div
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <Link
-                to="/contact"
-                className="bg-primary text-secondary px-8 py-4 rounded-lg font-medium shadow-lg hover:shadow-xl hover:-translate-y-2 active:shadow-md active:translate-y-0 transition-all inline-block relative overflow-hidden group"
-              >
-                <span className="relative z-10">Schedule a Call</span>
-                <span className="absolute -inset-full top-0 right-0 w-full h-full bg-gradient-to-l from-white/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-shimmer"></span>
-              </Link>
-            </motion.div>
-          </motion.div>
+            Book a Discovery Call
+          </Link>
+          <Link
+            to="/services"
+            className="px-8 py-3 bg-secondary-400/10 hover:bg-secondary-400/20 text-secondary-300 border border-secondary-400/30 rounded-lg font-medium transition-colors duration-200"
+          >
+            Explore Services
+          </Link>
         </motion.div>
+
+        {/* Services Section */}
+        <section className="section">
+          <div className="container">
+            <h2 className="text-4xl font-bold text-center mb-8">Our Services</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <ServiceCard
+                title="AI Automation"
+                description="Automate repetitive tasks and streamline workflows with AI-powered solutions."
+                icon={Bot}
+              />
+              <ServiceCard
+                title="Custom AI Solutions"
+                description="Develop tailored AI models and applications to address your unique business challenges."
+                icon={Cog}
+              />
+              <ServiceCard
+                title="Data Analysis & Insights"
+                description="Unlock valuable insights from your data with advanced analytics and machine learning."
+                icon={FileSearch}
+              />
+              <ServiceCard
+                title="AI Training & Consulting"
+                description="Empower your team with the knowledge and skills to leverage AI effectively."
+                icon={GraduationCap}
+              />
+              {/* Add more ServiceCard components as needed */}
+            </div>
+          </div>
+        </section>
       </section>
     </main>
   );
