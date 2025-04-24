@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { ChevronDown, Home, Briefcase, MessageSquare, User } from "lucide-react";
+import { ChevronDown, Briefcase, MessageSquare, User } from "lucide-react";
 import { useState } from "react";
 
 // Color palette for clarity
@@ -13,7 +13,6 @@ const PILL_BTN_TEXT = "text-[#F5E1C4]";
 const FONT = "font-sans";
 
 const navItems = [
-  { label: "Home", path: "/", icon: <Home size={20} />, active: true },
   { label: "Services", path: "/services", dropdown: true, icon: <Briefcase size={20} /> },
   { label: "How It Works", path: "/how-it-works", icon: <MessageSquare size={20} /> },
   { label: "About", path: "/about", dropdown: true, icon: <User size={20} /> },
@@ -31,10 +30,10 @@ export default function Navbar() {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 ${BG} shadow-lg border-b border-[#2C2734]`}>
       <div className="container max-w-7xl mx-auto flex items-center justify-between h-20">
-        {/* Logo container with optimized styling */}
+        {/* Logo container */}
         <Link 
           to="/" 
-          className="flex items-center" 
+          className={`flex items-center ${location.pathname === "/" ? HIGHLIGHT : ""}`}
           aria-label="Homepage"
         >
           <img
