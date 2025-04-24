@@ -19,13 +19,15 @@ export default function ServiceCardContent({
 }: ServiceCardContentProps) {
   return (
     <motion.div
-      initial={false}
-      animate={{ rotateY: isFlipped ? 180 : 0 }}
-      transition={{ duration: 0.6, type: "spring", stiffness: 60 }}
-      className="w-full h-full backface-hidden"
-      style={{ 
-        transformStyle: "preserve-3d",
-        backfaceVisibility: "hidden",
+      className="w-full h-full"
+      animate={{
+        opacity: 1,
+        scale: isFlipped ? [1, 0.9, 1] : 1,
+        y: isFlipped ? [0, -20, 0] : 0,
+      }}
+      transition={{
+        duration: 0.5,
+        times: [0, 0.5, 1]
       }}
     >
       {!isFlipped ? (
@@ -46,34 +48,33 @@ export default function ServiceCardContent({
           </div>
         </div>
       ) : (
-        // Back content
-        <div 
-          className="absolute inset-0 p-6 flex flex-col justify-between"
-          style={{ transform: "rotateY(180deg)" }}
-        >
-          <div>
-            <div className="h-20 w-20 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6 mx-auto">
-              {icon}
-            </div>
-            <h3 className="text-xl font-semibold mb-4 text-foreground">{title}</h3>
-            <p className="text-muted-foreground mb-6">{description}</p>
-            
-            {benefits && benefits.length > 0 && (
-              <ul className="space-y-2 mb-6">
-                {benefits.map((benefit, index) => (
-                  <li key={index} className="flex items-start">
-                    <ArrowRight className="h-5 w-5 text-primary shrink-0 mt-0.5 mr-2" />
-                    <span className="text-sm">{benefit}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
+        // Back content (expanded)
+        <div className="relative z-10">
+          <div className="h-24 w-24 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-8 mx-auto">
+            {icon}
           </div>
+          <h3 className="text-2xl font-semibold mb-4 text-foreground text-center">{title}</h3>
+          <p className="text-muted-foreground mb-8 text-center text-lg">{description}</p>
+          
+          {benefits && benefits.length > 0 && (
+            <ul className="space-y-3 mb-8">
+              {benefits.map((benefit, index) => (
+                <li key={index} className="flex items-start">
+                  <ArrowRight className="h-5 w-5 text-primary shrink-0 mt-0.5 mr-3" />
+                  <span className="text-foreground">{benefit}</span>
+                </li>
+              ))}
+            </ul>
+          )}
           
           <div className="text-center">
-            <span className="text-primary font-medium hover:underline">
+            <motion.span 
+              className="inline-flex items-center text-primary font-medium hover:underline text-lg"
+              whileHover={{ x: 5 }}
+            >
               View Service Details
-            </span>
+              <ArrowRight size={20} className="ml-2" />
+            </motion.span>
           </div>
         </div>
       )}
