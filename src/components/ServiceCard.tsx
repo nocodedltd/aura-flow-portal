@@ -1,62 +1,74 @@
 
-import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import ServiceCardContent from "./ServiceCardContent";
 
 interface ServiceCardProps {
   title: string;
   description: string;
   icon: React.ReactNode;
   href: string;
+  benefits?: string[];
 }
 
 export default function ServiceCard({ 
   title, 
   description, 
   icon, 
-  href 
+  href,
+  benefits
 }: ServiceCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (isFlipped) {
+      navigate(href);
+    } else {
+      setIsFlipped(true);
+    }
+  };
 
   return (
-    <motion.a 
-      href={href}
-      className="group block rounded-xl border border-primary/10 p-8 bg-card transition-all duration-300 hover:shadow-xl hover:-translate-y-2 relative overflow-hidden h-full"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+    <motion.div 
+      className="relative h-full perspective-1000"
+      onHoverStart={() => setIsFlipped(true)}
+      onHoverEnd={() => setIsFlipped(false)}
+      onClick={handleClick}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-      
-      {/* Animated corner accent */}
-      <div className="absolute -top-10 -right-10 w-20 h-20 bg-primary/10 rounded-full transform rotate-45 scale-0 group-hover:scale-100 transition-transform duration-500"></div>
-      
-      <div className="relative z-10">
+      <div className="relative w-full h-full">
         <motion.div 
-          animate={isHovered ? { y: -5, scale: 1.1 } : { y: 0, scale: 1 }}
+          className={`
+            group block rounded-xl border border-primary/10 p-8 bg-card 
+            transition-all duration-300 hover:shadow-xl relative overflow-hidden h-full
+            cursor-pointer
+          `}
+          animate={{
+            scale: isFlipped ? 1.05 : 1,
+            boxShadow: isFlipped 
+              ? "0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1)"
+              : "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+          }}
           transition={{ duration: 0.3 }}
-          className="h-16 w-16 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6"
         >
-          {icon}
+          {/* Background gradient */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          
+          {/* Animated corner accent */}
+          <div className="absolute -top-10 -right-10 w-20 h-20 bg-primary/10 rounded-full transform rotate-45 scale-0 group-hover:scale-100 transition-transform duration-500" />
+          
+          <ServiceCardContent
+            title={title}
+            description={description}
+            icon={icon}
+            benefits={benefits}
+            isFlipped={isFlipped}
+          />
         </motion.div>
-        
-        <h3 className="text-xl font-semibold mb-3 text-foreground">{title}</h3>
-        
-        <p className="text-muted-foreground mb-6">{description}</p>
-        
-        <div className="flex items-center text-primary font-medium mt-auto">
-          <span>Learn more</span>
-          <motion.div
-            animate={isHovered ? { x: 5 } : { x: 0 }}
-            transition={{ duration: 0.2 }}
-            className="ml-1.5"
-          >
-            <ArrowRight size={16} />
-          </motion.div>
-        </div>
       </div>
-    </motion.a>
+    </motion.div>
   );
 }
