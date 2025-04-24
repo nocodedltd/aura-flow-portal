@@ -29,19 +29,26 @@ export default function Navbar() {
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 ${BG} bg-opacity-90 shadow-lg border-b border-[#2C2734]`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 ${BG} shadow-lg border-b border-[#2C2734]`}>
       <div className="container max-w-7xl mx-auto flex items-center justify-between h-20">
-        {/* Logo on left */}
-        <Link to="/" className="flex items-center min-w-[148px]" aria-label="Homepage">
+        {/* Logo container with optimized styling */}
+        <Link 
+          to="/" 
+          className="flex items-center" 
+          aria-label="Homepage"
+        >
           <img
             src="/lovable-uploads/5474f216-66de-4286-8816-9b3b1bea942f.png"
             alt="NoCoded logo"
-            className="h-9 w-auto drop-shadow"
+            className="h-9 w-auto"
+            width={148}
+            height={36}
             style={{ maxWidth: "148px" }}
+            loading="eager"
           />
         </Link>
 
-        {/* Centered nav */}
+        {/* Nav items */}
         <nav className="flex-1 flex justify-center">
           <ul className="flex gap-9">
             {navItems.map((item) => {
@@ -50,30 +57,22 @@ export default function Navbar() {
                 (item.label === "Services" && location.pathname.startsWith("/services")) ||
                 (item.label === "About" && location.pathname.startsWith("/about"));
 
-              // BASE: shared nav link style
-              let baseClass =
-                "relative px-5 py-2 rounded-full select-none text-base font-semibold transition-colors duration-200 " +
-                FONT +
-                " flex items-center gap-2 hover:bg-[#25222b]/70 hover:" +
-                HIGHLIGHT +
-                " hover:text-[#F5E1C4]";
+              let baseClass = "relative px-5 py-2 rounded-full select-none text-base font-semibold " + 
+                FONT + " flex items-center gap-2 hover:bg-[#25222b]/70 hover:" + 
+                HIGHLIGHT + " hover:text-[#F5E1C4]";
 
-              // HOME: big highlight pill
               if (item.label === "Home" && isActive)
                 baseClass += ` ${ACTIVE_BG} ${ACTIVE_TEXT} shadow-md`;
-
-              // Others: highlight text if active, otherwise faded text
               else if (isActive)
                 baseClass += ` ${HIGHLIGHT} bg-[#23213a]/60 text-[#F5E1C4]`;
+              else
+                baseClass += ` ${TEXT}`;
 
-              else baseClass += ` ${TEXT}`;
-
-              // DROPDOWN (Services/About)
               if (item.dropdown) {
                 return (
                   <li key={item.label} className="relative">
                     <button
-                      className={baseClass + " group"}
+                      className={baseClass}
                       onClick={() => handleDropdown(item.label)}
                       aria-haspopup="true"
                       aria-expanded={openDropdown === item.label}
@@ -92,7 +91,6 @@ export default function Navbar() {
                         />
                       </span>
                     </button>
-                    {/* Dropdown */}
                     {openDropdown === item.label && (
                       <div
                         className="absolute left-1/2 -translate-x-1/2 top-12 min-w-[196px] rounded-xl shadow-2xl z-50 py-4 bg-[#1B1922]/95 border border-[#2C2734] animate-fade-in"
@@ -163,7 +161,6 @@ export default function Navbar() {
                 );
               }
 
-              // Normal nav (no dropdown)
               return (
                 <li key={item.label}>
                   <Link to={item.path} className={baseClass}>
@@ -182,8 +179,8 @@ export default function Navbar() {
           </ul>
         </nav>
 
-        {/* Client Login - always right */}
-        <div className="flex items-center min-w-[148px] justify-end">
+        {/* Client Login button */}
+        <div className="flex items-center justify-end">
           <Link
             to="/client"
             className={
