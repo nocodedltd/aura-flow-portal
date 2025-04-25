@@ -1,5 +1,4 @@
-
-import { useState } from "react";
+import { useState, useRef } from "react";
 import ProcessStep from "@/components/ProcessStep";
 
 const HowItWorks = () => {
@@ -28,9 +27,16 @@ const HowItWorks = () => {
     }
   ];
 
+  const handleStepClick = (stepId: number) => {
+    setActiveStep(stepId);
+    const element = document.getElementById(`step-${stepId}`);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <main>
-      {/* Hero Section */}
       <section className="bg-primary/5 py-20">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
@@ -44,11 +50,9 @@ const HowItWorks = () => {
         </div>
       </section>
 
-      {/* Process Steps */}
       <section className="py-20">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-            {/* Steps Navigation */}
             <div className="lg:col-span-2">
               <div className="bg-card rounded-lg border border-border p-6 sticky top-24">
                 <h2 className="text-2xl font-semibold mb-6">Our Process</h2>
@@ -57,7 +61,7 @@ const HowItWorks = () => {
                   {steps.map((step) => (
                     <button
                       key={step.id}
-                      onClick={() => setActiveStep(step.id)}
+                      onClick={() => handleStepClick(step.id)}
                       className={`w-full text-left p-4 rounded-md transition-colors ${
                         activeStep === step.id 
                           ? "bg-primary text-primary-foreground" 
@@ -76,13 +80,13 @@ const HowItWorks = () => {
               </div>
             </div>
 
-            {/* Steps Details */}
             <div className="lg:col-span-3">
               <div className="space-y-8">
                 {steps.map((step) => (
                   <div
                     key={step.id}
-                    className={`transform transition-all duration-500 ${
+                    id={`step-${step.id}`}
+                    className={`transform transition-all duration-500 scroll-mt-24 ${
                       activeStep === step.id ? "opacity-100 scale-100" : "opacity-50 scale-95"
                     }`}
                   >
@@ -151,7 +155,6 @@ const HowItWorks = () => {
         </div>
       </section>
 
-      {/* Timeline Visualization */}
       <section className="py-12 bg-muted/30">
         <div className="container">
           <h2 className="text-3xl font-semibold text-center mb-12">Our Process Timeline</h2>
@@ -171,7 +174,6 @@ const HowItWorks = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="py-20">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
