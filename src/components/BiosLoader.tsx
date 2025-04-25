@@ -4,7 +4,6 @@ import BiosHeader from './bios/BiosHeader';
 import SystemInfo from './bios/SystemInfo';
 import LoadingStatus from './bios/LoadingStatus';
 import BiosFooter from './bios/BiosFooter';
-import MatrixRain from './bios/MatrixRain';
 import { AnimatePresence, motion } from 'framer-motion';
 
 interface BiosLoaderProps {
@@ -17,7 +16,6 @@ const BiosLoader: React.FC<BiosLoaderProps> = ({ onFinish }) => {
   const [memoryTest, setMemoryTest] = useState(0);
   const [showCursor, setShowCursor] = useState(true);
   const [ready, setReady] = useState(false);
-  const [showMatrixEffect, setShowMatrixEffect] = useState(false);
 
   const tasks = [
     { task: "Initializing system...", duration: 200 },
@@ -58,6 +56,7 @@ const BiosLoader: React.FC<BiosLoaderProps> = ({ onFinish }) => {
       } else {
         clearInterval(bootInterval);
         setReady(true);
+        onFinish(); // Immediately call onFinish when loading is complete
       }
     }, 350);
 
@@ -66,19 +65,7 @@ const BiosLoader: React.FC<BiosLoaderProps> = ({ onFinish }) => {
       clearInterval(bootInterval);
       if (memoryInterval) clearInterval(memoryInterval);
     };
-  }, []);
-
-  // When ready, show matrix effect and auto-transition
-  useEffect(() => {
-    if (ready) {
-      // Wait a brief moment before showing the matrix effect
-      const matrixTimer = setTimeout(() => {
-        setShowMatrixEffect(true);
-      }, 800);
-      
-      return () => clearTimeout(matrixTimer);
-    }
-  }, [ready]);
+  }, [onFinish]);
 
   return (
     <AnimatePresence>
@@ -89,7 +76,6 @@ const BiosLoader: React.FC<BiosLoaderProps> = ({ onFinish }) => {
         exit={{ opacity: 0 }}
       >
         <div className="w-full max-w-xl mx-auto text-center relative">
-          {/* Main BIOS Content */}
           <BiosHeader />
           <SystemInfo memoryTest={memoryTest} />
           <LoadingStatus
@@ -99,14 +85,6 @@ const BiosLoader: React.FC<BiosLoaderProps> = ({ onFinish }) => {
             showCursor={showCursor}
           />
           <BiosFooter />
-          
-          {/* Matrix Rain Effect */}
-          {showMatrixEffect && (
-            <MatrixRain 
-              onComplete={onFinish}
-              duration={6000}
-            />
-          )}
         </div>
       </motion.div>
     </AnimatePresence>
