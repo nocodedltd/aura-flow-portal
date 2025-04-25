@@ -27,7 +27,7 @@ export default {
           200: "#c7cbdf",
           300: "#aeb3d1",
           400: "#8e94bc",
-          500: "#6e74af", // Primary color
+          500: "#6e74af", 
           600: "#5a5e96",
           700: "#4a4e7d",
           800: "#3c3f64",
@@ -39,7 +39,7 @@ export default {
           50: "#fefaf6",
           100: "#fcf5ec",
           200: "#faebd9",
-          300: "#f9dec9", // Secondary color
+          300: "#f9dec9", 
           400: "#f5c59f",
           500: "#efaa74",
           600: "#e88a4c",
@@ -48,11 +48,11 @@ export default {
           900: "#944822",
           950: "#4f2411",
         },
+        foreground: "#f9dec9", // Set text color to secondary
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
