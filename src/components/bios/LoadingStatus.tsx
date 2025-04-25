@@ -38,7 +38,7 @@ const LoadingStatus: React.FC<LoadingStatusProps> = ({ currentTask, progress, me
       )}
       {progress === 100 && (
         <div className="text-white mt-4 animate-pulse">
-          Press any key to continue...
+          Initializing neural interface...
         </div>
       )}
     </div>

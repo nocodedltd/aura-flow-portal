@@ -1,8 +1,11 @@
+
 import React, { useState, useEffect } from 'react';
 import BiosHeader from './bios/BiosHeader';
 import SystemInfo from './bios/SystemInfo';
 import LoadingStatus from './bios/LoadingStatus';
 import BiosFooter from './bios/BiosFooter';
+import MatrixRain from './bios/MatrixRain';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface BiosLoaderProps {
   onFinish: () => void;
@@ -14,7 +17,7 @@ const BiosLoader: React.FC<BiosLoaderProps> = ({ onFinish }) => {
   const [memoryTest, setMemoryTest] = useState(0);
   const [showCursor, setShowCursor] = useState(true);
   const [ready, setReady] = useState(false);
-  const [finished, setFinished] = useState(false);
+  const [showMatrixEffect, setShowMatrixEffect] = useState(false);
 
   const tasks = [
     { task: "Initializing system...", duration: 200 },
@@ -65,36 +68,48 @@ const BiosLoader: React.FC<BiosLoaderProps> = ({ onFinish }) => {
     };
   }, []);
 
+  // When ready, show matrix effect and auto-transition
   useEffect(() => {
-    if (!ready) return;
-    const handleKey = (event: KeyboardEvent) => {
-      if (!finished) {
-        setFinished(true);
-        setTimeout(onFinish, 300);
-      }
-    };
-    window.addEventListener("keydown", handleKey);
-    window.addEventListener("click", handleKey);
-    return () => {
-      window.removeEventListener("keydown", handleKey);
-      window.removeEventListener("click", handleKey);
-    };
-  }, [ready, finished, onFinish]);
+    if (ready) {
+      // Wait a brief moment before showing the matrix effect
+      const matrixTimer = setTimeout(() => {
+        setShowMatrixEffect(true);
+      }, 800);
+      
+      return () => clearTimeout(matrixTimer);
+    }
+  }, [ready]);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black font-mono text-sm md:text-base transition-colors duration-700 min-h-screen overflow-auto" style={{ color: "#9b87f5" }}>
-      <div className="w-full max-w-xl mx-auto text-center">
-        <BiosHeader />
-        <SystemInfo memoryTest={memoryTest} />
-        <LoadingStatus
-          currentTask={currentTask}
-          progress={progress}
-          memoryTest={memoryTest}
-          showCursor={showCursor}
-        />
-        <BiosFooter />
-      </div>
-    </div>
+    <AnimatePresence>
+      <motion.div 
+        className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black font-mono text-sm md:text-base transition-colors duration-700 min-h-screen overflow-hidden" 
+        style={{ color: "#9b87f5" }}
+        initial={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        <div className="w-full max-w-xl mx-auto text-center relative">
+          {/* Main BIOS Content */}
+          <BiosHeader />
+          <SystemInfo memoryTest={memoryTest} />
+          <LoadingStatus
+            currentTask={currentTask}
+            progress={progress}
+            memoryTest={memoryTest}
+            showCursor={showCursor}
+          />
+          <BiosFooter />
+          
+          {/* Matrix Rain Effect */}
+          {showMatrixEffect && (
+            <MatrixRain 
+              onComplete={onFinish}
+              duration={6000}
+            />
+          )}
+        </div>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 
