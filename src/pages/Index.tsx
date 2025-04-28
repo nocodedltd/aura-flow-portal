@@ -7,18 +7,20 @@ import CtaSection from "@/components/home/CtaSection";
 
 const Index = () => {
   const scrollToServices = () => {
-    const statsSection = document.getElementById("stats-section");
-    if (statsSection) {
-      // Calculate position to center the stats section in the viewport
-      const statsSectionPosition = statsSection.getBoundingClientRect().top + window.pageYOffset;
-      const viewportHeight = window.innerHeight;
-      const statsSectionHeight = statsSection.offsetHeight;
+    const servicesSection = document.getElementById("services-section");
+    if (servicesSection) {
+      // Get the position of the services section
+      const servicesSectionPosition = servicesSection.getBoundingClientRect().top + window.pageYOffset;
       
-      // Calculate offset to center the element (half viewport minus half element height)
-      const offset = viewportHeight / 2 - statsSectionHeight / 2;
+      // Calculate viewport height
+      const viewportHeight = window.innerHeight;
+      
+      // Calculate offset to position the "Our Services" header in the middle
+      // We need a smaller offset to move the header to the center
+      const offset = viewportHeight * 0.4;
       
       window.scrollTo({
-        top: statsSectionPosition - offset,
+        top: servicesSectionPosition - offset,
         behavior: "smooth"
       });
     }
