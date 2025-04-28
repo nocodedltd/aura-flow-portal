@@ -1,10 +1,20 @@
 import { Link } from "react-router-dom";
 import ServiceCard from "@/components/ServiceCard";
-import { Bot, Cog, FileSearch, GraduationCap } from "lucide-react";
+import { Bot, Cog, FileSearch, GraduationCap, ChevronDown } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { heroContainer, heroHeadline, heroSubtitle, heroButtons } from "@/lib/motionConfig";
+import { Button } from "@/components/ui/button";
+
 const Index = () => {
   const reduceMotion = useReducedMotion();
+  
+  const scrollToServices = () => {
+    const servicesSection = document.getElementById("services-section");
+    if (servicesSection) {
+      servicesSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+  
   const statVariants = {
     hidden: {
       opacity: 0,
@@ -21,6 +31,7 @@ const Index = () => {
       }
     })
   };
+  
   const serviceVariants = {
     hidden: {
       opacity: 0,
@@ -37,6 +48,7 @@ const Index = () => {
       }
     })
   };
+  
   return <main className="overflow-hidden">
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
@@ -84,7 +96,7 @@ const Index = () => {
             <motion.p className="text-xl text-secondary mb-8 max-w-2xl mx-auto" variants={heroSubtitle}>Cutting edge AI solutions that fit seamlessly into your existing operations, helping you achieve more with less.</motion.p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-wrap justify-center gap-4 mb-14">
+            <div className="flex flex-wrap justify-center gap-4 mb-6">
               <motion.div custom={0} variants={heroButtons}>
                 <Link to="/contact" className="bg-primary text-secondary px-6 py-3 rounded-md font-medium shadow-lg hover:shadow-xl hover:-translate-y-2 active:shadow-md active:translate-y-0 transition-all outline-none focus:ring-2 focus:ring-primary relative group overflow-hidden">
                   <span className="relative z-10">Book a Discovery Call</span>
@@ -98,11 +110,29 @@ const Index = () => {
                 </Link>
               </motion.div>
             </div>
+            
+            {/* Scroll Down Button */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.2, duration: 0.8 }}
+              className="flex justify-center mb-14"
+            >
+              <Button
+                onClick={scrollToServices}
+                variant="ghost"
+                size="icon"
+                className="rounded-full bg-primary/10 hover:bg-primary/20 border border-primary/20 p-2 animate-bounce-light"
+                aria-label="Scroll to services section"
+              >
+                <ChevronDown className="h-6 w-6 text-primary" />
+              </Button>
+            </motion.div>
           </div>
         </motion.div>
       </section>
 
-      {/* Stats Section - Reduce top padding from 20 to 16 to tighten gap */}
+      {/* Stats Section */}
       <section className="relative py-16 overflow-hidden">
         <div className="container">
           <motion.div initial="hidden" whileInView="visible" viewport={{
@@ -182,8 +212,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Services Preview - Removed gradient overlay */}
-      <section className="py-20 relative overflow-hidden">
+      {/* Services Preview Section - Add id for scroll target */}
+      <section id="services-section" className="py-20 relative overflow-hidden">
         <div className="container relative z-10">
           <motion.div initial={{
           opacity: 0,
@@ -253,7 +283,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CTA Section - Removed gradient overlay */}
+      {/* CTA Section */}
       <section className="py-20 relative overflow-hidden">
         <motion.div className="container relative z-10">
           <motion.div initial={{
