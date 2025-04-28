@@ -4,17 +4,19 @@ import { Bot, Cog, FileSearch, GraduationCap, ChevronDown } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { heroContainer, heroHeadline, heroSubtitle, heroButtons } from "@/lib/motionConfig";
 import { Button } from "@/components/ui/button";
+
 const Index = () => {
   const reduceMotion = useReducedMotion();
   const scrollToServices = () => {
-    const servicesSection = document.getElementById("services-section");
-    if (servicesSection) {
-      servicesSection.scrollIntoView({
+    const statsSection = document.getElementById("stats-section");
+    if (statsSection) {
+      statsSection.scrollIntoView({
         behavior: "smooth",
         block: "start"
       });
     }
   };
+
   const statVariants = {
     hidden: {
       opacity: 0,
@@ -31,6 +33,7 @@ const Index = () => {
       }
     })
   };
+
   const serviceVariants = {
     hidden: {
       opacity: 0,
@@ -47,6 +50,7 @@ const Index = () => {
       }
     })
   };
+
   return <main className="overflow-hidden">
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
@@ -120,7 +124,7 @@ const Index = () => {
             delay: 1.2,
             duration: 0.8
           }} className="flex justify-center mb-14">
-              <Button onClick={scrollToServices} variant="ghost" size="icon" aria-label="Scroll to services section" className="rounded-full bg-primary/10 hover:bg-primary/20 border border-primary/20 p-2 animate-bounce-light py-0 mx-[86px] my-[36px]">
+              <Button onClick={scrollToServices} variant="ghost" size="icon" aria-label="Scroll to stats section" className="rounded-full bg-primary/10 hover:bg-primary/20 border border-primary/20 p-2 animate-bounce-light py-0 mx-[86px] my-[36px]">
                 <ChevronDown className="h-6 w-6 text-primary" />
               </Button>
             </motion.div>
@@ -128,8 +132,8 @@ const Index = () => {
         </motion.div>
       </section>
 
-      {/* Stats Section */}
-      <section className="relative py-16 overflow-hidden">
+      {/* Stats Section - Add id for scroll target */}
+      <section id="stats-section" className="relative py-16 overflow-hidden">
         <div className="container">
           <motion.div initial="hidden" whileInView="visible" viewport={{
           once: true,
@@ -208,7 +212,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Services Preview Section - Add id for scroll target */}
+      {/* Services Preview Section - Keep the existing id */}
       <section id="services-section" className="py-20 relative overflow-hidden">
         <div className="container relative z-10">
           <motion.div initial={{
@@ -316,4 +320,5 @@ const Index = () => {
       </section>
     </main>;
 };
+
 export default Index;
