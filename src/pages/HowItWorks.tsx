@@ -1,10 +1,9 @@
 
 import { useState, useRef, useEffect } from "react";
-import ProcessStep from "@/components/ProcessStep";
 import { motion, AnimatePresence } from "framer-motion";
-import { fadeInStagger } from "@/lib/animations";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
+import { fadeUp, staggerContainer } from "@/lib/motionConfig";
+import { Card, CardContent } from "@/components/ui/card";
 
 const HowItWorks = () => {
   const [activeStep, setActiveStep] = useState(1);
@@ -19,23 +18,33 @@ const HowItWorks = () => {
   const steps = [
     {
       id: 1,
-      title: "Discovery",
-      description: "We start by understanding your business needs, challenges, and goals through in-depth consultations. Our experts analyze your current processes and systems to identify opportunities for AI integration and automation."
+      title: "Consultation",
+      description: "Just as a master tailor begins with a detailed consultation, we start by understanding your business needs and challenges. We analyse your current processes and systems to identify opportunities for AI integration and automation that will perfectly suit your organisation's unique requirements."
     },
     {
       id: 2,
-      title: "Design",
-      description: "Based on our findings, we create a tailored solution architecture that addresses your specific requirements. This includes selecting the appropriate technologies, designing workflows, and planning implementation stages."
+      title: "Measurement",
+      description: "Like taking precise measurements for a bespoke suit, our experts meticulously map your data architecture and operational workflows. We identify key metrics and performance indicators to ensure our solution will be perfectly fitted to your business objectives and deliver measurable outcomes."
     },
     {
       id: 3,
-      title: "Deployment",
-      description: "Our team implements the designed solution, ensuring smooth integration with your existing systems. We follow agile methodologies, allowing for continuous feedback and adjustments throughout the deployment process."
+      title: "Design",
+      description: "Similar to creating a pattern for a custom garment, we design a tailored solution architecture that addresses your specific requirements. This includes selecting the appropriate technologies, designing workflows, and planning implementation stages that will seamlessly integrate with your existing systems."
     },
     {
       id: 4,
-      title: "Optimization",
-      description: "After deployment, we monitor performance and collect data to identify improvement opportunities. We refine the solution over time, ensuring it continues to deliver optimal results as your business evolves."
+      title: "Crafting",
+      description: "Just as a tailor precisely cuts and assembles fabric, our team implements the designed solution with exacting attention to detail. We follow agile methodologies, allowing for continuous feedback and adjustments throughout the development process to ensure the perfect fit."
+    },
+    {
+      id: 5,
+      title: "Fitting",
+      description: "Like final fittings for a bespoke suit, we test and refine the solution with your team. This ensures seamless integration with your existing systems and processes, with adjustments made as needed to achieve optimal performance and user experience."
+    },
+    {
+      id: 6,
+      title: "Refinement",
+      description: "Just as a fine garment requires occasional alterations to maintain its perfect fit, we continuously monitor and optimise your solution. We collect performance data and make iterative improvements to ensure your AI tools evolve alongside your business needs."
     }
   ];
 
@@ -69,7 +78,7 @@ const HowItWorks = () => {
               How It <span className="text-primary">Works</span>
             </h1>
             <p className="text-xl text-muted-foreground">
-              Our proven four-step process ensures successful implementation of AI and automation solutions.
+              Our bespoke approach ensures AI solutions that fit your business perfectly.
             </p>
           </div>
         </div>
@@ -80,7 +89,7 @@ const HowItWorks = () => {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
             <div className="lg:col-span-2">
               <div className="bg-card rounded-lg border border-border p-6 sticky top-24">
-                <h2 className="text-2xl font-semibold mb-6">Our Process</h2>
+                <h2 className="text-2xl font-semibold mb-6">The Bespoke Process</h2>
                 
                 <div className="space-y-4">
                   {steps.map((step) => (
@@ -107,11 +116,11 @@ const HowItWorks = () => {
               </div>
             </div>
 
-            {/* Fixed height content area with its own scrolling */}
+            {/* Scrollable content area without fixed height */}
             <div className="lg:col-span-3">
               <div 
                 ref={contentContainerRef}
-                className="space-y-12 h-[600px] overflow-y-auto pr-4 scroll-smooth"
+                className="space-y-12 pr-4 scroll-smooth overflow-y-auto"
               >
                 {steps.map((step, index) => (
                   <div
@@ -145,48 +154,72 @@ const HowItWorks = () => {
                       
                       {step.id === 1 && (
                         <div className="mt-6 p-4 bg-muted/50 rounded-md">
-                          <h4 className="font-medium mb-2">Discovery Phase Includes:</h4>
+                          <h4 className="font-medium mb-2">Consultation Includes:</h4>
                           <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                            <li>Initial consultation meeting</li>
-                            <li>Process mapping and analysis</li>
-                            <li>Technology assessment</li>
-                            <li>ROI projection</li>
+                            <li>Initial discovery meeting</li>
+                            <li>Business needs analysis</li>
+                            <li>Current workflow assessment</li>
+                            <li>Opportunity identification</li>
                           </ul>
                         </div>
                       )}
                       
                       {step.id === 2 && (
                         <div className="mt-6 p-4 bg-muted/50 rounded-md">
-                          <h4 className="font-medium mb-2">Design Phase Includes:</h4>
+                          <h4 className="font-medium mb-2">Measurement Includes:</h4>
                           <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                            <li>Solution architecture planning</li>
-                            <li>Technology selection</li>
-                            <li>Workflow design</li>
-                            <li>Implementation roadmap</li>
+                            <li>Data landscape mapping</li>
+                            <li>Process flow documentation</li>
+                            <li>Key metrics identification</li>
+                            <li>Resource utilisation analysis</li>
                           </ul>
                         </div>
                       )}
                       
                       {step.id === 3 && (
                         <div className="mt-6 p-4 bg-muted/50 rounded-md">
-                          <h4 className="font-medium mb-2">Deployment Phase Includes:</h4>
+                          <h4 className="font-medium mb-2">Design Includes:</h4>
                           <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                            <li>Agile implementation</li>
-                            <li>Integration with existing systems</li>
-                            <li>Testing and validation</li>
-                            <li>User training</li>
+                            <li>Solution architecture blueprint</li>
+                            <li>Technology selection</li>
+                            <li>Implementation roadmap</li>
+                            <li>ROI projection</li>
                           </ul>
                         </div>
                       )}
                       
                       {step.id === 4 && (
                         <div className="mt-6 p-4 bg-muted/50 rounded-md">
-                          <h4 className="font-medium mb-2">Optimization Phase Includes:</h4>
+                          <h4 className="font-medium mb-2">Crafting Includes:</h4>
                           <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                            <li>Performance monitoring</li>
-                            <li>Data collection and analysis</li>
-                            <li>Continuous improvement</li>
+                            <li>Agile development</li>
+                            <li>Iterative prototyping</li>
+                            <li>Quality assurance</li>
+                            <li>Continual feedback loops</li>
+                          </ul>
+                        </div>
+                      )}
+
+                      {step.id === 5 && (
+                        <div className="mt-6 p-4 bg-muted/50 rounded-md">
+                          <h4 className="font-medium mb-2">Fitting Includes:</h4>
+                          <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                            <li>System integration</li>
+                            <li>User acceptance testing</li>
+                            <li>Team training sessions</li>
+                            <li>Preliminary performance monitoring</li>
+                          </ul>
+                        </div>
+                      )}
+
+                      {step.id === 6 && (
+                        <div className="mt-6 p-4 bg-muted/50 rounded-md">
+                          <h4 className="font-medium mb-2">Refinement Includes:</h4>
+                          <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                            <li>Ongoing performance analysis</li>
+                            <li>Optimisation recommendations</li>
                             <li>Regular review meetings</li>
+                            <li>Adaptation to evolving business needs</li>
                           </ul>
                         </div>
                       )}
@@ -199,44 +232,18 @@ const HowItWorks = () => {
         </div>
       </section>
 
-      <section className="py-12 bg-muted/30">
-        <div className="container">
-          <h2 className="text-3xl font-semibold text-center mb-12">Our Process Timeline</h2>
-          
-          <div className="max-w-3xl mx-auto">
-            <motion.div 
-              variants={fadeInStagger.container} 
-              initial="hidden" 
-              animate="show"
-            >
-              {steps.map((step, index) => (
-                <motion.div key={step.id} variants={fadeInStagger.item}>
-                  <ProcessStep
-                    number={step.id}
-                    title={step.title}
-                    description={step.description}
-                    isActive={step.id <= activeStep}
-                    isLast={index === steps.length - 1}
-                  />
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
       <section className="py-20">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="mb-4">Ready to Begin Your Journey?</h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Start with a discovery call to explore how our process can help transform your business.
+              Start with a discovery call to explore how our bespoke process can transform your business.
             </p>
             <a 
               href="/contact" 
               className="bg-primary text-primary-foreground px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors"
             >
-              Schedule a Discovery Call
+              Schedule a Consultation
             </a>
           </div>
         </div>

@@ -18,6 +18,7 @@ import About from "./pages/About";
 import ClientLogin from "./pages/ClientLogin";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import BiosLoader from "@/components/BiosLoader";
 
 // Optimize query client settings
@@ -81,6 +82,7 @@ const App = () => {
                   <Route path="/about" element={<About />} />
                   <Route path="/client" element={<ClientLogin />} />
                   <Route path="/contact" element={<Contact />} />
+                  <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </div>
