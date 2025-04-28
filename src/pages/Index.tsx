@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import ServiceCard from "@/components/ServiceCard";
 import { Bot, Cog, FileSearch, GraduationCap, ChevronDown } from "lucide-react";
@@ -12,9 +13,11 @@ const Index = () => {
     const statsSection = document.getElementById("stats-section");
     if (statsSection) {
       const statsSectionPosition = statsSection.getBoundingClientRect().top + window.pageYOffset;
+      const viewportHeight = window.innerHeight;
+      const offset = viewportHeight / 3; // Position stats about 1/3 from the top
       
       window.scrollTo({
-        top: statsSectionPosition - 20,
+        top: statsSectionPosition - offset,
         behavior: "smooth"
       });
     }
