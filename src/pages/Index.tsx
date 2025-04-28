@@ -81,7 +81,7 @@ const Index = () => {
             </motion.h1>
 
             {/* Subtitle */}
-            <motion.p className="text-xl text-secondary mb-8 max-w-2xl mx-auto" variants={heroSubtitle}>Our AI solutions fit seamlessly into your existing operations, helping you achieve more with less effort.</motion.p>
+            <motion.p className="text-xl text-secondary mb-8 max-w-2xl mx-auto" variants={heroSubtitle}>Cutting edge AI solutions that fit seamlessly into your existing operations, helping you achieve more with less.</motion.p>
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap justify-center gap-4 mb-14">
@@ -173,11 +173,9 @@ const Index = () => {
                   type: "spring"
                 }} viewport={{
                   once: true
-                }}>
-                    98%
-                  </motion.span>
+                }}>1,000s</motion.span>
                 </div>
-                <p className="text-secondary text-lg">Client Satisfaction</p>
+                <p className="text-secondary text-lg">Processes Automated</p>
               </div>
             </motion.div>
           </motion.div>
