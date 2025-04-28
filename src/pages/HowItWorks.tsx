@@ -1,11 +1,11 @@
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import ProcessStep from "@/components/ProcessStep";
 import { motion, AnimatePresence } from "framer-motion";
+import { fadeInStagger } from "@/lib/animations";
 
 const HowItWorks = () => {
   const [activeStep, setActiveStep] = useState(1);
-  const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
   
   const steps = [
     {
@@ -30,22 +30,9 @@ const HowItWorks = () => {
     }
   ];
 
+  // Updated handler: Simply set active step without scrolling
   const handleStepClick = (stepId: number) => {
     setActiveStep(stepId);
-    
-    // Smooth scroll to the selected step content
-    const selectedRef = contentRefs.current[stepId - 1];
-    if (selectedRef) {
-      selectedRef.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    }
-  };
-
-  // Function to get the currently active step's details
-  const getActiveStep = () => {
-    return steps.find(step => step.id === activeStep) || steps[0];
   };
 
   return (
@@ -93,79 +80,79 @@ const HowItWorks = () => {
               </div>
             </div>
 
-            <div className="lg:col-span-3 overflow-y-auto" style={{ maxHeight: "calc(100vh - 200px)" }}>
+            {/* Fixed height content area with its own scrolling */}
+            <div className="lg:col-span-3">
               <div className="space-y-12">
-                {steps.map((step) => (
-                  <motion.div
-                    key={step.id}
-                    ref={(el) => (contentRefs.current[step.id - 1] = el)}
-                    className={`bg-card rounded-lg border border-border p-8 w-full`}
-                    initial={{ opacity: 0.8, y: 10 }}
-                    animate={{ 
-                      opacity: activeStep === step.id ? 1 : 0.8,
-                      y: 0,
-                      scale: activeStep === step.id ? 1 : 0.98,
-                    }}
-                    transition={{ duration: 0.3 }}
-                    id={`step-${step.id}`}
-                  >
-                    <h3 className="text-2xl font-semibold mb-4 flex items-center">
-                      <span className="h-8 w-8 rounded-full border-2 border-primary text-primary flex items-center justify-center mr-3">
-                        {step.id}
-                      </span>
-                      {step.title}
-                    </h3>
-                    <p className="text-muted-foreground">{step.description}</p>
-                    
-                    {step.id === 1 && (
-                      <div className="mt-6 p-4 bg-muted/50 rounded-md">
-                        <h4 className="font-medium mb-2">Discovery Phase Includes:</h4>
-                        <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                          <li>Initial consultation meeting</li>
-                          <li>Process mapping and analysis</li>
-                          <li>Technology assessment</li>
-                          <li>ROI projection</li>
-                        </ul>
-                      </div>
-                    )}
-                    
-                    {step.id === 2 && (
-                      <div className="mt-6 p-4 bg-muted/50 rounded-md">
-                        <h4 className="font-medium mb-2">Design Phase Includes:</h4>
-                        <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                          <li>Solution architecture planning</li>
-                          <li>Technology selection</li>
-                          <li>Workflow design</li>
-                          <li>Implementation roadmap</li>
-                        </ul>
-                      </div>
-                    )}
-                    
-                    {step.id === 3 && (
-                      <div className="mt-6 p-4 bg-muted/50 rounded-md">
-                        <h4 className="font-medium mb-2">Deployment Phase Includes:</h4>
-                        <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                          <li>Agile implementation</li>
-                          <li>Integration with existing systems</li>
-                          <li>Testing and validation</li>
-                          <li>User training</li>
-                        </ul>
-                      </div>
-                    )}
-                    
-                    {step.id === 4 && (
-                      <div className="mt-6 p-4 bg-muted/50 rounded-md">
-                        <h4 className="font-medium mb-2">Optimization Phase Includes:</h4>
-                        <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                          <li>Performance monitoring</li>
-                          <li>Data collection and analysis</li>
-                          <li>Continuous improvement</li>
-                          <li>Regular review meetings</li>
-                        </ul>
-                      </div>
-                    )}
-                  </motion.div>
-                ))}
+                <AnimatePresence mode="wait">
+                  {steps.map((step) => (
+                    step.id === activeStep && (
+                      <motion.div
+                        key={step.id}
+                        className={`bg-card rounded-lg border border-border p-8 w-full`}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <h3 className="text-2xl font-semibold mb-4 flex items-center">
+                          <span className="h-8 w-8 rounded-full border-2 border-primary text-primary flex items-center justify-center mr-3">
+                            {step.id}
+                          </span>
+                          {step.title}
+                        </h3>
+                        <p className="text-muted-foreground">{step.description}</p>
+                        
+                        {step.id === 1 && (
+                          <div className="mt-6 p-4 bg-muted/50 rounded-md">
+                            <h4 className="font-medium mb-2">Discovery Phase Includes:</h4>
+                            <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                              <li>Initial consultation meeting</li>
+                              <li>Process mapping and analysis</li>
+                              <li>Technology assessment</li>
+                              <li>ROI projection</li>
+                            </ul>
+                          </div>
+                        )}
+                        
+                        {step.id === 2 && (
+                          <div className="mt-6 p-4 bg-muted/50 rounded-md">
+                            <h4 className="font-medium mb-2">Design Phase Includes:</h4>
+                            <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                              <li>Solution architecture planning</li>
+                              <li>Technology selection</li>
+                              <li>Workflow design</li>
+                              <li>Implementation roadmap</li>
+                            </ul>
+                          </div>
+                        )}
+                        
+                        {step.id === 3 && (
+                          <div className="mt-6 p-4 bg-muted/50 rounded-md">
+                            <h4 className="font-medium mb-2">Deployment Phase Includes:</h4>
+                            <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                              <li>Agile implementation</li>
+                              <li>Integration with existing systems</li>
+                              <li>Testing and validation</li>
+                              <li>User training</li>
+                            </ul>
+                          </div>
+                        )}
+                        
+                        {step.id === 4 && (
+                          <div className="mt-6 p-4 bg-muted/50 rounded-md">
+                            <h4 className="font-medium mb-2">Optimization Phase Includes:</h4>
+                            <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                              <li>Performance monitoring</li>
+                              <li>Data collection and analysis</li>
+                              <li>Continuous improvement</li>
+                              <li>Regular review meetings</li>
+                            </ul>
+                          </div>
+                        )}
+                      </motion.div>
+                    )
+                  ))}
+                </AnimatePresence>
               </div>
             </div>
           </div>
@@ -177,16 +164,23 @@ const HowItWorks = () => {
           <h2 className="text-3xl font-semibold text-center mb-12">Our Process Timeline</h2>
           
           <div className="max-w-3xl mx-auto">
-            {steps.map((step, index) => (
-              <ProcessStep
-                key={step.id}
-                number={step.id}
-                title={step.title}
-                description={step.description}
-                isActive={step.id <= activeStep}
-                isLast={index === steps.length - 1}
-              />
-            ))}
+            <motion.div 
+              variants={fadeInStagger.container} 
+              initial="hidden" 
+              animate="show"
+            >
+              {steps.map((step, index) => (
+                <motion.div key={step.id} variants={fadeInStagger.item}>
+                  <ProcessStep
+                    number={step.id}
+                    title={step.title}
+                    description={step.description}
+                    isActive={step.id <= activeStep}
+                    isLast={index === steps.length - 1}
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
         </div>
       </section>
