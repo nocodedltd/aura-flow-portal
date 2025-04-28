@@ -1,9 +1,11 @@
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import ProcessStep from "@/components/ProcessStep";
+import { motion, AnimatePresence } from "framer-motion";
 
 const HowItWorks = () => {
   const [activeStep, setActiveStep] = useState(1);
+  const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
   
   const steps = [
     {
@@ -30,15 +32,21 @@ const HowItWorks = () => {
 
   const handleStepClick = (stepId: number) => {
     setActiveStep(stepId);
-    // Removed scrollIntoView behavior
+    
+    // Smooth scroll to the selected step content
+    const selectedRef = contentRefs.current[stepId - 1];
+    if (selectedRef) {
+      selectedRef.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
   };
 
   // Function to get the currently active step's details
   const getActiveStep = () => {
     return steps.find(step => step.id === activeStep) || steps[0];
   };
-
-  const currentStep = getActiveStep();
 
   return (
     <main>
@@ -85,66 +93,79 @@ const HowItWorks = () => {
               </div>
             </div>
 
-            <div className="lg:col-span-3">
-              <div className="h-full flex items-start">
-                {/* Single content area that changes based on active step */}
-                <div className="bg-card rounded-lg border border-border p-8 w-full transition-opacity duration-300">
-                  <h3 className="text-2xl font-semibold mb-4 flex items-center">
-                    <span className="h-8 w-8 rounded-full border-2 border-primary text-primary flex items-center justify-center mr-3">
-                      {currentStep.id}
-                    </span>
-                    {currentStep.title}
-                  </h3>
-                  <p className="text-muted-foreground">{currentStep.description}</p>
-                  
-                  {currentStep.id === 1 && (
-                    <div className="mt-6 p-4 bg-muted/50 rounded-md">
-                      <h4 className="font-medium mb-2">Discovery Phase Includes:</h4>
-                      <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                        <li>Initial consultation meeting</li>
-                        <li>Process mapping and analysis</li>
-                        <li>Technology assessment</li>
-                        <li>ROI projection</li>
-                      </ul>
-                    </div>
-                  )}
-                  
-                  {currentStep.id === 2 && (
-                    <div className="mt-6 p-4 bg-muted/50 rounded-md">
-                      <h4 className="font-medium mb-2">Design Phase Includes:</h4>
-                      <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                        <li>Solution architecture planning</li>
-                        <li>Technology selection</li>
-                        <li>Workflow design</li>
-                        <li>Implementation roadmap</li>
-                      </ul>
-                    </div>
-                  )}
-                  
-                  {currentStep.id === 3 && (
-                    <div className="mt-6 p-4 bg-muted/50 rounded-md">
-                      <h4 className="font-medium mb-2">Deployment Phase Includes:</h4>
-                      <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                        <li>Agile implementation</li>
-                        <li>Integration with existing systems</li>
-                        <li>Testing and validation</li>
-                        <li>User training</li>
-                      </ul>
-                    </div>
-                  )}
-                  
-                  {currentStep.id === 4 && (
-                    <div className="mt-6 p-4 bg-muted/50 rounded-md">
-                      <h4 className="font-medium mb-2">Optimization Phase Includes:</h4>
-                      <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                        <li>Performance monitoring</li>
-                        <li>Data collection and analysis</li>
-                        <li>Continuous improvement</li>
-                        <li>Regular review meetings</li>
-                      </ul>
-                    </div>
-                  )}
-                </div>
+            <div className="lg:col-span-3 overflow-y-auto" style={{ maxHeight: "calc(100vh - 200px)" }}>
+              <div className="space-y-12">
+                {steps.map((step) => (
+                  <motion.div
+                    key={step.id}
+                    ref={(el) => (contentRefs.current[step.id - 1] = el)}
+                    className={`bg-card rounded-lg border border-border p-8 w-full`}
+                    initial={{ opacity: 0.8, y: 10 }}
+                    animate={{ 
+                      opacity: activeStep === step.id ? 1 : 0.8,
+                      y: 0,
+                      scale: activeStep === step.id ? 1 : 0.98,
+                    }}
+                    transition={{ duration: 0.3 }}
+                    id={`step-${step.id}`}
+                  >
+                    <h3 className="text-2xl font-semibold mb-4 flex items-center">
+                      <span className="h-8 w-8 rounded-full border-2 border-primary text-primary flex items-center justify-center mr-3">
+                        {step.id}
+                      </span>
+                      {step.title}
+                    </h3>
+                    <p className="text-muted-foreground">{step.description}</p>
+                    
+                    {step.id === 1 && (
+                      <div className="mt-6 p-4 bg-muted/50 rounded-md">
+                        <h4 className="font-medium mb-2">Discovery Phase Includes:</h4>
+                        <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                          <li>Initial consultation meeting</li>
+                          <li>Process mapping and analysis</li>
+                          <li>Technology assessment</li>
+                          <li>ROI projection</li>
+                        </ul>
+                      </div>
+                    )}
+                    
+                    {step.id === 2 && (
+                      <div className="mt-6 p-4 bg-muted/50 rounded-md">
+                        <h4 className="font-medium mb-2">Design Phase Includes:</h4>
+                        <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                          <li>Solution architecture planning</li>
+                          <li>Technology selection</li>
+                          <li>Workflow design</li>
+                          <li>Implementation roadmap</li>
+                        </ul>
+                      </div>
+                    )}
+                    
+                    {step.id === 3 && (
+                      <div className="mt-6 p-4 bg-muted/50 rounded-md">
+                        <h4 className="font-medium mb-2">Deployment Phase Includes:</h4>
+                        <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                          <li>Agile implementation</li>
+                          <li>Integration with existing systems</li>
+                          <li>Testing and validation</li>
+                          <li>User training</li>
+                        </ul>
+                      </div>
+                    )}
+                    
+                    {step.id === 4 && (
+                      <div className="mt-6 p-4 bg-muted/50 rounded-md">
+                        <h4 className="font-medium mb-2">Optimization Phase Includes:</h4>
+                        <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                          <li>Performance monitoring</li>
+                          <li>Data collection and analysis</li>
+                          <li>Continuous improvement</li>
+                          <li>Regular review meetings</li>
+                        </ul>
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
               </div>
             </div>
           </div>
