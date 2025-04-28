@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 
 export default function Footer() {
@@ -91,9 +92,9 @@ export default function Footer() {
               &copy; {currentYear} NoCoded. All rights reserved.
             </p>
             <div className="mt-4 md:mt-0 flex space-x-6">
-              <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <Link to="/privacy-policy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Privacy Policy
-              </a>
+              </Link>
               <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Terms of Service
               </a>
