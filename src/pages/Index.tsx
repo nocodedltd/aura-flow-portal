@@ -4,17 +4,17 @@ import { Bot, Cog, FileSearch, GraduationCap, ChevronDown } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { heroContainer, heroHeadline, heroSubtitle, heroButtons } from "@/lib/motionConfig";
 import { Button } from "@/components/ui/button";
-
 const Index = () => {
   const reduceMotion = useReducedMotion();
-  
   const scrollToServices = () => {
     const servicesSection = document.getElementById("services-section");
     if (servicesSection) {
-      servicesSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      servicesSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
     }
   };
-  
   const statVariants = {
     hidden: {
       opacity: 0,
@@ -31,7 +31,6 @@ const Index = () => {
       }
     })
   };
-  
   const serviceVariants = {
     hidden: {
       opacity: 0,
@@ -48,7 +47,6 @@ const Index = () => {
       }
     })
   };
-  
   return <main className="overflow-hidden">
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
@@ -112,19 +110,17 @@ const Index = () => {
             </div>
             
             {/* Scroll Down Button */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2, duration: 0.8 }}
-              className="flex justify-center mb-14"
-            >
-              <Button
-                onClick={scrollToServices}
-                variant="ghost"
-                size="icon"
-                className="rounded-full bg-primary/10 hover:bg-primary/20 border border-primary/20 p-2 animate-bounce-light"
-                aria-label="Scroll to services section"
-              >
+            <motion.div initial={{
+            opacity: 0,
+            y: 20
+          }} animate={{
+            opacity: 1,
+            y: 0
+          }} transition={{
+            delay: 1.2,
+            duration: 0.8
+          }} className="flex justify-center mb-14">
+              <Button onClick={scrollToServices} variant="ghost" size="icon" aria-label="Scroll to services section" className="rounded-full bg-primary/10 hover:bg-primary/20 border border-primary/20 p-2 animate-bounce-light py-0 mx-[86px] my-[36px]">
                 <ChevronDown className="h-6 w-6 text-primary" />
               </Button>
             </motion.div>
