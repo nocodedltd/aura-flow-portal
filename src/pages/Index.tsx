@@ -7,12 +7,15 @@ import { Button } from "@/components/ui/button";
 
 const Index = () => {
   const reduceMotion = useReducedMotion();
+  
   const scrollToServices = () => {
     const statsSection = document.getElementById("stats-section");
     if (statsSection) {
-      statsSection.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
+      const statsSectionPosition = statsSection.getBoundingClientRect().top + window.pageYOffset;
+      
+      window.scrollTo({
+        top: statsSectionPosition - 20,
+        behavior: "smooth"
       });
     }
   };
@@ -124,7 +127,13 @@ const Index = () => {
             delay: 1.2,
             duration: 0.8
           }} className="flex justify-center mb-14">
-              <Button onClick={scrollToServices} variant="ghost" size="icon" aria-label="Scroll to stats section" className="rounded-full bg-primary/10 hover:bg-primary/20 border border-primary/20 p-2 animate-bounce-light py-0 mx-[86px] my-[36px]">
+              <Button 
+                onClick={scrollToServices} 
+                variant="ghost" 
+                size="icon" 
+                aria-label="Scroll to view statistics" 
+                className="rounded-full bg-primary/10 hover:bg-primary/20 border border-primary/20 p-2 animate-bounce-light py-0 mx-[86px] my-[36px]"
+              >
                 <ChevronDown className="h-6 w-6 text-primary" />
               </Button>
             </motion.div>
@@ -132,7 +141,7 @@ const Index = () => {
         </motion.div>
       </section>
 
-      {/* Stats Section - Add id for scroll target */}
+      {/* Stats Section - This is where we'll scroll to */}
       <section id="stats-section" className="relative py-16 overflow-hidden">
         <div className="container">
           <motion.div initial="hidden" whileInView="visible" viewport={{
@@ -212,7 +221,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Services Preview Section - Keep the existing id */}
+      {/* Services Preview Section */}
       <section id="services-section" className="py-20 relative overflow-hidden">
         <div className="container relative z-10">
           <motion.div initial={{
