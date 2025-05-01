@@ -7,8 +7,8 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const HowItWorks = () => {
   const [activeStep, setActiveStep] = useState(1);
-  const contentContainerRef = useRef<HTMLDivElement>(null);
-  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const stepRefs = useRef<(HTMLButtonElement | null)[]>([]);
   
   // Reset the refs array when component mounts
   useEffect(() => {
@@ -38,25 +38,19 @@ const HowItWorks = () => {
     }
   ];
 
+  // Calculate the position for the active card
+  const getCardPosition = (stepId: number) => {
+    if (!sidebarRef.current || !stepRefs.current[stepId - 1]) return 0;
+    
+    const sidebarTop = sidebarRef.current.getBoundingClientRect().top;
+    const buttonTop = stepRefs.current[stepId - 1]?.getBoundingClientRect().top || 0;
+    
+    // Calculate the relative position (accounting for padding)
+    return buttonTop - sidebarTop - 8;
+  };
+
   const handleStepClick = (stepId: number) => {
     setActiveStep(stepId);
-    
-    // Scroll to the corresponding step card
-    const stepIndex = stepId - 1;
-    const stepElement = stepRefs.current[stepIndex];
-    
-    if (contentContainerRef.current && stepElement) {
-      // Calculate the position to scroll to
-      const containerTop = contentContainerRef.current.getBoundingClientRect().top;
-      const elementTop = stepElement.getBoundingClientRect().top;
-      const scrollTop = contentContainerRef.current.scrollTop + (elementTop - containerTop);
-      
-      // Smooth scroll to the element
-      contentContainerRef.current.scrollTo({
-        top: scrollTop,
-        behavior: 'smooth'
-      });
-    }
   };
 
   return (
@@ -78,13 +72,17 @@ const HowItWorks = () => {
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
             <div className="lg:col-span-2">
-              <div className="bg-card rounded-lg border border-border p-6 sticky top-24">
+              <div 
+                ref={sidebarRef}
+                className="bg-card rounded-lg border border-border p-6 sticky top-24"
+              >
                 <h2 className="text-2xl font-semibold mb-6">The Bespoke Process</h2>
                 
                 <div className="space-y-4">
-                  {steps.map((step) => (
+                  {steps.map((step, index) => (
                     <button
                       key={step.id}
+                      ref={el => stepRefs.current[index] = el}
                       onClick={() => handleStepClick(step.id)}
                       className={`w-full text-left p-4 rounded-md transition-colors ${
                         activeStep === step.id 
@@ -106,28 +104,34 @@ const HowItWorks = () => {
               </div>
             </div>
 
-            <div className="lg:col-span-3">
-              <div 
-                ref={contentContainerRef}
-                className="space-y-12 pr-4 scroll-smooth overflow-y-auto"
-              >
-                {steps.map((step, index) => (
+            <div className="lg:col-span-3 relative min-h-[600px]">
+              {steps.map((step) => (
+                <motion.div
+                  key={step.id}
+                  className={cn(
+                    "absolute w-full",
+                    activeStep !== step.id && "pointer-events-none"
+                  )}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ 
+                    opacity: activeStep === step.id ? 1 : 0, 
+                    x: activeStep === step.id ? 0 : 50,
+                    top: getCardPosition(activeStep)
+                  }}
+                  transition={{ 
+                    type: "spring", 
+                    stiffness: 300, 
+                    damping: 30,
+                    opacity: { duration: 0.2 }
+                  }}
+                >
                   <div
-                    key={step.id}
-                    ref={el => stepRefs.current[index] = el}
                     className={cn(
-                      "bg-card rounded-lg border border-border p-8 w-full transition-all duration-300",
-                      activeStep === step.id ? "border-primary ring-1 ring-primary/20" : ""
+                      "bg-card rounded-lg border p-8 w-full transition-all duration-300",
+                      activeStep === step.id ? "border-primary ring-1 ring-primary/20" : "border-border"
                     )}
                   >
-                    <motion.div
-                      initial={{ opacity: 0.7 }}
-                      animate={{ 
-                        opacity: 1,
-                        scale: activeStep === step.id ? 1 : 0.98
-                      }}
-                      transition={{ duration: 0.3 }}
-                    >
+                    <div>
                       <h3 className="text-2xl font-semibold mb-4 flex items-center">
                         <span className={cn(
                           "h-8 w-8 rounded-full border-2 flex items-center justify-center mr-3",
@@ -188,10 +192,21 @@ const HowItWorks = () => {
                           </ul>
                         </div>
                       )}
-                    </motion.div>
+                    </div>
                   </div>
-                ))}
-              </div>
+                </motion.div>
+              ))}
+
+              {/* Visual connector between sidebar and card */}
+              <motion.div
+                className="absolute left-[-16px] top-0 w-4 h-0.5 bg-primary"
+                animate={{ 
+                  top: getCardPosition(activeStep) + 40,
+                  opacity: 1
+                }}
+                initial={{ opacity: 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              />
             </div>
           </div>
         </div>
