@@ -18,6 +18,36 @@ const HowItWorks = () => {
     stepRefs.current = stepRefs.current.slice(0, steps.length);
     cardRefs.current = cardRefs.current.slice(0, steps.length);
   }, []);
+
+  // Measure button heights and apply to cards after component mounts
+  useEffect(() => {
+    const updateCardHeights = () => {
+      if (stepRefs.current[0] && cardRefs.current[0] && sidebarRef.current && cardsContainerRef.current) {
+        // Get the button height and spacing from the sidebar
+        const buttonRect = stepRefs.current[0].getBoundingClientRect();
+        const buttonHeight = buttonRect.height;
+        const buttonSpacing = 16; // 4 * 4 (p-4 padding)
+
+        // Set the container height to match the sidebar
+        if (sidebarRef.current) {
+          const sidebarHeight = sidebarRef.current.getBoundingClientRect().height;
+          cardsContainerRef.current.style.height = `${sidebarHeight - 90}px`; // Subtracting header height approx
+        }
+        
+        // Force a recomputation of positions by scrolling to the active card
+        setTimeout(() => {
+          scrollToCard(activeStep);
+        }, 50);
+      }
+    };
+
+    updateCardHeights();
+    window.addEventListener('resize', updateCardHeights);
+    
+    return () => {
+      window.removeEventListener('resize', updateCardHeights);
+    };
+  }, [activeStep]);
   
   const steps = [
     {
@@ -55,7 +85,8 @@ const HowItWorks = () => {
     const cardRect = card.getBoundingClientRect();
     const containerRect = cardsContainerRef.current.getBoundingClientRect();
     
-    // Calculate the scroll position to align the card with the step button
+    // Calculate the exact position needed to align the top of the card with the top of the button
+    // This is the key change to ensure perfect alignment
     const targetScrollTop = 
       cardsContainerRef.current.scrollTop + 
       (cardRect.top - containerRect.top) - 
@@ -131,8 +162,8 @@ const HowItWorks = () => {
                 animate={{ 
                   top: sidebarRef.current && stepRefs.current[activeStep - 1] 
                     ? stepRefs.current[activeStep - 1]?.getBoundingClientRect().top - 
-                      sidebarRef.current.getBoundingClientRect().top + 40 
-                    : 40,
+                      sidebarRef.current.getBoundingClientRect().top + 24 // Adjusted to center with the button
+                    : 24,
                   opacity: 1
                 }}
                 initial={{ opacity: 0 }}
@@ -141,14 +172,14 @@ const HowItWorks = () => {
 
               <div 
                 ref={cardsContainerRef} 
-                className="h-[600px] overflow-y-auto pr-4 scroll-smooth hide-scrollbar"
+                className="overflow-y-auto pr-4 scroll-smooth hide-scrollbar"
               >
-                <div className="space-y-12 pt-4 pb-8">
+                <div className="space-y-4 pt-2 pb-8">
                   {steps.map((step, index) => (
                     <motion.div
                       key={step.id}
                       ref={el => cardRefs.current[index] = el}
-                      initial={{ opacity: 0.7, y: 20 }}
+                      initial={{ opacity: 0.7, y: 10 }}
                       animate={{ 
                         opacity: activeStep === step.id ? 1 : 0.7, 
                         scale: activeStep === step.id ? 1 : 0.98,
@@ -156,17 +187,22 @@ const HowItWorks = () => {
                       }}
                       transition={{ duration: 0.4 }}
                       className="scrolling-card-container"
+                      style={{
+                        // Set a specific height to match the button
+                        height: `68px`, // Height of button (64px) + some adjustment
+                        marginBottom: '16px' // Match the spacing between buttons
+                      }}
                     >
                       <div
                         className={cn(
-                          "bg-card rounded-lg border p-8 w-full transition-all duration-300",
+                          "bg-card rounded-lg border h-full p-6 w-full transition-all duration-300",
                           activeStep === step.id 
                             ? "border-primary shadow-lg shadow-primary/10 ring-1 ring-primary/20" 
                             : "border-border"
                         )}
                       >
-                        <div>
-                          <h3 className="text-2xl font-semibold mb-4 flex items-center">
+                        <div className="flex items-center">
+                          <h3 className="text-2xl font-semibold flex items-center">
                             <span className={cn(
                               "h-8 w-8 rounded-full border-2 flex items-center justify-center mr-3",
                               activeStep === step.id 
@@ -177,56 +213,59 @@ const HowItWorks = () => {
                             </span>
                             {step.title}
                           </h3>
-                          <p className="text-muted-foreground">{step.description}</p>
-                          
-                          {step.id === 1 && (
-                            <div className="mt-6 p-4 bg-muted/50 rounded-md">
-                              <h4 className="font-medium mb-2">Consultation Includes:</h4>
-                              <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                                <li>Initial discovery meeting</li>
-                                <li>Business needs analysis</li>
-                                <li>Current workflow assessment</li>
-                                <li>Opportunity identification</li>
-                              </ul>
-                            </div>
-                          )}
-                          
-                          {step.id === 2 && (
-                            <div className="mt-6 p-4 bg-muted/50 rounded-md">
-                              <h4 className="font-medium mb-2">Design Includes:</h4>
-                              <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                                <li>Solution architecture blueprint</li>
-                                <li>Technology selection</li>
-                                <li>Implementation roadmap</li>
-                                <li>ROI projection</li>
-                              </ul>
-                            </div>
-                          )}
-                          
-                          {step.id === 3 && (
-                            <div className="mt-6 p-4 bg-muted/50 rounded-md">
-                              <h4 className="font-medium mb-2">Implementation Includes:</h4>
-                              <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                                <li>Agile development</li>
-                                <li>Iterative prototyping</li>
-                                <li>Quality assurance</li>
-                                <li>Continual feedback loops</li>
-                              </ul>
-                            </div>
-                          )}
-
-                          {step.id === 4 && (
-                            <div className="mt-6 p-4 bg-muted/50 rounded-md">
-                              <h4 className="font-medium mb-2">Optimisation Includes:</h4>
-                              <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                                <li>Ongoing performance analysis</li>
-                                <li>Optimisation recommendations</li>
-                                <li>Regular review meetings</li>
-                                <li>Adaptation to evolving business needs</li>
-                              </ul>
-                            </div>
-                          )}
                         </div>
+                        
+                        {activeStep === step.id && (
+                          <motion.div 
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            transition={{ duration: 0.3 }}
+                            className="mt-4"
+                          >
+                            <p className="text-muted-foreground mb-4">{step.description}</p>
+                            
+                            <div className="p-4 bg-muted/50 rounded-md">
+                              <h4 className="font-medium mb-2">{step.title} Includes:</h4>
+                              <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                                {step.id === 1 && (
+                                  <>
+                                    <li>Initial discovery meeting</li>
+                                    <li>Business needs analysis</li>
+                                    <li>Current workflow assessment</li>
+                                    <li>Opportunity identification</li>
+                                  </>
+                                )}
+                                
+                                {step.id === 2 && (
+                                  <>
+                                    <li>Solution architecture blueprint</li>
+                                    <li>Technology selection</li>
+                                    <li>Implementation roadmap</li>
+                                    <li>ROI projection</li>
+                                  </>
+                                )}
+                                
+                                {step.id === 3 && (
+                                  <>
+                                    <li>Agile development</li>
+                                    <li>Iterative prototyping</li>
+                                    <li>Quality assurance</li>
+                                    <li>Continual feedback loops</li>
+                                  </>
+                                )}
+
+                                {step.id === 4 && (
+                                  <>
+                                    <li>Ongoing performance analysis</li>
+                                    <li>Optimisation recommendations</li>
+                                    <li>Regular review meetings</li>
+                                    <li>Adaptation to evolving business needs</li>
+                                  </>
+                                )}
+                              </ul>
+                            </div>
+                          </motion.div>
+                        )}
                       </div>
                     </motion.div>
                   ))}
