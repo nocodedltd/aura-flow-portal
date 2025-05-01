@@ -1,18 +1,22 @@
 
 import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { fadeUp, staggerContainer } from "@/lib/motionConfig";
 import { Card, CardContent } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const HowItWorks = () => {
   const [activeStep, setActiveStep] = useState(1);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const stepRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const cardsContainerRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   
-  // Reset the refs array when component mounts
+  // Reset the refs arrays when component mounts
   useEffect(() => {
     stepRefs.current = stepRefs.current.slice(0, steps.length);
+    cardRefs.current = cardRefs.current.slice(0, steps.length);
   }, []);
   
   const steps = [
@@ -38,19 +42,27 @@ const HowItWorks = () => {
     }
   ];
 
-  // Calculate the position for the active card
-  const getCardPosition = (stepId: number) => {
-    if (!sidebarRef.current || !stepRefs.current[stepId - 1]) return 0;
+  const scrollToCard = (stepId: number) => {
+    if (!cardsContainerRef.current || !cardRefs.current[stepId - 1] || !sidebarRef.current || !stepRefs.current[stepId - 1]) return;
     
     const sidebarTop = sidebarRef.current.getBoundingClientRect().top;
     const buttonTop = stepRefs.current[stepId - 1]?.getBoundingClientRect().top || 0;
+    const cardTop = cardRefs.current[stepId - 1]?.getBoundingClientRect().top || 0;
+    const cardContainer = cardsContainerRef.current.getBoundingClientRect().top;
     
-    // Calculate the relative position (accounting for padding)
-    return buttonTop - sidebarTop - 8;
+    // Calculate how much to scroll to align the card with the button
+    const scrollOffset = cardTop - buttonTop;
+    
+    // Smooth scroll the cards container
+    cardsContainerRef.current.scrollTo({
+      top: cardsContainerRef.current.scrollTop + scrollOffset,
+      behavior: 'smooth'
+    });
   };
 
   const handleStepClick = (stepId: number) => {
     setActiveStep(stepId);
+    scrollToCard(stepId);
   };
 
   return (
@@ -104,109 +116,114 @@ const HowItWorks = () => {
               </div>
             </div>
 
-            <div className="lg:col-span-3 relative min-h-[600px]">
-              {steps.map((step) => (
-                <motion.div
-                  key={step.id}
-                  className={cn(
-                    "absolute w-full",
-                    activeStep !== step.id && "pointer-events-none"
-                  )}
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ 
-                    opacity: activeStep === step.id ? 1 : 0, 
-                    x: activeStep === step.id ? 0 : 50,
-                    top: getCardPosition(activeStep)
-                  }}
-                  transition={{ 
-                    type: "spring", 
-                    stiffness: 300, 
-                    damping: 30,
-                    opacity: { duration: 0.2 }
-                  }}
-                >
-                  <div
-                    className={cn(
-                      "bg-card rounded-lg border p-8 w-full transition-all duration-300",
-                      activeStep === step.id ? "border-primary ring-1 ring-primary/20" : "border-border"
-                    )}
-                  >
-                    <div>
-                      <h3 className="text-2xl font-semibold mb-4 flex items-center">
-                        <span className={cn(
-                          "h-8 w-8 rounded-full border-2 flex items-center justify-center mr-3",
-                          activeStep === step.id 
-                            ? "border-primary text-primary" 
-                            : "border-muted-foreground/50 text-muted-foreground/50"
-                        )}>
-                          {step.id}
-                        </span>
-                        {step.title}
-                      </h3>
-                      <p className="text-muted-foreground">{step.description}</p>
-                      
-                      {step.id === 1 && (
-                        <div className="mt-6 p-4 bg-muted/50 rounded-md">
-                          <h4 className="font-medium mb-2">Consultation Includes:</h4>
-                          <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                            <li>Initial discovery meeting</li>
-                            <li>Business needs analysis</li>
-                            <li>Current workflow assessment</li>
-                            <li>Opportunity identification</li>
-                          </ul>
-                        </div>
-                      )}
-                      
-                      {step.id === 2 && (
-                        <div className="mt-6 p-4 bg-muted/50 rounded-md">
-                          <h4 className="font-medium mb-2">Design Includes:</h4>
-                          <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                            <li>Solution architecture blueprint</li>
-                            <li>Technology selection</li>
-                            <li>Implementation roadmap</li>
-                            <li>ROI projection</li>
-                          </ul>
-                        </div>
-                      )}
-                      
-                      {step.id === 3 && (
-                        <div className="mt-6 p-4 bg-muted/50 rounded-md">
-                          <h4 className="font-medium mb-2">Implementation Includes:</h4>
-                          <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                            <li>Agile development</li>
-                            <li>Iterative prototyping</li>
-                            <li>Quality assurance</li>
-                            <li>Continual feedback loops</li>
-                          </ul>
-                        </div>
-                      )}
-
-                      {step.id === 4 && (
-                        <div className="mt-6 p-4 bg-muted/50 rounded-md">
-                          <h4 className="font-medium mb-2">Optimisation Includes:</h4>
-                          <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                            <li>Ongoing performance analysis</li>
-                            <li>Optimisation recommendations</li>
-                            <li>Regular review meetings</li>
-                            <li>Adaptation to evolving business needs</li>
-                          </ul>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-
+            <div className="lg:col-span-3 relative">
               {/* Visual connector between sidebar and card */}
               <motion.div
                 className="absolute left-[-16px] top-0 w-4 h-0.5 bg-primary"
                 animate={{ 
-                  top: getCardPosition(activeStep) + 40,
+                  top: sidebarRef.current && stepRefs.current[activeStep - 1] 
+                    ? stepRefs.current[activeStep - 1]?.getBoundingClientRect().top - 
+                      sidebarRef.current.getBoundingClientRect().top + 40 
+                    : 40,
                   opacity: 1
                 }}
                 initial={{ opacity: 0 }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               />
+
+              <div 
+                ref={cardsContainerRef} 
+                className="h-[600px] overflow-y-auto pr-4 scroll-smooth hide-scrollbar"
+                style={{ scrollbarWidth: 'none' }}
+              >
+                <div className="space-y-8 pt-4 pb-8">
+                  {steps.map((step, index) => (
+                    <motion.div
+                      key={step.id}
+                      ref={el => cardRefs.current[index] = el}
+                      initial={{ opacity: 0.6, y: 20 }}
+                      animate={{ 
+                        opacity: activeStep === step.id ? 1 : 0.6, 
+                        scale: activeStep === step.id ? 1 : 0.98,
+                        y: 0 
+                      }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      <div
+                        className={cn(
+                          "bg-card rounded-lg border p-8 w-full transition-all duration-300",
+                          activeStep === step.id 
+                            ? "border-primary shadow-lg shadow-primary/10 ring-1 ring-primary/20" 
+                            : "border-border"
+                        )}
+                      >
+                        <div>
+                          <h3 className="text-2xl font-semibold mb-4 flex items-center">
+                            <span className={cn(
+                              "h-8 w-8 rounded-full border-2 flex items-center justify-center mr-3",
+                              activeStep === step.id 
+                                ? "border-primary text-primary" 
+                                : "border-muted-foreground/50 text-muted-foreground/50"
+                            )}>
+                              {step.id}
+                            </span>
+                            {step.title}
+                          </h3>
+                          <p className="text-muted-foreground">{step.description}</p>
+                          
+                          {step.id === 1 && (
+                            <div className="mt-6 p-4 bg-muted/50 rounded-md">
+                              <h4 className="font-medium mb-2">Consultation Includes:</h4>
+                              <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                                <li>Initial discovery meeting</li>
+                                <li>Business needs analysis</li>
+                                <li>Current workflow assessment</li>
+                                <li>Opportunity identification</li>
+                              </ul>
+                            </div>
+                          )}
+                          
+                          {step.id === 2 && (
+                            <div className="mt-6 p-4 bg-muted/50 rounded-md">
+                              <h4 className="font-medium mb-2">Design Includes:</h4>
+                              <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                                <li>Solution architecture blueprint</li>
+                                <li>Technology selection</li>
+                                <li>Implementation roadmap</li>
+                                <li>ROI projection</li>
+                              </ul>
+                            </div>
+                          )}
+                          
+                          {step.id === 3 && (
+                            <div className="mt-6 p-4 bg-muted/50 rounded-md">
+                              <h4 className="font-medium mb-2">Implementation Includes:</h4>
+                              <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                                <li>Agile development</li>
+                                <li>Iterative prototyping</li>
+                                <li>Quality assurance</li>
+                                <li>Continual feedback loops</li>
+                              </ul>
+                            </div>
+                          )}
+
+                          {step.id === 4 && (
+                            <div className="mt-6 p-4 bg-muted/50 rounded-md">
+                              <h4 className="font-medium mb-2">Optimisation Includes:</h4>
+                              <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                                <li>Ongoing performance analysis</li>
+                                <li>Optimisation recommendations</li>
+                                <li>Regular review meetings</li>
+                                <li>Adaptation to evolving business needs</li>
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
