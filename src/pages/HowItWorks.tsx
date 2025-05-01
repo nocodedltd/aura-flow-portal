@@ -45,17 +45,25 @@ const HowItWorks = () => {
   const scrollToCard = (stepId: number) => {
     if (!cardsContainerRef.current || !cardRefs.current[stepId - 1] || !sidebarRef.current || !stepRefs.current[stepId - 1]) return;
     
-    const sidebarTop = sidebarRef.current.getBoundingClientRect().top;
-    const buttonTop = stepRefs.current[stepId - 1]?.getBoundingClientRect().top || 0;
-    const cardTop = cardRefs.current[stepId - 1]?.getBoundingClientRect().top || 0;
-    const cardContainer = cardsContainerRef.current.getBoundingClientRect().top;
+    const stepButton = stepRefs.current[stepId - 1];
+    const card = cardRefs.current[stepId - 1];
     
-    // Calculate how much to scroll to align the card with the button
-    const scrollOffset = cardTop - buttonTop;
+    if (!stepButton || !card) return;
     
-    // Smooth scroll the cards container
+    // Get the positions
+    const stepButtonRect = stepButton.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    const containerRect = cardsContainerRef.current.getBoundingClientRect();
+    
+    // Calculate the scroll position to align the card with the step button
+    const targetScrollTop = 
+      cardsContainerRef.current.scrollTop + 
+      (cardRect.top - containerRect.top) - 
+      (stepButtonRect.top - containerRect.top);
+    
+    // Smooth scroll to the position
     cardsContainerRef.current.scrollTo({
-      top: cardsContainerRef.current.scrollTop + scrollOffset,
+      top: targetScrollTop,
       behavior: 'smooth'
     });
   };
@@ -96,7 +104,7 @@ const HowItWorks = () => {
                       key={step.id}
                       ref={el => stepRefs.current[index] = el}
                       onClick={() => handleStepClick(step.id)}
-                      className={`w-full text-left p-4 rounded-md transition-colors ${
+                      className={`w-full text-left p-4 rounded-md transition-all duration-300 ${
                         activeStep === step.id 
                           ? "bg-primary text-primary-foreground" 
                           : "bg-muted/50 hover:bg-muted"
@@ -134,20 +142,20 @@ const HowItWorks = () => {
               <div 
                 ref={cardsContainerRef} 
                 className="h-[600px] overflow-y-auto pr-4 scroll-smooth hide-scrollbar"
-                style={{ scrollbarWidth: 'none' }}
               >
-                <div className="space-y-8 pt-4 pb-8">
+                <div className="space-y-12 pt-4 pb-8">
                   {steps.map((step, index) => (
                     <motion.div
                       key={step.id}
                       ref={el => cardRefs.current[index] = el}
-                      initial={{ opacity: 0.6, y: 20 }}
+                      initial={{ opacity: 0.7, y: 20 }}
                       animate={{ 
-                        opacity: activeStep === step.id ? 1 : 0.6, 
+                        opacity: activeStep === step.id ? 1 : 0.7, 
                         scale: activeStep === step.id ? 1 : 0.98,
                         y: 0 
                       }}
                       transition={{ duration: 0.4 }}
+                      className="scrolling-card-container"
                     >
                       <div
                         className={cn(
