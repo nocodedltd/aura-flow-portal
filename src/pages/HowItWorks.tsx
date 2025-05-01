@@ -23,27 +23,17 @@ const HowItWorks = () => {
     },
     {
       id: 2,
-      title: "Measurement",
-      description: "Like taking precise measurements for a bespoke suit, our experts meticulously map your data architecture and operational workflows. We identify key metrics and performance indicators to ensure our solution will be perfectly fitted to your business objectives and deliver measurable outcomes."
-    },
-    {
-      id: 3,
       title: "Design",
       description: "Similar to creating a pattern for a custom garment, we design a tailored solution architecture that addresses your specific requirements. This includes selecting the appropriate technologies, designing workflows, and planning implementation stages that will seamlessly integrate with your existing systems."
     },
     {
-      id: 4,
-      title: "Crafting",
+      id: 3,
+      title: "Implementation",
       description: "Just as a tailor precisely cuts and assembles fabric, our team implements the designed solution with exacting attention to detail. We follow agile methodologies, allowing for continuous feedback and adjustments throughout the development process to ensure the perfect fit."
     },
     {
-      id: 5,
-      title: "Fitting",
-      description: "Like final fittings for a bespoke suit, we test and refine the solution with your team. This ensures seamless integration with your existing systems and processes, with adjustments made as needed to achieve optimal performance and user experience."
-    },
-    {
-      id: 6,
-      title: "Refinement",
+      id: 4,
+      title: "Optimisation",
       description: "Just as a fine garment requires occasional alterations to maintain its perfect fit, we continuously monitor and optimise your solution. We collect performance data and make iterative improvements to ensure your AI tools evolve alongside your business needs."
     }
   ];
@@ -116,7 +106,6 @@ const HowItWorks = () => {
               </div>
             </div>
 
-            {/* Scrollable content area without fixed height */}
             <div className="lg:col-span-3">
               <div 
                 ref={contentContainerRef}
@@ -166,18 +155,6 @@ const HowItWorks = () => {
                       
                       {step.id === 2 && (
                         <div className="mt-6 p-4 bg-muted/50 rounded-md">
-                          <h4 className="font-medium mb-2">Measurement Includes:</h4>
-                          <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                            <li>Data landscape mapping</li>
-                            <li>Process flow documentation</li>
-                            <li>Key metrics identification</li>
-                            <li>Resource utilisation analysis</li>
-                          </ul>
-                        </div>
-                      )}
-                      
-                      {step.id === 3 && (
-                        <div className="mt-6 p-4 bg-muted/50 rounded-md">
                           <h4 className="font-medium mb-2">Design Includes:</h4>
                           <ul className="list-disc list-inside space-y-1 text-muted-foreground">
                             <li>Solution architecture blueprint</li>
@@ -188,9 +165,9 @@ const HowItWorks = () => {
                         </div>
                       )}
                       
-                      {step.id === 4 && (
+                      {step.id === 3 && (
                         <div className="mt-6 p-4 bg-muted/50 rounded-md">
-                          <h4 className="font-medium mb-2">Crafting Includes:</h4>
+                          <h4 className="font-medium mb-2">Implementation Includes:</h4>
                           <ul className="list-disc list-inside space-y-1 text-muted-foreground">
                             <li>Agile development</li>
                             <li>Iterative prototyping</li>
@@ -200,21 +177,9 @@ const HowItWorks = () => {
                         </div>
                       )}
 
-                      {step.id === 5 && (
+                      {step.id === 4 && (
                         <div className="mt-6 p-4 bg-muted/50 rounded-md">
-                          <h4 className="font-medium mb-2">Fitting Includes:</h4>
-                          <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                            <li>System integration</li>
-                            <li>User acceptance testing</li>
-                            <li>Team training sessions</li>
-                            <li>Preliminary performance monitoring</li>
-                          </ul>
-                        </div>
-                      )}
-
-                      {step.id === 6 && (
-                        <div className="mt-6 p-4 bg-muted/50 rounded-md">
-                          <h4 className="font-medium mb-2">Refinement Includes:</h4>
+                          <h4 className="font-medium mb-2">Optimisation Includes:</h4>
                           <ul className="list-disc list-inside space-y-1 text-muted-foreground">
                             <li>Ongoing performance analysis</li>
                             <li>Optimisation recommendations</li>
