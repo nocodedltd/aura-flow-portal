@@ -58,6 +58,12 @@ const HowItWorks = () => {
       {/* Process Steps */}
       <section className="py-20">
         <div className="container max-w-4xl">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">Our Proven Process</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              We follow a structured approach to ensure your AI transformation is successful. Each step is designed to build upon the previous one, creating a comprehensive strategy tailored to your business needs.
+            </p>
+          </div>
           <div className="space-y-12">
             {steps.map((step) => (
               <div key={step.id} className="border-l-2 border-primary/20 pl-8 relative">
@@ -80,31 +86,6 @@ const HowItWorks = () => {
                     <p className="text-muted-foreground mb-4">{step.description}</p>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Timeline Summary */}
-      <section className="py-16 bg-muted/20">
-        <div className="container max-w-4xl">
-          <div className="text-center mb-8">
-            <h2 className="mb-4">Simple 5-Step Process</h2>
-            <p className="text-muted-foreground">From AI overwhelm to strategic implementation</p>
-          </div>
-          <div className="flex flex-wrap justify-center gap-4">
-            {steps.map((step, index) => (
-              <div key={step.id} className="flex items-center">
-                <div className="flex items-center gap-3 bg-background p-3 rounded-lg shadow-sm">
-                  <div className="h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">
-                    {step.id}
-                  </div>
-                  <span className="text-sm font-medium">{step.timeline}</span>
-                </div>
-                {index < steps.length - 1 && (
-                  <div className="w-8 h-0.5 bg-primary/30 mx-2" />
-                )}
               </div>
             ))}
           </div>
