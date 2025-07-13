@@ -39,15 +39,7 @@ export default function Navbar() {
           className="flex items-center"
           aria-label="Homepage"
         >
-          <img
-            src="/lovable-uploads/5474f216-66de-4286-8816-9b3b1bea942f.png"
-            alt="NoCoded logo"
-            className="h-9 w-auto"
-            width={148}
-            height={36}
-            style={{ maxWidth: "148px" }}
-            loading="eager"
-          />
+          <span className="text-2xl font-bold text-primary">NoCoded</span>
         </Link>
 
         {/* Nav items */}

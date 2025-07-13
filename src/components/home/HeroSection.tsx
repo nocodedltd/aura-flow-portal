@@ -30,9 +30,7 @@ export default function HeroSection({ scrollToServices }: HeroSectionProps) {
           type: "spring",
           stiffness: 70
         }} className="flex justify-center mb-6" aria-label="NoCoded Logo">
-            <img src="/lovable-uploads/5474f216-66de-4286-8816-9b3b1bea942f.png" alt="NoCoded logo" className="h-14 md:h-16 w-auto drop-shadow-[0_0_15px_rgba(249,222,201,0.3)]" style={{
-            maxWidth: "360px"
-          }} />
+            <span className="text-4xl md:text-5xl font-bold text-primary drop-shadow-[0_0_15px_rgba(249,222,201,0.3)]">NoCoded</span>
           </motion.div>
           
           {/* Headline */}
