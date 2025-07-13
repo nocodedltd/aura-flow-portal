@@ -75,8 +75,8 @@ export default function ServicesSection() {
       }
     })
   };
-  return <section id="services-section" className="relative overflow-hidden mx-0 my-0 px-0 py-0">
-      <div className="container relative z-10">
+  return <section id="services-section" className="relative overflow-hidden py-20">
+      <div className="container relative z-10 px-4 sm:px-6 lg:px-8">
         <motion.div initial={{
         opacity: 0,
         y: 30
