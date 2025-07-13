@@ -5,25 +5,25 @@ const About = () => {
       name: "Charlie Lefever",
       role: "Founder & Managing Director",
       bio: "Charlie's passion for optimising business processes is at the heart of what he does at NoCoded. With a background that's in equal parts technical as it is creative, he excels in mapping and designing workflows that not only streamline operations but make them easier for teams to manage. Charlie believes in crafting solutions that fit each client's unique needs, rather than 'pre-built' solutions, ensuring that their day-to-day operations run more smoothly and efficiently.",
-      image: "/lovable-uploads/e94e1670-410b-4f13-9e09-89f236705d8a.png"
+      image: "/lovable-uploads/286a7435-f45b-451e-82c2-d3b3ced30e39.png"
     },
     {
       name: "Joe Brady",
       role: "Founder & Head of Sales",
       bio: "As Founder and Head of Sales, Joe brings a forward-thinking approach to NoCoded's business development. With over five years of experience running a business, Joe has a keen ability to identify client needs and craft tailored solutions that truly add value. His entrepreneurial spirit and dedication to building strong relationships have been instrumental in driving NoCoded's growth.",
-      image: "/lovable-uploads/286a7435-f45b-451e-82c2-d3b3ced30e39.png"
+      image: "/lovable-uploads/e94e1670-410b-4f13-9e09-89f236705d8a.png"
     },
     {
       name: "Arsalan Afgan Khan",
       role: "Head of AI Implementation",
       bio: "As the Head of AI Implementation, Arsalan is at the forefront of integrating artificial intelligence into client systems. His technical acumen and forward-thinking approach enable him to design AI solutions that are not only cutting-edge but also practical and scalable. Arsalan's work involves making complex data models accessible and useful for everyday business decision-making.",
-      image: "/lovable-uploads/46b02e5c-b352-445d-be33-c475706a2533.png"
+      image: "/lovable-uploads/df43a3d0-1d4c-4fa0-88a4-9d3636101713.png"
     },
     {
       name: "Dominic Tuck",
       role: "Automation Architect",
       bio: "Dom recently joined the NoCoded team, bringing with him a strong background in data analysis, process management, and operational efficiency. With experience handling large data sets from major industries and working closely with both suppliers and engineers, Dom has developed a keen ability to streamline workflows and improve system performance.",
-      image: "/lovable-uploads/df43a3d0-1d4c-4fa0-88a4-9d3636101713.png"
+      image: "/lovable-uploads/46b02e5c-b352-445d-be33-c475706a2533.png"
     }
   ];
 
