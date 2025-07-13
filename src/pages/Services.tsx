@@ -87,6 +87,7 @@ const Services = () => {
             {services.map((service, index) => (
               <div 
                 key={index}
+                id={service.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '')}
                 className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
                   index % 2 === 1 ? "lg:grid-flow-dense" : ""
                 } ${service.flagship ? "border-2 border-primary/20 rounded-xl p-8 bg-primary/5" : ""}`}

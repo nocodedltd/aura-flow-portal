@@ -92,28 +92,28 @@ export default function Navbar() {
                           {item.label === "Services" && (
                             <>
                               <Link
-                                to="/services"
+                                to="/services#90-day-ai-transformation"
                                 className={`${TEXT} hover:${HIGHLIGHT} py-1`}
                                 onClick={() => setOpenDropdown(null)}
                               >
                                 90-Day AI Transformation
                               </Link>
                               <Link
-                                to="/services"
+                                to="/services#ai-agents"
                                 className={`${TEXT} hover:${HIGHLIGHT} py-1`}
                                 onClick={() => setOpenDropdown(null)}
                               >
                                 AI Agents
                               </Link>
                               <Link
-                                to="/services"
+                                to="/services#process-automation"
                                 className={`${TEXT} hover:${HIGHLIGHT} py-1`}
                                 onClick={() => setOpenDropdown(null)}
                               >
                                 Process Automation
                               </Link>
                               <Link
-                                to="/services"
+                                to="/services#custom-projects"
                                 className={`${TEXT} hover:${HIGHLIGHT} py-1`}
                                 onClick={() => setOpenDropdown(null)}
                               >
