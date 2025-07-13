@@ -1,5 +1,9 @@
 
 import { Calendar, Bot, Cog, Zap, CheckCircle, Star } from "lucide-react";
+import aiTransformationImg from "@/assets/ai-transformation.jpg";
+import aiAgentsImg from "@/assets/ai-agents.jpg";
+import processAutomationImg from "@/assets/process-automation.jpg";
+import customProjectsImg from "@/assets/custom-projects.jpg";
 
 const Services = () => {
   const services = [
@@ -15,7 +19,8 @@ const Services = () => {
         "Custom AI agents and automation workflows",
         "Team training and change management"
       ],
-      flagship: true
+      flagship: true,
+      image: aiTransformationImg
     },
     {
       icon: <Bot size={32} />,
@@ -27,7 +32,8 @@ const Services = () => {
         "Seamless integration with existing systems",
         "Continuous learning and improvement",
         "Multi-channel deployment (web, phone, email)"
-      ]
+      ],
+      image: aiAgentsImg
     },
     {
       icon: <Cog size={32} />,
@@ -39,7 +45,8 @@ const Services = () => {
         "Zero-error rate in automated processes",
         "Real-time monitoring and reporting",
         "Scalable to handle unlimited volume"
-      ]
+      ],
+      image: processAutomationImg
     },
     {
       icon: <Zap size={32} />,
@@ -51,7 +58,8 @@ const Services = () => {
         "Flexible engagement models and timelines",
         "Intellectual property ownership included",
         "Ongoing maintenance and support options"
-      ]
+      ],
+      image: customProjectsImg
     }
   ];
 
@@ -108,9 +116,14 @@ const Services = () => {
                   </ul>
                 </div>
                 
-                <div className={`bg-muted/50 rounded-lg p-8 ${index % 2 === 1 ? "lg:col-start-1" : ""}`}>
-                  <div className="aspect-video bg-card rounded-md flex items-center justify-center border border-border">
-                    <div className="text-6xl text-primary">{service.icon}</div>
+                <div className={`rounded-lg overflow-hidden ${index % 2 === 1 ? "lg:col-start-1" : ""}`}>
+                  <div className="aspect-video relative group">
+                    <img 
+                      src={service.image} 
+                      alt={service.title}
+                      className="w-full h-full object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent rounded-lg" />
                   </div>
                 </div>
               </div>
