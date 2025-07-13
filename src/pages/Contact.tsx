@@ -18,11 +18,30 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Contact Form */}
+      {/* Contact Form & Calendar */}
       <section className="py-20">
         <div className="container">
-          <div className="max-w-2xl mx-auto">
-            <ContactForm />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            {/* Contact Form */}
+            <div>
+              <h2 className="text-2xl font-semibold mb-6">Send Us a Message</h2>
+              <ContactForm />
+            </div>
+            
+            {/* Cal.com Embed */}
+            <div>
+              <h2 className="text-2xl font-semibold mb-6">Schedule a Call</h2>
+              <div className="h-[600px] w-full">
+                <iframe
+                  src="https://cal.com/your-username"
+                  width="100%"
+                  height="100%"
+                  frameBorder="0"
+                  className="rounded-lg border border-border"
+                  title="Schedule a meeting"
+                ></iframe>
+              </div>
+            </div>
           </div>
         </div>
       </section>
