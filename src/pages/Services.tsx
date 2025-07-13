@@ -1,9 +1,9 @@
 
 import { Calendar, Bot, Cog, Zap, CheckCircle, Star } from "lucide-react";
-import aiTransformationImg from "@/assets/ai-transformation.jpg";
+import teamCollaborationImg from "@/assets/team-collaboration.jpg";
 import aiAgentsImg from "@/assets/ai-agents.jpg";
 import processAutomationImg from "@/assets/process-automation.jpg";
-import customProjectsImg from "@/assets/custom-projects.jpg";
+import aiTransformationImg from "@/assets/ai-transformation.jpg";
 
 const Services = () => {
   const services = [
@@ -20,7 +20,7 @@ const Services = () => {
         "Team training and change management"
       ],
       flagship: true,
-      image: aiTransformationImg
+      image: teamCollaborationImg
     },
     {
       icon: <Bot size={32} />,
@@ -59,7 +59,7 @@ const Services = () => {
         "Intellectual property ownership included",
         "Ongoing maintenance and support options"
       ],
-      image: customProjectsImg
+      image: aiTransformationImg
     }
   ];
 
