@@ -14,7 +14,6 @@ const HowItWorks = () => {
       icon: <Users size={24} />,
       title: "Discovery Call & AI Diagnostic",
       description: "We diagnose before prescribing. Our comprehensive assessment reveals your AI readiness and opportunities.",
-      deliverables: ["AI Opportunity Assessment", "Current State Analysis", "Strategic Recommendations"],
       timeline: "Week 1"
     },
     {
@@ -22,7 +21,6 @@ const HowItWorks = () => {
       icon: <Target size={24} />,
       title: "Tailored Service Recommendation",
       description: "Based on your diagnostic, we prescribe the optimal path - 90-Day Transformation, Process Automation, or Custom Development.",
-      deliverables: ["Service Recommendation", "Project Proposal", "Timeline & Investment Overview"],
       timeline: "Week 2"
     },
     {
@@ -30,7 +28,6 @@ const HowItWorks = () => {
       icon: <Rocket size={24} />,
       title: "Implementation",
       description: "Expert execution with agile methodology. Seamless integration with minimal business disruption.",
-      deliverables: ["AI Solution Deployment", "Team Training", "Quality Assurance"],
       timeline: "Implementation Phase"
     },
     {
@@ -38,7 +35,6 @@ const HowItWorks = () => {
       icon: <Heart size={24} />,
       title: "Ongoing Partnership",
       description: "Continuous optimization, monitoring, and strategic guidance for long-term success and growth.",
-      deliverables: ["Performance Analytics", "Monthly Reports", "Growth Recommendations"],
       timeline: "Ongoing"
     }
   ];
@@ -82,19 +78,6 @@ const HowItWorks = () => {
                       </div>
                     </div>
                     <p className="text-muted-foreground mb-4">{step.description}</p>
-                    
-                    {step.deliverables && (
-                      <div>
-                        <h4 className="text-sm font-medium mb-2 text-muted-foreground">Deliverables:</h4>
-                        <ul className="flex flex-wrap gap-2">
-                          {step.deliverables.map((deliverable, i) => (
-                            <li key={i} className="bg-muted px-3 py-1 rounded-full text-sm">
-                              {deliverable}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>
