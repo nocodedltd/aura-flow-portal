@@ -16,7 +16,7 @@ const FONT = "font-sans";
 const navItems = [
   { label: "Services", path: "/services", dropdown: true, icon: <Briefcase size={20} /> },
   { label: "How It Works", path: "/how-it-works", icon: <MessageSquare size={20} /> },
-  { label: "About", path: "/about", dropdown: true, icon: <User size={20} /> },
+  { label: "About", path: "/about", icon: <User size={20} /> },
   { label: "Contact", path: "/contact" },
 ];
 
@@ -95,57 +95,32 @@ export default function Navbar() {
                           {item.label === "Services" && (
                             <>
                               <Link
-                                to="/services#agent-deployment"
+                                to="/services"
                                 className={`${TEXT} hover:${HIGHLIGHT} py-1`}
                                 onClick={() => setOpenDropdown(null)}
                               >
-                                Agent Deployment
+                                90-Day AI Transformation
                               </Link>
                               <Link
-                                to="/services#process-automation"
+                                to="/services"
+                                className={`${TEXT} hover:${HIGHLIGHT} py-1`}
+                                onClick={() => setOpenDropdown(null)}
+                              >
+                                AI Agents
+                              </Link>
+                              <Link
+                                to="/services"
                                 className={`${TEXT} hover:${HIGHLIGHT} py-1`}
                                 onClick={() => setOpenDropdown(null)}
                               >
                                 Process Automation
                               </Link>
                               <Link
-                                to="/services#ai-audits"
+                                to="/services"
                                 className={`${TEXT} hover:${HIGHLIGHT} py-1`}
                                 onClick={() => setOpenDropdown(null)}
                               >
-                                AI Audits
-                              </Link>
-                              <Link
-                                to="/services#ai-training"
-                                className={`${TEXT} hover:${HIGHLIGHT} py-1`}
-                                onClick={() => setOpenDropdown(null)}
-                              >
-                                AI Training
-                              </Link>
-                            </>
-                          )}
-                          {item.label === "About" && (
-                            <>
-                              <Link
-                                to="/about#team"
-                                className={`${TEXT} hover:${HIGHLIGHT} py-1`}
-                                onClick={() => setOpenDropdown(null)}
-                              >
-                                Our Team
-                              </Link>
-                              <Link
-                                to="/about#mission"
-                                className={`${TEXT} hover:${HIGHLIGHT} py-1`}
-                                onClick={() => setOpenDropdown(null)}
-                              >
-                                Our Mission
-                              </Link>
-                              <Link
-                                to="/about#values"
-                                className={`${TEXT} hover:${HIGHLIGHT} py-1`}
-                                onClick={() => setOpenDropdown(null)}
-                              >
-                                Our Values
+                                Custom Projects
                               </Link>
                             </>
                           )}
