@@ -7,9 +7,10 @@ interface Position {
 }
 
 export default function CursorGlow() {
-  const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+  const [position, setPosition] = useState<Position>({ x: -100, y: -100 });
   const [visible, setVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   useEffect(() => {
     // Check if device is mobile
@@ -23,18 +24,21 @@ export default function CursorGlow() {
     if (!isMobile) {
       const updatePosition = (e: MouseEvent) => {
         setPosition({ x: e.clientX, y: e.clientY });
+        if (!hasInteracted) {
+          setHasInteracted(true);
+        }
+        setVisible(true);
       };
 
-      const handleMouseEnter = () => setVisible(true);
-      const handleMouseLeave = () => setVisible(false);
+      const handleMouseLeave = () => {
+        setVisible(false);
+      };
 
       document.addEventListener("mousemove", updatePosition);
-      document.addEventListener("mouseenter", handleMouseEnter);
       document.addEventListener("mouseleave", handleMouseLeave);
 
       return () => {
         document.removeEventListener("mousemove", updatePosition);
-        document.removeEventListener("mouseenter", handleMouseEnter);
         document.removeEventListener("mouseleave", handleMouseLeave);
         window.removeEventListener("resize", checkMobile);
       };
@@ -51,7 +55,7 @@ export default function CursorGlow() {
   return (
     <div
       className={`pointer-events-none fixed left-0 top-0 z-50 h-8 w-8 rounded-full bg-primary/40 mix-blend-screen backdrop-blur-sm transition-opacity duration-300 ease-out ${
-        visible ? "opacity-100" : "opacity-0"
+        visible && hasInteracted ? "opacity-100" : "opacity-0"
       } animate-cursor-pulse`}
       style={{
         transform: `translate(${position.x - 16}px, ${position.y - 16}px)`,
