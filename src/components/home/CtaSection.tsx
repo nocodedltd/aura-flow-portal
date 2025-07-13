@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
@@ -9,41 +8,44 @@ declare global {
     Cal: any;
   }
 }
-
 export default function CtaSection() {
   useEffect(() => {
     // Initialize Cal.com calendar with a delay to ensure script is loaded
     const timer = setTimeout(() => {
       if (typeof window !== 'undefined' && window.Cal) {
         try {
-          window.Cal("init", "30-min-chat", {origin:"https://app.cal.com"});
-          
-          window.Cal.ns["30-min-chat"]("inline", {
-            elementOrSelector:"#my-cal-inline-30-min-chat",
-            config: {"layout":"month_view","theme":"dark"},
-            calLink: "nocoded/30-min-chat",
+          window.Cal("init", "30-min-chat", {
+            origin: "https://app.cal.com"
           });
-
-          window.Cal.ns["30-min-chat"]("ui", {
-            "theme":"dark",
-            "cssVarsPerTheme":{
-              "light":{"cal-brand":"#f9dec9"},
-              "dark":{"cal-brand":"#6e74af"}
+          window.Cal.ns["30-min-chat"]("inline", {
+            elementOrSelector: "#my-cal-inline-30-min-chat",
+            config: {
+              "layout": "month_view",
+              "theme": "dark"
             },
-            "hideEventTypeDetails":false,
-            "layout":"month_view"
+            calLink: "nocoded/30-min-chat"
+          });
+          window.Cal.ns["30-min-chat"]("ui", {
+            "theme": "dark",
+            "cssVarsPerTheme": {
+              "light": {
+                "cal-brand": "#f9dec9"
+              },
+              "dark": {
+                "cal-brand": "#6e74af"
+              }
+            },
+            "hideEventTypeDetails": false,
+            "layout": "month_view"
           });
         } catch (error) {
           console.log("Cal.com calendar initialization error:", error);
         }
       }
     }, 1000);
-
     return () => clearTimeout(timer);
   }, []);
-
-  return (
-    <section className="py-20 relative overflow-hidden">
+  return <section className="py-20 relative overflow-hidden">
       <motion.div className="container relative z-10">
         <motion.div initial={{
         opacity: 0,
@@ -59,20 +61,23 @@ export default function CtaSection() {
         once: true,
         margin: "-100px"
       }} className="max-w-5xl mx-auto text-center bg-card px-4 pt-6 pb-0 rounded-2xl shadow-xl border border-primary/10 backdrop-blur-sm">
-          <h2 className="mb-0 text-primary text-3xl md:text-4xl font-bold">Book Your Discovery Call</h2>
-          <p className="text-lg text-secondary mb-4">
+          <h2 className="mb-0 text-primary text-3xl md:text-4xl font-bold">
+
+Book Your Discovery Call
+
+        </h2>
+          <p className="text-secondary mb-4 text-lg">
             Schedule a free 30-minute discovery call with our experts to explore how 
             our AI solutions can address your specific challenges.
           </p>
           
           {/* Calendar Embed */}
-          <div 
-            style={{width:"100%", height:"800px", overflow:"hidden"}} 
-            id="my-cal-inline-30-min-chat"
-            className="rounded-lg -mt-6"
-          ></div>
+          <div style={{
+          width: "100%",
+          height: "800px",
+          overflow: "hidden"
+        }} id="my-cal-inline-30-min-chat" className="rounded-lg -mt-6"></div>
         </motion.div>
       </motion.div>
-    </section>
-  );
+    </section>;
 }
