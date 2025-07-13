@@ -9,8 +9,8 @@ const HowItWorks = () => {
     {
       id: 1,
       icon: <Search size={32} />,
-      title: "Discovery & Consultation",
-      description: "We start by understanding your business challenges, current processes, and goals. Through in-depth analysis and stakeholder interviews, we identify the most impactful AI opportunities for your organization.",
+      title: "Discovery & Analysis",
+      description: "We start by understanding your business challenges, current processes, and goals. Through comprehensive analysis and stakeholder interviews, we identify the most impactful AI opportunities tailored to your specific needs and timeline.",
       benefits: [
         "Comprehensive business process audit",
         "AI readiness assessment and gap analysis",
@@ -25,14 +25,14 @@ const HowItWorks = () => {
         "Stakeholder Interview Summary",
         "Current State Process Maps"
       ],
-      timeline: "Week 1-2",
+      timeline: "Phase 1 (1-2 weeks)",
       image: consultationImg
     },
     {
       id: 2,
       icon: <PenTool size={32} />,
-      title: "Strategy & Design",
-      description: "We create a detailed roadmap and solution architecture tailored to your specific needs. This phase includes technology selection, workflow design, and comprehensive planning for seamless implementation.",
+      title: "Strategy & Planning",
+      description: "We create a detailed roadmap and solution architecture tailored to your specific needs and project scope. This phase includes technology selection, workflow design, and comprehensive planning that adapts to your timeline and complexity requirements.",
       benefits: [
         "Custom AI solution architecture design",
         "Technology stack selection and integration planning",
@@ -42,19 +42,19 @@ const HowItWorks = () => {
         "Team training and adoption strategy"
       ],
       deliverables: [
-        "Technical Architecture Blueprint",
-        "Implementation Roadmap",
+        "Solution Architecture Document",
+        "Customized Implementation Roadmap",
         "User Experience Mockups",
         "Integration Specifications"
       ],
-      timeline: "Week 2-4",
+      timeline: "Phase 2 (2-4 weeks)",
       image: strategyImg
     },
     {
       id: 3,
       icon: <Code size={32} />,
       title: "Development & Implementation",
-      description: "Our expert team builds and deploys your AI solutions using agile methodologies. We ensure continuous feedback, rigorous testing, and seamless integration with your existing systems.",
+      description: "Our expert team builds and deploys your AI solutions using agile methodologies. Timeline varies by project complexity - from rapid AI agent deployment to comprehensive custom solutions. We ensure continuous feedback and seamless integration throughout.",
       benefits: [
         "Agile development with continuous feedback loops",
         "Quality assurance and comprehensive testing",
@@ -69,14 +69,14 @@ const HowItWorks = () => {
         "User Training Materials",
         "Testing & Quality Assurance Reports"
       ],
-      timeline: "Week 4-10",
+      timeline: "Phase 3 (varies by scope)",
       image: implementationImg
     },
     {
       id: 4,
       icon: <BarChart3 size={32} />,
       title: "Launch & Optimization",
-      description: "We ensure successful go-live and provide ongoing optimization to maximize performance. Through continuous monitoring and data-driven improvements, we help you achieve and exceed your goals.",
+      description: "We ensure successful go-live and provide ongoing optimization to maximize performance. Whether it's fine-tuning AI agents or scaling enterprise solutions, we deliver continuous improvements to help you achieve and exceed your goals.",
       benefits: [
         "Smooth go-live with minimal business disruption",
         "Performance monitoring and analytics dashboard",
@@ -91,7 +91,7 @@ const HowItWorks = () => {
         "Optimization Recommendations",
         "Ongoing Support Framework"
       ],
-      timeline: "Week 10-12 & Ongoing",
+      timeline: "Phase 4 & Ongoing",
       image: optimizationImg
     }
   ];
@@ -106,7 +106,7 @@ const HowItWorks = () => {
               How It <span className="text-primary">Works</span>
             </h1>
             <p className="text-xl text-muted-foreground">
-              Our proven 4-step process transforms your business with AI in just 12 weeks. From discovery to optimization, we ensure measurable results at every milestone.
+              Our proven 4-phase methodology adapts to your specific needs and timeline. From rapid AI agent deployment to comprehensive enterprise transformations, we ensure measurable results at every milestone.
             </p>
           </div>
         </div>
@@ -192,7 +192,10 @@ const HowItWorks = () => {
       <section className="py-20 bg-muted/20">
         <div className="container">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-center mb-12">Your 12-Week Transformation Timeline</h2>
+            <div className="text-center mb-12">
+              <h2 className="mb-4">Your AI Transformation Process</h2>
+              <p className="text-muted-foreground">Timeline customized to your project scope and complexity</p>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               {steps.map((step, index) => (
                 <div key={step.id} className="text-center">
@@ -220,7 +223,7 @@ const HowItWorks = () => {
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="mb-4">Ready to Start Your AI Transformation?</h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Schedule a discovery call to explore how our proven process can deliver measurable AI results for your business in just 12 weeks.
+              Schedule a discovery call to explore how our proven process can deliver measurable AI results tailored to your business needs and timeline.
             </p>
             <a 
               href="/contact" 
