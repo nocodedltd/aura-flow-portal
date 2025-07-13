@@ -72,27 +72,69 @@ const About = () => {
             </p>
           </div>
           
-          <div className="space-y-12">
-            <div className="prose prose-lg max-w-none">
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                Our journey didn't start with the goal of launching an automation company. It began with a nagging, everyday problem. Back in 2020, as the founders of Who Media, we were immersed in the world of digital advertising. We were successfully generating leads for our clients through Meta and TikTok, but a critical bottleneck was slowing everything down: the manual, time-consuming process of transferring those leads into their CRM systems.
-              </p>
-              
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                This challenge was our introduction to the world of automation. We dove in, determined to find a fix. The solution we built was a game-changer, not just for our clients, but for us. We had tasted the power of streamlined workflows, and we were hooked. We started looking inward, at our own operations at Who Media, and began implementing automation for ourselves, one process at a time. We became our own case study, proving the immense value and efficiency that automation could bring.
-              </p>
-              
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                Then came a pivotal moment: the integration of ChatGPT into the automation landscape. This wasn't just an upgrade; it was a revolution. The ability to infuse our automations with intelligent language processing opened up a new frontier. We started developing more sophisticated and dynamic solutions for our clients, including complex case valuators for law firms that could analyze and process information in ways we previously only imagined.
-              </p>
-              
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                Throughout this journey, a new realization began to crystallize. By 2024, it was undeniable: the automation expertise we had cultivated and the powerful systems we had built for ourselves and our clients had become an invaluable service in its own right. We knew we had to share this with a wider audience.
-              </p>
-              
-              <p className="text-lg text-muted-foreground leading-relaxed font-medium">
-                That's when NoCoded was born. It's the culmination of our experience, our passion for problem-solving, and our unwavering belief in the power of automation to transform businesses.
-              </p>
+          <div className="space-y-16">
+            {/* The Problem - 2020 */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+              <div className="lg:col-span-1">
+                <div className="bg-primary/10 rounded-lg p-6 text-center">
+                  <h3 className="text-2xl font-bold text-primary mb-2">2020</h3>
+                  <p className="text-sm font-medium text-muted-foreground">The Problem</p>
+                </div>
+              </div>
+              <div className="lg:col-span-2">
+                <h4 className="text-xl font-semibold mb-4">Where It All Started</h4>
+                <p className="text-muted-foreground leading-relaxed">
+                  As founders of Who Media, we were successfully generating leads through Meta and TikTok for our clients. But there was a critical bottleneck: manually transferring those leads into CRM systems was eating up valuable time and slowing everything down.
+                </p>
+              </div>
+            </div>
+
+            {/* The Discovery */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+              <div className="lg:col-span-1 order-2 lg:order-1">
+                <div className="bg-primary/10 rounded-lg p-6 text-center">
+                  <h3 className="text-2xl font-bold text-primary mb-2">2021</h3>
+                  <p className="text-sm font-medium text-muted-foreground">The Discovery</p>
+                </div>
+              </div>
+              <div className="lg:col-span-2 order-1 lg:order-2">
+                <h4 className="text-xl font-semibold mb-4">Tasting the Power</h4>
+                <p className="text-muted-foreground leading-relaxed">
+                  We dove in and built a solution that changed everything. Not just for our clients, but for us. We became our own case study, implementing automation across Who Media's operations and proving the immense value of streamlined workflows.
+                </p>
+              </div>
+            </div>
+
+            {/* The Revolution */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+              <div className="lg:col-span-1">
+                <div className="bg-primary/10 rounded-lg p-6 text-center">
+                  <h3 className="text-2xl font-bold text-primary mb-2">2023</h3>
+                  <p className="text-sm font-medium text-muted-foreground">The Revolution</p>
+                </div>
+              </div>
+              <div className="lg:col-span-2">
+                <h4 className="text-xl font-semibold mb-4">ChatGPT Changes Everything</h4>
+                <p className="text-muted-foreground leading-relaxed">
+                  The integration of ChatGPT wasn't just an upgrade—it was a revolution. We could now infuse automations with intelligent language processing, developing sophisticated solutions like complex case valuators for law firms.
+                </p>
+              </div>
+            </div>
+
+            {/* The Realization */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+              <div className="lg:col-span-1 order-2 lg:order-1">
+                <div className="bg-primary/10 rounded-lg p-6 text-center">
+                  <h3 className="text-2xl font-bold text-primary mb-2">2024</h3>
+                  <p className="text-sm font-medium text-muted-foreground">The Birth</p>
+                </div>
+              </div>
+              <div className="lg:col-span-2 order-1 lg:order-2">
+                <h4 className="text-xl font-semibold mb-4">NoCoded Is Born</h4>
+                <p className="text-muted-foreground leading-relaxed">
+                  By 2024, it was undeniable: our automation expertise had become an invaluable service. <strong>NoCoded was born</strong>—the culmination of our experience, passion for problem-solving, and unwavering belief in automation's power to transform businesses.
+                </p>
+              </div>
             </div>
           </div>
         </div>
