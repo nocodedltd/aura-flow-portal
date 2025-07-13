@@ -60,7 +60,9 @@ const Contact = () => {
             {/* Contact Form */}
             <div>
               <h2 className="text-2xl font-semibold mb-6">Send Us a Message</h2>
-              <ContactForm />
+              <div className="h-[600px] border border-border rounded-lg bg-card p-6 overflow-auto">
+                <ContactForm />
+              </div>
             </div>
             
             {/* Cal.com Embed */}
