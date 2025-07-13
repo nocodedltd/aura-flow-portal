@@ -125,9 +125,8 @@ const ClientLogin = () => {
           </div>
         
           <div className="mt-8 bg-muted/50 rounded-lg p-4 text-center">
-            <p className="text-sm text-secondary">
-              For demonstration purposes only. Client portal functionality 
-              will be implemented with next-auth in a future update.
+            <p className="text-sm text-muted-foreground">
+              <strong>Coming Soon:</strong> Client portal functionality is currently under development and will be available in a future update.
             </p>
           </div>
         </div>
