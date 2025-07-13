@@ -1,4 +1,6 @@
 
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Calendar, Bot, Cog, Zap, CheckCircle, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 const teamMeetingImg = "/lovable-uploads/e083e7a8-7c27-49c1-a761-62e1e039256b.png";
@@ -7,6 +9,23 @@ const processAutomationImg = "/lovable-uploads/6c047291-bf0b-49d5-b746-ec514a685
 import aiTransformationImg from "@/assets/ai-transformation.jpg";
 
 const Services = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Handle hash scrolling
+    if (location.hash) {
+      const element = document.getElementById(location.hash.slice(1));
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start'
+          });
+        }, 100);
+      }
+    }
+  }, [location.hash]);
+
   const services = [
     {
       icon: <Calendar size={32} />,
