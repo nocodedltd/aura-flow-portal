@@ -1,8 +1,8 @@
 
 import { Calendar, Bot, Cog, Zap, CheckCircle, Star } from "lucide-react";
 const teamMeetingImg = "/lovable-uploads/e083e7a8-7c27-49c1-a761-62e1e039256b.png";
-import aiAgentsImg from "@/assets/ai-agents.jpg";
-import processAutomationImg from "@/assets/process-automation.jpg";
+const aiAgentsImg = "/lovable-uploads/02892ec7-277a-4ae0-8065-27d281de201b.png";
+const processAutomationImg = "/lovable-uploads/6c047291-bf0b-49d5-b746-ec514a685855.png";
 import aiTransformationImg from "@/assets/ai-transformation.jpg";
 
 const Services = () => {
