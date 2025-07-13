@@ -1,6 +1,6 @@
 
 import { Calendar, Bot, Cog, Zap, CheckCircle, Star } from "lucide-react";
-import teamCollaborationImg from "@/assets/team-collaboration.jpg";
+const teamMeetingImg = "/lovable-uploads/e083e7a8-7c27-49c1-a761-62e1e039256b.png";
 import aiAgentsImg from "@/assets/ai-agents.jpg";
 import processAutomationImg from "@/assets/process-automation.jpg";
 import aiTransformationImg from "@/assets/ai-transformation.jpg";
@@ -20,7 +20,7 @@ const Services = () => {
         "Team training and change management"
       ],
       flagship: true,
-      image: teamCollaborationImg
+      image: teamMeetingImg
     },
     {
       icon: <Bot size={32} />,
