@@ -15,7 +15,7 @@ const Services = () => {
         "Complete AI strategy and roadmap in week 1",
         "Live implementation with measurable milestones",
         "Guaranteed ROI within the 90-day period",
-        "Ongoing support and optimization included",
+        "Ongoing support and optimisation included",
         "Custom AI agents and automation workflows",
         "Team training and change management"
       ],
@@ -25,7 +25,7 @@ const Services = () => {
     {
       icon: <Bot size={32} />,
       title: "AI Agents",
-      description: "Custom AI agents that work 24/7 to handle customer inquiries, automate complex tasks, and enhance decision-making across your organization.",
+      description: "Custom AI agents that work 24/7 to handle customer inquiries, automate complex tasks, and enhance decision-making across your organisation.",
       benefits: [
         "24/7 availability with human-like interactions",
         "Custom trained on your specific business data",
@@ -53,7 +53,7 @@ const Services = () => {
       title: "Custom Projects",
       description: "Tailored AI solutions for unique business challenges. From data analysis to predictive modeling, we build what you need to stay ahead.",
       benefits: [
-        "Fully customized to your specific requirements",
+        "Fully customised to your specific requirements",
         "Cutting-edge AI technologies and methodologies",
         "Flexible engagement models and timelines",
         "Intellectual property ownership included",

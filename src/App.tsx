@@ -21,7 +21,7 @@ import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import BiosLoader from "@/components/BiosLoader";
 
-// Optimize query client settings
+// Optimise query client settings
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -62,7 +62,7 @@ const App = () => {
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            {/* OPTIMIZED GLOBAL ANIMATED BG */}
+            {/* OPTIMISED GLOBAL ANIMATED BG */}
             <div className="fixed inset-0 w-full h-full overflow-hidden -z-10">
               <ParticleLines
                 interactive={true}

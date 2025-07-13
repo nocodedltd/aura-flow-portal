@@ -50,7 +50,7 @@ export default function ParticleLines({
     pointSize,
   });
 
-  // Mount with animation frame optimization
+  // Mount with animation frame optimisation
   useEffect(() => {
     const timeoutId = setTimeout(() => setMounted(true), 300);
     return () => clearTimeout(timeoutId);
@@ -99,7 +99,7 @@ export default function ParticleLines({
     handleMouseLeave,
   ]);
 
-  // Optimized rendering loop
+  // Optimised rendering loop
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -154,7 +154,7 @@ export default function ParticleLines({
         }
       }
 
-      // Stronger mouse effect: optimize by checking frame count
+      // Stronger mouse effect: optimise by checking frame count
       if (interactive) {
         addActiveMousePathways();
         applyMouseMagnet();

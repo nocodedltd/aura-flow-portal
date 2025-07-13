@@ -34,7 +34,7 @@ const HowItWorks = () => {
       id: 5,
       icon: <Heart size={24} />,
       title: "Ongoing Partnership",
-      description: "Continuous optimization, monitoring, and strategic guidance for long-term success and growth.",
+      description: "Continuous optimisation, monitoring, and strategic guidance for long-term success and growth.",
       timeline: "Ongoing"
     }
   ];
