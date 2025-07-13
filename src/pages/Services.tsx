@@ -1,50 +1,56 @@
 
-import { Bot, Cog, FileSearch, GraduationCap, CheckCircle } from "lucide-react";
+import { Calendar, Bot, Cog, Zap, CheckCircle, Star } from "lucide-react";
 
 const Services = () => {
   const services = [
     {
-      icon: <Bot size={32} />,
-      title: "Agent Deployment",
-      description: "We design, build, and deploy custom AI agents that can automate complex tasks, interact with your customers, and enhance decision-making processes.",
+      icon: <Calendar size={32} />,
+      title: "90-Day AI Transformation",
+      description: "Our flagship program that delivers complete AI transformation in just 90 days. We handle everything from strategy to implementation, ensuring rapid ROI and measurable results.",
       benefits: [
-        "24/7 availability for customer inquiries",
-        "Consistent quality in responses and solutions",
-        "Scalable to handle peak demand without additional costs",
-        "Continuous learning and improvement over time"
+        "Complete AI strategy and roadmap in week 1",
+        "Live implementation with measurable milestones",
+        "Guaranteed ROI within the 90-day period",
+        "Ongoing support and optimization included",
+        "Custom AI agents and automation workflows",
+        "Team training and change management"
+      ],
+      flagship: true
+    },
+    {
+      icon: <Bot size={32} />,
+      title: "AI Agents",
+      description: "Custom AI agents that work 24/7 to handle customer inquiries, automate complex tasks, and enhance decision-making across your organization.",
+      benefits: [
+        "24/7 availability with human-like interactions",
+        "Custom trained on your specific business data",
+        "Seamless integration with existing systems",
+        "Continuous learning and improvement",
+        "Multi-channel deployment (web, phone, email)"
       ]
     },
     {
       icon: <Cog size={32} />,
       title: "Process Automation",
-      description: "We streamline your operations by identifying repetitive tasks and implementing intelligent workflows that reduce manual intervention and errors.",
+      description: "End-to-end automation of your business processes, from simple tasks to complex workflows, reducing costs and eliminating human error.",
       benefits: [
-        "Eliminate repetitive manual tasks",
-        "Reduce processing time by up to 80%",
-        "Minimize human error in critical processes",
-        "Free up staff for higher-value activities"
+        "Reduce processing time by up to 90%",
+        "Eliminate repetitive manual tasks completely",
+        "Zero-error rate in automated processes",
+        "Real-time monitoring and reporting",
+        "Scalable to handle unlimited volume"
       ]
     },
     {
-      icon: <FileSearch size={32} />,
-      title: "AI Audits",
-      description: "Our comprehensive review of your systems and processes identifies automation opportunities and provides a roadmap for AI integration.",
+      icon: <Zap size={32} />,
+      title: "Custom Projects",
+      description: "Tailored AI solutions for unique business challenges. From data analysis to predictive modeling, we build what you need to stay ahead.",
       benefits: [
-        "Clear understanding of automation potential",
-        "Prioritized implementation recommendations",
-        "Cost-benefit analysis for each opportunity",
-        "Future-proof technology recommendations"
-      ]
-    },
-    {
-      icon: <GraduationCap size={32} />,
-      title: "AI Training",
-      description: "We equip your team with the knowledge and skills to effectively leverage AI tools and maintain automated systems.",
-      benefits: [
-        "Hands-on training with practical exercises",
-        "Custom curriculum based on your systems",
-        "Ongoing support and knowledge resources",
-        "Certification options for team members"
+        "Fully customized to your specific requirements",
+        "Cutting-edge AI technologies and methodologies",
+        "Flexible engagement models and timelines",
+        "Intellectual property ownership included",
+        "Ongoing maintenance and support options"
       ]
     }
   ];
@@ -56,10 +62,10 @@ const Services = () => {
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-balance font-bold mb-6">
-              Our <span className="text-primary">Services</span>
+              Our <span className="text-primary">Core Services</span>
             </h1>
             <p className="text-xl text-muted-foreground">
-              Comprehensive AI and automation solutions to transform your business operations and unlock new potential.
+              Four focused solutions to transform your business with AI. From our flagship 90-day transformation to custom projects, we deliver results that matter.
             </p>
           </div>
         </div>
@@ -74,13 +80,21 @@ const Services = () => {
                 key={index}
                 className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
                   index % 2 === 1 ? "lg:grid-flow-dense" : ""
-                }`}
+                } ${service.flagship ? "border-2 border-primary/20 rounded-xl p-8 bg-primary/5" : ""}`}
               >
                 <div className={`${index % 2 === 1 ? "lg:col-start-2" : ""}`}>
-                  <div className="h-16 w-16 rounded-md bg-primary/10 text-primary flex items-center justify-center mb-6">
+                  <div className={`h-16 w-16 rounded-md ${service.flagship ? "bg-primary text-primary-foreground" : "bg-primary/10 text-primary"} flex items-center justify-center mb-6`}>
                     {service.icon}
                   </div>
-                  <h2 className="text-3xl font-semibold mb-4">{service.title}</h2>
+                  <div className="flex items-center gap-2 mb-4">
+                    <h2 className="text-3xl font-semibold">{service.title}</h2>
+                    {service.flagship && (
+                      <div className="flex items-center gap-1 bg-primary text-primary-foreground px-2 py-1 rounded-full text-sm font-medium">
+                        <Star size={14} />
+                        <span>Flagship</span>
+                      </div>
+                    )}
+                  </div>
                   <p className="text-muted-foreground mb-8 text-lg">{service.description}</p>
                   
                   <h3 className="text-xl font-medium mb-4">Key Benefits</h3>
