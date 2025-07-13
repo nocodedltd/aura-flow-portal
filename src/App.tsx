@@ -6,7 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/hooks/useTheme";
-import CursorGlow from "@/components/CursorGlow";
+
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -89,7 +89,7 @@ const App = () => {
               <Footer />
             </div>
             <ThemeSwitcher />
-            <CursorGlow />
+            
           </BrowserRouter>
         </TooltipProvider>
       </ThemeProvider>
