@@ -43,7 +43,7 @@ export default function CtaSection() {
   }, []);
 
   return (
-    <section className="py-12 relative overflow-hidden">
+    <section className="py-6 relative overflow-hidden">
       <motion.div className="container relative z-10">
         <motion.div initial={{
         opacity: 0,
@@ -58,9 +58,9 @@ export default function CtaSection() {
       }} viewport={{
         once: true,
         margin: "-100px"
-      }} className="max-w-5xl mx-auto text-center bg-card p-6 rounded-2xl shadow-xl border border-primary/10 backdrop-blur-sm">
-          <h2 className="mb-4 text-primary text-3xl md:text-4xl font-bold">Book Your Discovery Call</h2>
-          <p className="text-lg text-secondary mb-6">
+      }} className="max-w-5xl mx-auto text-center bg-card p-4 rounded-2xl shadow-xl border border-primary/10 backdrop-blur-sm">
+          <h2 className="mb-2 text-primary text-3xl md:text-4xl font-bold">Book Your Discovery Call</h2>
+          <p className="text-lg text-secondary mb-4">
             Schedule a free 30-minute discovery call with our experts to explore how 
             our AI solutions can address your specific challenges.
           </p>
