@@ -1,4 +1,5 @@
-import { Search, PenTool, Code, BarChart3, CheckCircle, Clock } from "lucide-react";
+import { Search, Users, Target, Rocket, CheckCircle, Clock, Heart } from "lucide-react";
+import aiTransformationImg from "@/assets/ai-transformation.jpg";
 import consultationImg from "@/assets/consultation-meeting.jpg";
 import strategyImg from "@/assets/strategy-design.jpg";
 import implementationImg from "@/assets/development-implementation.jpg";
@@ -9,89 +10,111 @@ const HowItWorks = () => {
     {
       id: 1,
       icon: <Search size={32} />,
-      title: "Discovery & Analysis",
-      description: "We start by understanding your business challenges, current processes, and goals. Through comprehensive analysis and stakeholder interviews, we identify the most impactful AI opportunities tailored to your specific needs and timeline.",
+      title: "AI is Everywhere - But Where Do I Start?",
+      description: "You see AI transforming businesses everywhere. Competitors are gaining advantages, customers expect smarter experiences, but you're not sure where to begin or how to avoid costly mistakes. Taking the first step requires courage and expert guidance.",
       benefits: [
-        "Comprehensive business process audit",
-        "AI readiness assessment and gap analysis",
-        "Stakeholder alignment and requirements gathering",
-        "ROI projections and success metrics definition",
-        "Technology infrastructure evaluation",
-        "Change management strategy development"
+        "Recognize the AI opportunity in your market",
+        "Understand competitive pressures and urgency",
+        "Acknowledge the need for professional guidance",
+        "Take the critical first step toward transformation",
+        "Overcome analysis paralysis with expert support",
+        "Avoid costly mistakes through proper guidance"
       ],
       deliverables: [
-        "AI Opportunity Assessment Report",
-        "Business Case & ROI Projections",
-        "Stakeholder Interview Summary",
-        "Current State Process Maps"
+        "Recognition of AI potential",
+        "Competitive awareness assessment",
+        "Decision to seek professional help",
+        "Commitment to exploration and discovery"
       ],
-      timeline: "Phase 1 (1-2 weeks)",
-      image: consultationImg
+      timeline: "Your Starting Point",
+      image: aiTransformationImg
     },
     {
       id: 2,
-      icon: <PenTool size={32} />,
-      title: "Strategy & Planning",
-      description: "We create a detailed roadmap and solution architecture tailored to your specific needs and project scope. This phase includes technology selection, workflow design, and comprehensive planning that adapts to your timeline and complexity requirements.",
+      icon: <Users size={32} />,
+      title: "Discovery Call & AI Diagnostic",
+      description: "Like a medical examination, we diagnose before prescribing. Our comprehensive AI readiness assessment reveals exactly where you stand and what opportunities exist for your specific business context and challenges.",
       benefits: [
-        "Custom AI solution architecture design",
-        "Technology stack selection and integration planning",
-        "User experience design and workflow optimization",
-        "Risk assessment and mitigation strategies",
-        "Detailed project timeline and milestone planning",
-        "Team training and adoption strategy"
+        "Complete AI readiness evaluation and assessment",
+        "Business process analysis and opportunity mapping",
+        "Competitive positioning and market analysis",
+        "Clear understanding of your current capabilities",
+        "Identification of quick wins and strategic priorities",
+        "Professional diagnosis of AI potential and barriers"
       ],
       deliverables: [
-        "Solution Architecture Document",
-        "Customized Implementation Roadmap",
-        "User Experience Mockups",
-        "Integration Specifications"
+        "AI Opportunity Assessment Report",
+        "Current State Analysis",
+        "Competitive Benchmarking Study",
+        "AI Readiness Score & Strategic Recommendations"
       ],
-      timeline: "Phase 2 (2-4 weeks)",
-      image: strategyImg
+      timeline: "Week 1",
+      image: consultationImg
     },
     {
       id: 3,
-      icon: <Code size={32} />,
-      title: "Development & Implementation",
-      description: "Our expert team builds and deploys your AI solutions using agile methodologies. Timeline varies by project complexity - from rapid AI agent deployment to comprehensive custom solutions. We ensure continuous feedback and seamless integration throughout.",
+      icon: <Target size={32} />,
+      title: "Tailored Service Recommendation",
+      description: "Based on your diagnostic results, we prescribe the optimal path forward. Most businesses start with our 90-Day AI Transformation, while AI-comfortable companies may benefit from deeper process automation or custom AI agents.",
       benefits: [
-        "Agile development with continuous feedback loops",
-        "Quality assurance and comprehensive testing",
-        "Seamless integration with existing systems",
-        "Real-time progress tracking and reporting",
-        "User acceptance testing and refinement",
-        "Comprehensive documentation and handover"
+        "Personalized service recommendation based on assessment",
+        "Clear rationale for the chosen implementation path",
+        "Transparent pricing and realistic timeline expectations",
+        "Confidence in taking the next strategic steps",
+        "Understanding of service options and their benefits",
+        "Alignment between your needs and our solutions"
       ],
       deliverables: [
-        "Fully Deployed AI Solution",
-        "Integration Documentation",
-        "User Training Materials",
-        "Testing & Quality Assurance Reports"
+        "Service Recommendation Report",
+        "Detailed Project Proposal & Scope",
+        "Timeline & Investment Overview",
+        "Success Metrics & ROI Projections"
       ],
-      timeline: "Phase 3 (varies by scope)",
-      image: implementationImg
+      timeline: "Week 2",
+      image: strategyImg
     },
     {
       id: 4,
-      icon: <BarChart3 size={32} />,
-      title: "Launch & Optimization",
-      description: "We ensure successful go-live and provide ongoing optimization to maximize performance. Whether it's fine-tuning AI agents or scaling enterprise solutions, we deliver continuous improvements to help you achieve and exceed your goals.",
+      icon: <Rocket size={32} />,
+      title: "Personalized Implementation",
+      description: "We execute your prescribed AI solution with expert guidance and agile methodology. Whether it's a 90-day transformation, process automation, or custom development, we ensure seamless integration with minimal disruption.",
       benefits: [
-        "Smooth go-live with minimal business disruption",
-        "Performance monitoring and analytics dashboard",
-        "Continuous optimization based on real usage data",
-        "Regular performance reviews and recommendations",
-        "Ongoing support and maintenance",
-        "Scaling strategies for future growth"
+        "Expert implementation with proven methodologies",
+        "Agile approach with continuous feedback loops",
+        "Minimal business disruption during transition",
+        "Real-time progress tracking and transparency",
+        "Team training and knowledge transfer",
+        "Quality assurance and comprehensive testing"
       ],
       deliverables: [
-        "Live Production System",
-        "Performance Analytics Dashboard",
-        "Optimization Recommendations",
-        "Ongoing Support Framework"
+        "AI Solution Implementation & Deployment",
+        "Comprehensive Team Training & Support",
+        "Integration Testing & Quality Assurance",
+        "Performance Optimization & Fine-tuning"
       ],
-      timeline: "Phase 4 & Ongoing",
+      timeline: "Implementation Phase",
+      image: implementationImg
+    },
+    {
+      id: 5,
+      icon: <Heart size={32} />,
+      title: "Partnership & Ongoing Success",
+      description: "Your AI journey doesn't end at launch. We provide ongoing optimization, performance monitoring, and strategic guidance to ensure continuous improvement, long-term success, and future growth opportunities.",
+      benefits: [
+        "Continuous performance optimization and monitoring",
+        "Strategic partnership for long-term growth",
+        "Ongoing technical support and maintenance",
+        "Future AI opportunity identification and planning",
+        "Regular performance reviews and recommendations",
+        "Scaling strategies for expanding AI capabilities"
+      ],
+      deliverables: [
+        "Performance Analytics Dashboard",
+        "Monthly Optimization & Performance Reports",
+        "Strategic Growth Recommendations",
+        "Ongoing Support & Maintenance Framework"
+      ],
+      timeline: "Ongoing Partnership",
       image: optimizationImg
     }
   ];
@@ -106,7 +129,7 @@ const HowItWorks = () => {
               How It <span className="text-primary">Works</span>
             </h1>
             <p className="text-xl text-muted-foreground">
-              Our proven 4-phase methodology adapts to your specific needs and timeline. From rapid AI agent deployment to comprehensive enterprise transformations, we ensure measurable results at every milestone.
+              Your journey from AI overwhelm to strategic implementation. We diagnose first, then prescribe the perfect solution for your business - whether that's our 90-Day Transformation or advanced custom development.
             </p>
           </div>
         </div>
@@ -196,7 +219,7 @@ const HowItWorks = () => {
               <h2 className="mb-4">Your AI Transformation Process</h2>
               <p className="text-muted-foreground">Timeline customized to your project scope and complexity</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
               {steps.map((step, index) => (
                 <div key={step.id} className="text-center">
                   <div className="relative">
