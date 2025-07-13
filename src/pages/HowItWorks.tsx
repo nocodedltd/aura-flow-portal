@@ -1,9 +1,9 @@
 import { Search, Users, Target, Rocket, CheckCircle, Clock, Heart } from "lucide-react";
-import aiTransformationImg from "@/assets/ai-transformation.jpg";
-import consultationImg from "@/assets/consultation-meeting.jpg";
-import strategyImg from "@/assets/strategy-design.jpg";
+import aiStartingPointImg from "@/assets/ai-overwhelm-starting-point.jpg";
+import consultationImg from "@/assets/professional-consultation.jpg";
+import strategyImg from "@/assets/technical-analysis.jpg";
 import implementationImg from "@/assets/development-implementation.jpg";
-import optimizationImg from "@/assets/optimization-analytics.jpg";
+import ongoingSuccessImg from "@/assets/ongoing-success.jpg";
 
 const HowItWorks = () => {
   const steps = [
@@ -27,7 +27,7 @@ const HowItWorks = () => {
         "Commitment to exploration and discovery"
       ],
       timeline: "Your Starting Point",
-      image: aiTransformationImg
+      image: aiStartingPointImg
     },
     {
       id: 2,
@@ -115,7 +115,7 @@ const HowItWorks = () => {
         "Ongoing Support & Maintenance Framework"
       ],
       timeline: "Ongoing Partnership",
-      image: optimizationImg
+      image: ongoingSuccessImg
     }
   ];
 
