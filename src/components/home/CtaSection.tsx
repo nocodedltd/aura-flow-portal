@@ -60,7 +60,7 @@ export default function CtaSection() {
       }} viewport={{
         once: true,
         margin: "-100px"
-      }} className="max-w-5xl mx-auto text-center bg-card px-4 pt-6 pb-0 rounded-2xl shadow-xl border border-primary/10 backdrop-blur-sm">
+      }} className="max-w-5xl mx-auto text-center bg-card px-4 pt-6 pb-0 shadow-xl border border-primary/10 backdrop-blur-sm rounded-md">
           <h2 className="mb-0 text-primary text-3xl md:text-4xl font-bold">
 
 Book Your Discovery Call
