@@ -58,9 +58,9 @@ export default function CtaSection() {
       }} viewport={{
         once: true,
         margin: "-100px"
-      }} className="max-w-5xl mx-auto text-center bg-card px-4 pb-0 rounded-2xl shadow-xl border border-primary/10 backdrop-blur-sm">
+      }} className="max-w-5xl mx-auto text-center bg-card px-4 pt-6 pb-0 rounded-2xl shadow-xl border border-primary/10 backdrop-blur-sm">
           <h2 className="mb-0 text-primary text-3xl md:text-4xl font-bold">Book Your Discovery Call</h2>
-          <p className="text-lg text-secondary mb-0">
+          <p className="text-lg text-secondary mb-4">
             Schedule a free 30-minute discovery call with our experts to explore how 
             our AI solutions can address your specific challenges.
           </p>
@@ -69,7 +69,7 @@ export default function CtaSection() {
           <div 
             style={{width:"100%", height:"800px", overflow:"hidden"}} 
             id="my-cal-inline-30-min-chat"
-            className="rounded-lg"
+            className="rounded-lg -mt-6"
           ></div>
         </motion.div>
       </motion.div>
