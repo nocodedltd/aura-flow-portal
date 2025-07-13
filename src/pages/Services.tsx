@@ -1,5 +1,6 @@
 
 import { Calendar, Bot, Cog, Zap, CheckCircle, Star } from "lucide-react";
+import { Link } from "react-router-dom";
 const teamMeetingImg = "/lovable-uploads/e083e7a8-7c27-49c1-a761-62e1e039256b.png";
 const aiAgentsImg = "/lovable-uploads/02892ec7-277a-4ae0-8065-27d281de201b.png";
 const processAutomationImg = "/lovable-uploads/6c047291-bf0b-49d5-b746-ec514a685855.png";
@@ -140,12 +141,12 @@ const Services = () => {
             <p className="text-lg text-muted-foreground mb-8">
               Schedule a consultation with our experts to explore how our services can address your specific needs.
             </p>
-            <a 
-              href="/contact" 
+            <Link 
+              to="/contact" 
               className="bg-primary text-primary-foreground px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors"
             >
               Contact Us
-            </a>
+            </Link>
           </div>
         </div>
       </section>
