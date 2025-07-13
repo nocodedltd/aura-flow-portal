@@ -11,8 +11,8 @@ export default function Footer() {
           <div className="md:col-span-1">
             <Link to="/" className="inline-block" aria-label="Homepage">
               <img
-                src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=240&h=80&fit=crop&auto=format"
-                alt="NoCoded logo"
+                src="/lovable-uploads/198db0e9-6a19-4a6d-8f9b-a538f99f4580.png"
+                alt="nkycoder logo"
                 className="h-12 w-auto mb-2"
                 style={{ maxWidth: "240px" }}
               />
