@@ -116,7 +116,7 @@ const ClientLogin = () => {
             <div className="mt-6 text-center text-sm">
               <p className="text-secondary">
                 Don't have an account?{" "}
-                <a href="/contact" className="text-primary hover:underline">
+                <a href="/contact#top" className="text-primary hover:underline">
                   Contact us
                 </a>{" "}
                 to get access.

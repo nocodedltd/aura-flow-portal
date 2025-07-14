@@ -4,6 +4,22 @@ import ContactForm from "@/components/ContactForm";
 
 const Contact = () => {
   useEffect(() => {
+    // Handle hash navigation for smooth scrolling to top
+    const handleHashNavigation = () => {
+      if (window.location.hash === '#top') {
+        const topElement = document.getElementById('contact-top');
+        if (topElement) {
+          topElement.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    };
+
+    // Handle initial load with hash
+    handleHashNavigation();
+
+    // Handle hash changes while on the page
+    window.addEventListener('hashchange', handleHashNavigation);
+
     // Load Cal.com embed script
     const script = document.createElement('script');
     script.src = 'https://app.cal.com/embed/embed.js';
@@ -30,6 +46,7 @@ const Contact = () => {
 
     return () => {
       // Cleanup
+      window.removeEventListener('hashchange', handleHashNavigation);
       const existingScript = document.querySelector('script[src="https://app.cal.com/embed/embed.js"]');
       if (existingScript) {
         existingScript.remove();
@@ -38,7 +55,7 @@ const Contact = () => {
   }, []);
 
   return (
-    <main>
+    <main id="contact-top">
       {/* Hero Section */}
       <section className="bg-primary/5 py-20">
         <div className="container">

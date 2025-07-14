@@ -68,7 +68,7 @@ export default function Footer() {
             <h4 className="font-semibold text-lg mb-4">Connect</h4>
             <ul className="space-y-2">
               <li>
-                <Link to="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link to="/contact#top" className="text-muted-foreground hover:text-foreground transition-colors">
                   Contact Us
                 </Link>
               </li>
