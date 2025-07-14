@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/hooks/useTheme";
 
-import ThemeSwitcher from "@/components/ThemeSwitcher";
+
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ParticleLines from "@/components/ParticleLines";
@@ -58,7 +58,7 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider defaultTheme="system">
+      <ThemeProvider defaultTheme="dark" storageKey="aura-ui-theme">
         <TooltipProvider>
           <Toaster />
           <Sonner />
@@ -90,7 +90,7 @@ const App = () => {
               </div>
               <Footer />
             </div>
-            <ThemeSwitcher />
+            
             
           </BrowserRouter>
         </TooltipProvider>

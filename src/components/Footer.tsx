@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <footer className="bg-muted/50 py-12 mt-auto">
       <div className="container">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-1">
             <Link to="/" className="inline-block" aria-label="Homepage">
               <img
@@ -40,38 +40,17 @@ export default function Footer() {
                   How It Works
                 </Link>
               </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-semibold text-lg mb-4">Resources</h4>
-            <ul className="space-y-2">
-              <li>
-                <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Case Studies
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                  FAQ
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-semibold text-lg mb-4">Connect</h4>
-            <ul className="space-y-2">
               <li>
                 <Link to="/contact#top" className="text-muted-foreground hover:text-foreground transition-colors">
                   Contact Us
                 </Link>
               </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold text-lg mb-4">Follow Us</h4>
+            <ul className="space-y-2">
               <li>
                 <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
                   LinkedIn
@@ -91,13 +70,10 @@ export default function Footer() {
             <p className="text-sm text-muted-foreground">
               &copy; {currentYear} NoCoded. All rights reserved.
             </p>
-            <div className="mt-4 md:mt-0 flex space-x-6">
+            <div className="mt-4 md:mt-0">
               <Link to="/privacy-policy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Privacy Policy
               </Link>
-              <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                Terms of Service
-              </a>
             </div>
           </div>
         </div>
