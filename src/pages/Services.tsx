@@ -160,7 +160,7 @@ const Services = () => {
               Schedule a consultation with our experts to explore how our services can address your specific needs.
             </p>
             <Link 
-              to="/contact" 
+              to="/contact#top" 
               className="bg-primary text-primary-foreground px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors"
             >
               Contact Us
