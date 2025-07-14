@@ -30,12 +30,12 @@ const Services = () => {
     {
       icon: <Calendar size={32} />,
       title: "The 90-Day AI Transformation",
-      description: "Our flagship program to integrate, automate, and innovate your core business functions in one quarter. We handle the entire journey from initial strategy to full implementation, focusing on delivering measurable results and a powerful competitive edge.",
+      description: "Our signature programme will embed, streamline, and revolutionise your essential business operations in just one quarter. We oversee the entire path from foundational planning to complete execution, prioritising concrete results and a strong competitive advantage.",
       benefits: [
-        "Rapid Strategy & Roadmap: We begin with an intensive discovery phase to quickly build your strategic AI roadmap",
-        "Focused on Measurable ROI: Every step is designed to generate a clear and significant return on your investment",
-        "Live Implementation: We build and deploy custom AI agents and automation workflows with clear, tangible milestones",
-        "Empowered Team: Full team training and change management to ensure seamless adoption and long-term success",
+        "Agile Strategy & Blueprint: We commence with a thorough discovery process to swiftly craft your strategic AI blueprint",
+        "ROI-Driven Approach: Each action is meticulously planned to produce a tangible and meaningful return on your investment",
+        "Active Deployment: We construct and launch bespoke AI assistants and automated processes with defined, concrete targets",
+        "Empowered Workforce: Comprehensive team training and transition support ensures smooth integration and lasting achievement",
         "Continuous Optimisation: We provide ongoing support to ensure your new AI systems deliver compounding value"
       ],
       flagship: true,
