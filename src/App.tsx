@@ -20,6 +20,7 @@ import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import BiosLoader from "@/components/BiosLoader";
+import ScrollToTop from "@/components/ScrollToTop";
 
 // Optimise query client settings
 const queryClient = new QueryClient({
@@ -62,6 +63,7 @@ const App = () => {
           <Toaster />
           <Sonner />
           <BrowserRouter>
+            <ScrollToTop />
             {/* OPTIMISED GLOBAL ANIMATED BG */}
             <div className="fixed inset-0 w-full h-full overflow-hidden -z-10">
               <ParticleLines
